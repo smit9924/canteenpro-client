@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SecondaryButtonComponent } from './secondary-button.component';
+import { BasePageComponent } from './base-page.component';
 
-describe('SecondaryButtonComponent', () => {
-  let component: SecondaryButtonComponent;
-  let fixture: ComponentFixture<SecondaryButtonComponent>;
+describe('BasePageComponent', () => {
+  let component: BasePageComponent;
+  let fixture: ComponentFixture<BasePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SecondaryButtonComponent]
+      imports: [BasePageComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SecondaryButtonComponent);
+    fixture = TestBed.createComponent(BasePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
