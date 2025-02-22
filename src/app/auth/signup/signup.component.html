@@ -309,9 +309,9 @@
                     [(ngModel)]="userRegistrationModel.zipcode"
                     required/>
                 </div>
-                <div *ngIf="signupZipcode.touched && signupZipcode.invalid"
+                <div *ngIf="signupZipcode.touched && !userRegistrationModel.isZipcodeValid()"
                     class="text-red-500 text-sm">
-                        Zipcode is required.
+                        {{userRegistrationModel.zipcodeErrorMessage}}
                 </div>
               </div>
             </div>

@@ -9,6 +9,7 @@ export class AddressModel {
     public state: string;
     public country: string;
     public zipcode: string;
+    public zipcodeErrorMessage: string;
 
     constructor() {
         this.shop = "";
@@ -19,18 +20,27 @@ export class AddressModel {
         this.state = "";
         this.country = "";
         this.zipcode = "";
+        this.zipcodeErrorMessage = "Zipcode is required.";
     }
 
     public isValid(): boolean {
         return !isNullOrEmpty(this.shop) && !isNullOrEmpty(this.apartment)
             && !isNullOrEmpty(this.area) && !isNullOrEmpty(this.city)
             && !isNullOrEmpty(this.state) && !isNullOrEmpty(this.country)
-            && this.isZipcodeValid(this.zipcode);
+            && this.isZipcodeValid();
     }
 
-    public isZipcodeValid(zipcode: string): boolean {
+    public isZipcodeValid(): boolean {
         const pinCodeRegex = /^[1-9][0-9]{5}$/;
-        return pinCodeRegex.test(zipcode);
+
+        if(isNullOrEmpty(this.zipcode)) {
+            this.zipcodeErrorMessage = "Zipcode is required."
+            return false;
+        } else if(!pinCodeRegex.test(this.zipcode)) {
+            this.zipcodeErrorMessage = "Zipcode is invalid."
+            return false;
+        }
+        return true;
     }
 }
 
