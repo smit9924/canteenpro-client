@@ -9,9 +9,6 @@ export const authActicvationGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const routeData = route.data;
 
-  console.log('in activation guard....')
-
-
   if(isNullOrUndefined(routeData) || isNullOrUndefined(routeData['allowedRoles'])) {
     return true;
   }

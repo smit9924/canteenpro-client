@@ -53,7 +53,6 @@ export class AuthService {
   }
 
   public getRole(): USER_ROLES | void {
-    console.log(this.isLoggedIn())
     if(this.isLoggedIn()) {
       const token = this.localStorageService.get(LOCAL_STORAGE_TOKEN) as string;
       const decodedToken = jwtDecode(token) as IJwtResponse;
