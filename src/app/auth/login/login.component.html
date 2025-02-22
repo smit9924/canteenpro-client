@@ -15,7 +15,7 @@
               placeholder="Enter email"
               #loginEmailField="ngModel"
               name="email"
-              [(ngModel)]="userloginModel.email"
+              [(ngModel)]="userLoginModel.email"
               required/>
           </div>
           <div *ngIf="loginEmailField.touched && loginEmailField.invalid"
@@ -35,7 +35,7 @@
               #passwordFieldRef
               #passwordField="ngModel"
               name="password"
-              [(ngModel)]="userloginModel.password"
+              [(ngModel)]="userLoginModel.password"
               required/>
   
             <button class="absolute inset-y-0 end-0 grid place-content-center px-4 cursor-pointer"
@@ -69,6 +69,7 @@
         <!-- Log in button -->
         <button
           type="button"
+          (click)="onLoginFormSubmit()"
           class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white cursor-pointer hover:bg-indigo-700 disabled:hover:bg-indigo-600 disabled:opacity-80 disabled:cursor-default"
             [disabled]="!loginForm.valid">
             Log in

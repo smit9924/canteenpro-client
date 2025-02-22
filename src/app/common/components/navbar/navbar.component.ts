@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { LOGIN_PAGE, SIGNUP_PAGE } from '../../appConstants';
 import { CommonModule } from '@angular/common';
 import { BasePageComponent } from '../base-page/base-page.component';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -22,11 +23,21 @@ export class NavbarComponent extends BasePageComponent {
   public showProfileDropdown: boolean = false;
   public showSidebar: boolean = false
 
+  constructor(
+    private authService: AuthService
+  ) {
+    super();
+  }
+
   public toggleProfileDropdown(): void {
     this.showProfileDropdown = !this.showProfileDropdown;
   }
 
   public toggleSidebar():void {
     this.showSidebar = !this.showSidebar;
+  }
+
+  public logoutButtonClick(): void {
+    this.authService.logout();
   }
 }

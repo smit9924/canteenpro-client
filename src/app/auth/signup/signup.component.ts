@@ -5,6 +5,10 @@ import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { REQUEST_TYPE } from '../../common/appEnums';
+import { SIGNUP_API } from '../../common/apiConstants';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { DASHBOARD_PAGE } from '../../common/appConstants';
 
 @Component({
   selector: 'app-signup',
@@ -19,7 +23,9 @@ export class SignupComponent implements OnInit{
   public userRegistrationModel: UserRegistrationModel = new UserRegistrationModel();
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private authService: AuthService,
+    private router: Router
   ) {
   }
 
@@ -35,10 +41,15 @@ export class SignupComponent implements OnInit{
   }
 
   public onSignupFormSubmit() {
-    this.dataService.getData("http://localhost:8080/api/auth/signup", REQUEST_TYPE.POST, this.userRegistrationModel)
+    this.dataService.post(SIGNUP_API, REQUEST_TYPE.POST, this.userRegistrationModel)
     .then((response) => {
-      console.log(response)
+      this.authService.authenticateUser(response.token);
+    })
+    .then(() => {
+      this.router.navigateByUrl(DASHBOARD_PAGE);
+    })
+    .catch(e => {
+      console.log(e);
     });
-    console.log(this.userRegistrationModel)
   }
 }

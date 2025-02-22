@@ -1,0 +1,4 @@
+<p>dashboard-wrapper works!</p>
+
+<app-admin-dashboard *ngIf="role === USER_ROLE.ADMIN" />
+<app-owner-dashboard *ngIf="role === USER_ROLE.OWNER" />

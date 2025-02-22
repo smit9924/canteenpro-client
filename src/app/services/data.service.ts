@@ -12,7 +12,7 @@ export class DataService {
     private http: HttpClient,
   ) { }
 
-  public getData(url: string, requestType: REQUEST_TYPE, data: any = null): Promise<any> {
+  public post(url: string, requestType: REQUEST_TYPE, data: any = null): Promise<any> {
     switch(requestType) {
       case REQUEST_TYPE.GET:
         return this.http.get(url).toPromise();

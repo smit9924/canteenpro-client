@@ -42,7 +42,7 @@
                         <!-- Login button -->
                         <div class="sm:flex">
                             <a class="rounded-md bg-teal-800 hover:bg-teal-900 px-5 py-2.5 text-sm font-medium text-white shadow-sm" 
-                                [routerLink]="SIGNUP_PAGE">
+                                [routerLink]="LOGIN_PAGE">
                                 Login
                             </a>
                         </div>
@@ -91,7 +91,8 @@
 
                         <div class="p-2">
                             <form method="POST" action="#">
-                                <button type="submit"
+                                <button type="button"
+                                    (click)="logoutButtonClick()"
                                     class="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
                                     role="menuitem">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
