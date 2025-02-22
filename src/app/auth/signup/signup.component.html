@@ -1,116 +1,327 @@
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-lg">
-      <h1 class="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">CanteenPro</h1>
+    <div class="mx-auto max-w-[90%]">
+      <h1 class="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">Register Canteen</h1>
   
-      <form name="signupForm" class="mt-6 mb-0 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 border border-gray-200 rounded-sm" #signupForm="ngForm">
-        <p class="text-center text-lg font-medium">Sign up to your account</p>
-  
-        <div class="flex justify-between">
-            <!-- First name -->
-            <div>
-                <div>
-                  <label for="email" class="sr-only">First name</label>
+      <form name="signupForm" class="mt-6 mb-0 space-y-5 rounded-xl p-4 shadow-lg sm:p-6 lg:p-8 border border-gray-200 rounded-sm" #signupForm="ngForm">
+
+        <div class="flex flex-col md:flex-row">
+
+          <!-- ** ACCOUNT DETAILS ** -->
+          <div class="space-y-5 w-full">
+            <p class="text-center text-lg font-medium">Account details</p>
+      
+            <div class="flex justify-between gap-4">
+                <!-- First name -->
+                <div class="w-full">
+                    <div>
+                      <label for="email" class="">First name</label>
+                      <div class="relative">
+                        <input
+                          class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border border-gray-200 rounded-sm"
+                          placeholder="Enter first name*"
+                          #signupFirstname="ngModel"
+                          name="firstname"
+                          [(ngModel)]="userRegistrationModel.firstname"
+                          required/>
+                      </div>
+                    </div>
+                    <div *ngIf="signupFirstname.touched && signupFirstname.invalid"
+                        class="text-red-500 text-sm">
+                        Firstname is required.
+                    </div>
+                </div>
+        
+                <!-- Last name -->
+                <div class="w-full">
+                  <label for="email" class="">Last name</label>
                   <div class="relative">
                     <input
-                      class="w-full rounded-lg border-gray-200 p-4 text-sm shadow-xs border border-gray-200 rounded-sm"
-                      placeholder="Enter first name"
-                      #signupFirstname="ngModel"
-                      name="firstname"
-                      [(ngModel)]="userRegistrationModel.firstname"
+                      class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border border-gray-200 rounded-sm"
+                      placeholder="Enter last name*"
+                      #signupLastname="ngModel"
+                      name="lastname"
+                      [(ngModel)]="userRegistrationModel.lastname"
                       required/>
                   </div>
-                </div>
-                <div *ngIf="signupFirstname.touched && signupFirstname.invalid"
-                    class="text-red-500 text-sm">
-                    Firstname is required.
+                  <div *ngIf="signupLastname.touched && signupLastname.invalid"
+                      class="text-red-500 text-sm">
+                          Lastname is required.
+                  </div>
                 </div>
             </div>
     
-            <!-- Last name -->
+            <!-- Email -->
             <div>
-              <label for="email" class="sr-only">Last name</label>
+              <label for="email" class="">Email</label>
               <div class="relative">
                 <input
-                  class="w-full rounded-lg border-gray-200 p-4 text-sm shadow-xs border border-gray-200 rounded-sm"
-                  placeholder="Enter last name"
-                  #signupLastname="ngModel"
-                  name="lastname"
-                  [(ngModel)]="userRegistrationModel.lastname"
-                  required/>
+                  type="email"
+                  class="w-full rounded-xl border-gray-200 p-4 pe-12 text-sm shadow-xs border border-gray-200 rounded-sm"
+                  placeholder="Enter email*"
+                  #signupEmail="ngModel"
+                  name="email"
+                  [(ngModel)]="userRegistrationModel.email"
+                  required
+                  email />
               </div>
-              <div *ngIf="signupLastname.touched && signupLastname.invalid"
-                  class="text-red-500 text-sm">
-                      Lastname is required.
+              <div *ngIf="signupEmail.touched && signupEmail.invalid"
+                    class="text-red-500 text-sm">
+                        Email is required.
               </div>
             </div>
-        </div>
+      
+            <!-- Password -->
+            <div>
+              <label for="password" class="">Password</label>
+              <div class="relative">
+                <input
+                  type="password"
+                  class="w-full rounded-xl border-gray-200 p-4 pe-12 text-sm shadow-xs border border-gray-200 rounded-sm"
+                  placeholder="Enter password"
+                  #passwordField="ngModel"
+                  name="password"
+                  [(ngModel)]="userRegistrationModel.password"
+                  #passwordFieldRef
+                  required/>
+      
+                <button class="absolute inset-y-0 end-0 grid place-content-center px-4 cursor-pointer"
+                    type="button"
+                    (click)="togglePasswordFieldType()">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="size-4 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                  </svg>
+                </button>
+              </div>
+              <div *ngIf="passwordField.touched && (passwordField.invalid || !userRegistrationModel.isPasswordValid())"
+                    class="text-red-500 text-sm">
+                        {{userRegistrationModel.passwordErrorMessage}}
+              </div>
+            </div>
+          </div>
 
-        <!-- Email -->
-        <div>
-          <label for="email" class="sr-only">Email</label>
-          <div class="relative">
-            <input
-              type="email"
-              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs border border-gray-200 rounded-sm"
-              placeholder="Enter email"
-              #signupEmail="ngModel"
-              name="email"
-              [(ngModel)]="userRegistrationModel.email"
-              required
-              email />
-          </div>
-          <div *ngIf="signupEmail.touched && signupEmail.invalid"
-                class="text-red-500 text-sm">
-                    Email is required.
-          </div>
-        </div>
-  
-        <!-- Password -->
-        <div>
-          <label for="password" class="sr-only">Password</label>
-          <div class="relative">
-            <input
-              type="password"
-              class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs border border-gray-200 rounded-sm"
-              placeholder="Enter password"
-              #passwordField="ngModel"
-              name="password"
-              [(ngModel)]="userRegistrationModel.password"
-              #passwordFieldRef
-              required/>
-  
-            <button class="absolute inset-y-0 end-0 grid place-content-center px-4 cursor-pointer"
-                type="button"
-                (click)="togglePasswordFieldType()">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-4 text-gray-400"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-              </svg>
-            </button>
-          </div>
-          <div *ngIf="passwordField.touched && passwordField.invalid"
-                class="text-red-500 text-sm">
-                    Password is required.
+          <div class="w-[2px] bg-gray-300 rounded-full mx-4 my-2"></div>
+
+          <!-- ** CANTEEEN DETAILS ** -->
+          <div class="space-y-5 w-full">
+            <p class="text-center text-lg font-medium">Canteen details</p>
+
+            <!-- Canteen name -->
+            <div>
+              <label for="canteenname" class="">Canteen name</label>
+              <div class="relative">
+                <input
+                  type="text"
+                  class="w-full rounded-xl border-gray-200 p-4 pe-12 text-sm shadow-xs border border-gray-200 rounded-sm"
+                  placeholder="Enter canteen name*"
+                  #signupCanteenName="ngModel"
+                  name="canteenname"
+                  [(ngModel)]="userRegistrationModel.canteenName"
+                  required />
+              </div>
+              <div *ngIf="signupCanteenName.touched && signupCanteenName.invalid"
+                    class="text-red-500 text-sm">
+                        Canteen name is required.
+              </div>
+            </div>
+
+            <div>
+              <label for="canteentype" class=" block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select canteen type</label>
+              <select id="canteentype"
+                name="canteentype"
+                #signupCanteenType="ngModel"
+                [(ngModel)]="userRegistrationModel.canteenType"
+                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value = "0" selected>Choose canteen type</option>
+                <option value="1">Veg</option>
+                <option value="2">Non-veg</option>
+                <option value="3">Both</option>
+              </select>
+              <div *ngIf="signupCanteenType.touched && signupCanteenType.invalid"
+                    class="text-red-500 text-sm">
+                        Canteen type is required.
+              </div>
+            </div>
+
+            <span class="flex items-center">
+              <span class="h-px flex-1 bg-gray-300"></span>
+              <span class="shrink-0 px-3 text-gray-500">Address details</span>
+              <span class="h-px flex-1 bg-gray-300"></span>
+            </span>
+
+            <div class="flex justify-between gap-4">
+              <!-- Shop No -->
+              <div class="w-full max-w-[30%]">
+                  <div>
+                    <label for="shop" class="">Shop no.</label>
+                    <div class="relative">
+                      <input
+                        class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border border-gray-200 rounded-sm"
+                        placeholder="Shop no.*"
+                        #signupShopno="ngModel"
+                        name="shop"
+                        [(ngModel)]="userRegistrationModel.shop"
+                        required/>
+                    </div>
+                  </div>
+                  <div *ngIf="signupShopno.touched && signupShopno.invalid"
+                      class="text-red-500 text-sm">
+                      Shop no is required.
+                  </div>
+              </div>
+      
+              <!-- Apartment -->
+              <div class="w-full max-w-[70%]">
+                <label for="apartment" class="">Apartment</label>
+                <div class="relative">
+                  <input
+                    class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border border-gray-200 rounded-sm"
+                    placeholder="Enter Apartment*"
+                    #signupapartment="ngModel"
+                    name="apartment"
+                    [(ngModel)]="userRegistrationModel.apartment"
+                    required/>
+                </div>
+                <div *ngIf="signupapartment.touched && signupapartment.invalid"
+                    class="text-red-500 text-sm">
+                        Apartment is required.
+                </div>
+              </div>
+            </div>
+
+            <!-- Area -->
+            <div>
+              <label for="area" class="">Area</label>
+              <div class="relative">
+                <input
+                  type="text"
+                  class="w-full rounded-xl border-gray-200 p-4 pe-12 text-sm shadow-xs border border-gray-200 rounded-sm"
+                  placeholder="Enter area*"
+                  #signupArea="ngModel"
+                  name="area"
+                  [(ngModel)]="userRegistrationModel.area"
+                  required />
+              </div>
+              <div *ngIf="signupArea.touched && signupArea.invalid"
+                    class="text-red-500 text-sm">
+                        Area is required.
+              </div>
+            </div>
+
+            <!-- Landmark -->
+            <div>
+              <label for="landmark" class="">Landmark</label>
+              <div class="relative">
+                <input
+                  type="text"
+                  class="w-full rounded-xl border-gray-200 p-4 pe-12 text-sm shadow-xs border border-gray-200 rounded-sm"
+                  placeholder="Enter landmark"
+                  #signupLandmark="ngModel"
+                  name="landmark"
+                  [(ngModel)]="userRegistrationModel.landmark"
+                  required />
+              </div>
+            </div>
+
+            <div class="flex justify-between gap-4">
+              <!-- City -->
+              <div class="w-full">
+                  <div>
+                    <label for="city" class="">City</label>
+                    <div class="relative">
+                      <input
+                        class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border border-gray-200 rounded-sm"
+                        placeholder="Enter city*"
+                        #signupCity="ngModel"
+                        name="city"
+                        [(ngModel)]="userRegistrationModel.city"
+                        required/>
+                    </div>
+                  </div>
+                  <div *ngIf="signupCity.touched && signupCity.invalid"
+                      class="text-red-500 text-sm">
+                      City is required.
+                  </div>
+              </div>
+      
+              <!-- State -->
+              <div class="w-full max-w-[70%]">
+                <label for="state" class="">State</label>
+                <div class="relative">
+                  <input
+                    class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border border-gray-200 rounded-sm"
+                    placeholder="Enter state*"
+                    #signupState="ngModel"
+                    name="state"
+                    [(ngModel)]="userRegistrationModel.state"
+                    required/>
+                </div>
+                <div *ngIf="signupState.touched && signupState.invalid"
+                    class="text-red-500 text-sm">
+                        State is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-between gap-4">
+              <!-- Country -->
+              <div class="w-full">
+                  <div>
+                    <label for="country" class="">Country</label>
+                    <div class="relative">
+                      <input
+                        class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border border-gray-200 rounded-sm"
+                        placeholder="Enter country*"
+                        #signupCountry="ngModel"
+                        name="country"
+                        [(ngModel)]="userRegistrationModel.country"
+                        required/>
+                    </div>
+                  </div>
+                  <div *ngIf="signupCountry.touched && signupCountry.invalid"
+                      class="text-red-500 text-sm">
+                      Country is required.
+                  </div>
+              </div>
+      
+              <!-- Zipcode -->
+              <div class="w-full">
+                <label for="zipcode" class="">Zipcode</label>
+                <div class="relative">
+                  <input
+                    class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border border-gray-200 rounded-sm"
+                    placeholder="Enter zipcode*"
+                    #signupZipcode="ngModel"
+                    name="zipcode"
+                    [(ngModel)]="userRegistrationModel.zipcode"
+                    required/>
+                </div>
+                <div *ngIf="signupZipcode.touched && signupZipcode.invalid"
+                    class="text-red-500 text-sm">
+                        Zipcode is required.
+                </div>
+              </div>
+            </div>
           </div>
         </div>
   
         <button
           type="button"
-          class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white cursor-pointer hover:bg-indigo-700 disabled:hover:bg-indigo-600 disabled:opacity-80 disabled:cursor-default"
-          [disabled]="!signupForm.valid"
+          class="block w-full rounded-xl bg-indigo-600 px-5 py-3 text-sm font-medium text-white cursor-pointer hover:bg-indigo-700 disabled:hover:bg-indigo-600 disabled:opacity-80 disabled:cursor-default"
+          [disabled]="!userRegistrationModel.isValid()"
           (click)="onSignupFormSubmit()">
           Sign up
         </button>

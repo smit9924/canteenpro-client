@@ -11,3 +11,9 @@ export enum USER_ROLES {
   WAITER = 5,
   CASHIER = 6,
 }
+
+export enum CANTEEN_TYPE {
+  VEG = 1,
+  NON_VEG = 2,
+  Veg_NON_VEG = 3
+}

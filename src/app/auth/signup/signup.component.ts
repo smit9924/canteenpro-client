@@ -32,7 +32,7 @@ export class SignupComponent implements OnInit{
   public ngOnInit() {
   }
   
-  public togglePasswordFieldType() {
+  public togglePasswordFieldType(): void {
     if(this.passwordFieldRef.nativeElement.type === "password") {
       this.passwordFieldRef.nativeElement.type = "text"
     } else {
@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit{
     }
   }
 
-  public onSignupFormSubmit() {
+  public onSignupFormSubmit(): void {
     this.dataService.post(SIGNUP_API, REQUEST_TYPE.POST, this.userRegistrationModel)
     .then((response) => {
       this.authService.authenticateUser(response.token);
