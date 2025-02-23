@@ -3,11 +3,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './common/components/navbar/navbar.component';
 import { FooterComponent } from './common/components/footer/footer.component';
-import { SidebarComponent } from './common/components/sidebar/sidebar.component';
-import { authActicvationGuard } from './guards/auth-activation.guard';
-import { authDeactivationGuard } from './guards/auth-deactivation.guard';
-import { CommonModule } from '@angular/common';
-import { AuthService } from './services/auth.service';
+import { ToastComponent } from './common/components/toast/toast.component';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +12,8 @@ import { AuthService } from './services/auth.service';
     RouterOutlet, 
     HttpClientModule,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    ToastComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

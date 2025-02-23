@@ -17,3 +17,10 @@ export enum CANTEEN_TYPE {
   NON_VEG = 2,
   Veg_NON_VEG = 3
 }
+
+export enum TOAST_TYPE {
+  SUCCESS = 1,
+  ERROR = 2,
+  WARNING = 3,
+  INFO = 4
+}

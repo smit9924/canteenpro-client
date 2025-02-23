@@ -16,7 +16,7 @@ export const authActicvationGuard: CanActivateFn = (route, state) => {
   if(authService.isLoggedIn() && routeData['allowedRoles'].includes(authService.getRole())) {
     return true;
   } else {
-    return false;
     router.navigateByUrl(LOGIN_PAGE);
+    return false;
   }
 };

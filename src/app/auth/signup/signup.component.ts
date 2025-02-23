@@ -8,7 +8,8 @@ import { REQUEST_TYPE } from '../../common/appEnums';
 import { SIGNUP_API } from '../../common/apiConstants';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { DASHBOARD_PAGE } from '../../common/appConstants';
+import { DASHBOARD_PAGE, INPUT_FIELD_TYPE_PASSWORD, INPUT_FIELD_TYPE_TEXT } from '../../common/appConstants';
+import { IAPIResponse, IAuthSuccessData } from '../../common/models/interfaces';
 
 @Component({
   selector: 'app-signup',
@@ -33,17 +34,17 @@ export class SignupComponent implements OnInit{
   }
   
   public togglePasswordFieldType(): void {
-    if(this.passwordFieldRef.nativeElement.type === "password") {
-      this.passwordFieldRef.nativeElement.type = "text"
+    if(this.passwordFieldRef.nativeElement.type === INPUT_FIELD_TYPE_PASSWORD) {
+      this.passwordFieldRef.nativeElement.type = INPUT_FIELD_TYPE_TEXT;
     } else {
-      this.passwordFieldRef.nativeElement.type = "password"
+      this.passwordFieldRef.nativeElement.type = INPUT_FIELD_TYPE_PASSWORD;
     }
   }
 
   public onSignupFormSubmit(): void {
     this.dataService.post(SIGNUP_API, REQUEST_TYPE.POST, this.userRegistrationModel)
-    .then((response) => {
-      this.authService.authenticateUser(response.token);
+    .then((response: IAPIResponse<IAuthSuccessData>) => {
+      this.authService.authenticateUser(response.data.token);
     })
     .then(() => {
       this.router.navigateByUrl(DASHBOARD_PAGE);
