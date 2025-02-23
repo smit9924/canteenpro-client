@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { BasePageComponent } from '../base-page/base-page.component';
 import { AuthService } from '../../../services/auth.service';
 import { isNullOrUndefined } from '../../utils';
+import { PrimaryButtonComponent } from '../button/primary-button/primary-button.component';
+import { SecondaryButtonComponent } from '../button/secondary-button/secondary-button.component';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +16,8 @@ import { isNullOrUndefined } from '../../utils';
     RouterLink,
     CommonModule,
     SidebarComponent,
+    PrimaryButtonComponent,
+    SecondaryButtonComponent
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'

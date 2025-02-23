@@ -67,13 +67,12 @@
         </div>
   
         <!-- Log in button -->
-        <button
-          type="button"
-          (click)="onLoginFormSubmit()"
-          class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white cursor-pointer hover:bg-indigo-700 disabled:hover:bg-indigo-600 disabled:opacity-80 disabled:cursor-default"
-            [disabled]="!loginForm.valid">
-            Log in
-        </button>
+       <div class="w-full">
+        <app-primary-button
+          [text]="'Log in'"
+          (onBtnClick)="onLoginFormSubmit()"
+          [disabled]="!loginForm.valid" />
+       </div>
   
         <p class="text-center text-sm text-gray-500">
           No account?

@@ -1,0 +1,7 @@
+<button *ngIf="!hidden"
+    class="w-full bg-gray-100 disabled:bg-gray-100/80 text-teal-800 hover:bg-teal-800 hover:text-white cursor-pointer disabled:cursor-default disabled:hover:text-teal-800 border border-teal-800 rounded-lg px-5 py-2.5 text-sm font-medium"
+    [routerLink]="routerLink"
+    (click)="btnClick()"
+    [disabled]="disabled">
+    {{ text }}
+</button>
