@@ -318,13 +318,12 @@
           </div>
         </div>
   
-        <button
-          type="button"
-          class="block w-full rounded-xl bg-indigo-600 px-5 py-3 text-sm font-medium text-white cursor-pointer hover:bg-indigo-700 disabled:hover:bg-indigo-600 disabled:opacity-80 disabled:cursor-default"
-          [disabled]="!userRegistrationModel.isValid()"
-          (click)="onSignupFormSubmit()">
-          Sign up
-        </button>
+        <div class="w-full">
+          <app-primary-button
+            [text]="'Sign up'"
+            [disabled]="!userRegistrationModel.isValid()"
+            (onBtnClick)="onSignupFormSubmit()" />
+        </div>
   
         <p class="text-center text-sm text-gray-500">
           Already have an account?

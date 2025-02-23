@@ -10,11 +10,16 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { DASHBOARD_PAGE, INPUT_FIELD_TYPE_PASSWORD, INPUT_FIELD_TYPE_TEXT } from '../../common/appConstants';
 import { IAPIResponse, IAuthSuccessData } from '../../common/models/interfaces';
+import { PrimaryButtonComponent } from '../../common/components/button/primary-button/primary-button.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [
+    FormsModule, 
+    CommonModule,
+    PrimaryButtonComponent
+  ],
   providers: [DataService],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
