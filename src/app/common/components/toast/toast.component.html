@@ -3,7 +3,7 @@
 
     <!-- SUCCESS toast -->
     <div *ngIf="this.toastService.currentData?.type === TOAST_TYPE.SUCCESS" 
-        class="bg-white shadow-[0_3px_10px_-3px_rgba(6,81,237,0.3)] border-t-4 border-green-500 text-gray-800 flex items-center w-max max-w-sm p-4 rounded-md"
+        class="animate-fade-in-down opacity-0 bg-white shadow-[0_3px_10px_-3px_rgba(6,81,237,0.3)] border-t-4 border-green-500 text-gray-800 flex items-center w-max max-w-sm p-4 rounded-md"
         role="alert">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-[18px] shrink-0 fill-green-500 inline mr-3"
             viewBox="0 0 512 512">
@@ -17,7 +17,7 @@
 
     <!-- WARNING toast -->
     <div *ngIf="this.toastService.currentData?.type === TOAST_TYPE.WARNING" 
-        class="bg-white shadow-[0_3px_10px_-3px_rgba(6,81,237,0.3)] border-t-4 border-yellow-500 text-gray-800 flex items-center w-max max-w-sm p-4 rounded-md"
+        class="animate-fade-in-down opacity-0 bg-white shadow-[0_3px_10px_-3px_rgba(6,81,237,0.3)] border-t-4 border-yellow-500 text-gray-800 flex items-center w-max max-w-sm p-4 rounded-md"
         role="alert">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-[18px] shrink-0 fill-yellow-500 inline mr-3"
             viewBox="0 0 128 128">
@@ -35,7 +35,7 @@
 
     <!-- ERROR toast -->
     <div *ngIf="this.toastService.currentData?.type === TOAST_TYPE.ERROR" 
-        class="bg-white shadow-[0_3px_10px_-3px_rgba(6,81,237,0.3)] border-t-4 border-red-500 text-gray-800 flex items-center w-max max-w-sm p-4 rounded-md"
+        class="animate-fade-in-down opacity-0 bg-white shadow-[0_3px_10px_-3px_rgba(6,81,237,0.3)] border-t-4 border-red-500 text-gray-800 flex items-center w-max max-w-sm p-4 rounded-md"
         role="alert">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-[18px] shrink-0 fill-red-500 inline mr-3" viewBox="0 0 32 32">
             <path
@@ -47,7 +47,7 @@
 
     <!-- INFO toast -->
     <div *ngIf="this.toastService.currentData?.type === TOAST_TYPE.INFO" 
-        class="bg-white shadow-[0_3px_10px_-3px_rgba(6,81,237,0.3)] border-t-4 border-blue-500 text-gray-800 flex items-center w-max max-w-sm p-4 rounded-md"
+        class="animate-fade-in-down opacity-0 bg-white shadow-[0_3px_10px_-3px_rgba(6,81,237,0.3)] border-t-4 border-blue-500 text-gray-800 flex items-center w-max max-w-sm p-4 rounded-md"
         role="alert">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-[18px] shrink-0 fill-blue-500 inline mr-3"
             viewBox="0 0 23.625 23.625">
