@@ -4,13 +4,19 @@ import { UserRegistrationModel } from '../../common/models/user-registration-mod
 import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { REQUEST_TYPE } from '../../common/appEnums';
+import { REQUEST_TYPE, TOAST_TYPE } from '../../common/appEnums';
 import { SIGNUP_API } from '../../common/apiConstants';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { DASHBOARD_PAGE, INPUT_FIELD_TYPE_PASSWORD, INPUT_FIELD_TYPE_TEXT } from '../../common/appConstants';
-import { IAPIResponse, IAuthSuccessData } from '../../common/models/interfaces';
+import { IAPIResponse, IAuthSuccessData, IToastEventData } from '../../common/models/interfaces';
 import { PrimaryButtonComponent } from '../../common/components/button/primary-button/primary-button.component';
+import { ToastService } from '../../services/toast.service';
+
+const REGISTRATION_SUCCESS_TOAST_DATA: IToastEventData = {
+  type: TOAST_TYPE.SUCCESS,
+  message: "Welcome aboard! Registration and login successful!"
+}
 
 @Component({
   selector: 'app-signup',
@@ -31,7 +37,8 @@ export class SignupComponent implements OnInit{
   constructor(
     private dataService: DataService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {
   }
 
@@ -50,12 +57,11 @@ export class SignupComponent implements OnInit{
     this.dataService.post(SIGNUP_API, REQUEST_TYPE.POST, this.userRegistrationModel)
     .then((response: IAPIResponse<IAuthSuccessData>) => {
       this.authService.authenticateUser(response.data.token);
-    })
-    .then(() => {
+      this.toastService.enque(REGISTRATION_SUCCESS_TOAST_DATA);
       this.router.navigateByUrl(DASHBOARD_PAGE);
     })
     .catch(e => {
-      console.log(e);
+      console.log(e.error);
     });
   }
 }

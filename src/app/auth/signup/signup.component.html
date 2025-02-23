@@ -64,9 +64,11 @@
                   required
                   email />
               </div>
-              <div *ngIf="signupEmail.touched && signupEmail.invalid"
-                    class="text-red-500 text-sm">
-                        Email is required.
+              <div *ngIf="signupEmail.touched && signupEmail.errors?.['required']" class="text-red-500 text-sm">
+                Email is required.
+              </div>
+              <div *ngIf="signupEmail.touched && !signupEmail.errors?.['required'] && signupEmail.invalid" class="text-red-500 text-sm">
+                Email is invalid.
               </div>
             </div>
       

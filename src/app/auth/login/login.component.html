@@ -12,10 +12,15 @@
           <input type="email"
             class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-xs border border-gray-200 rounded-sm"
             placeholder="Enter email" #loginEmailField="ngModel" name="email" [(ngModel)]="userLoginModel.email"
-            required />
+            required
+            email />
         </div>
-        <div *ngIf="loginEmailField.touched && loginEmailField.invalid" class="text-red-500 text-sm">
+        <div *ngIf="loginEmailField.touched && loginEmailField.errors?.['required']" class="text-red-500 text-sm">
           Email is required.
+        </div>
+
+        <div *ngIf="loginEmailField.touched && !loginEmailField.errors?.['required'] && loginEmailField.invalid" class="text-red-500 text-sm">
+          Email is invalid.
         </div>
       </div>
 
@@ -59,3 +64,9 @@
     </form>
   </div>
 </div>
+
+<app-popup
+  [heading]="errorPopupHeading"
+  [text]="errorPopupText"
+  [showPopup]="showPopup"
+/>

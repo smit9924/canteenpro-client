@@ -36,7 +36,10 @@ const LOGIN_SUCCESS_TOAST_DATA: IToastEventData = {
 export class LoginComponent {
   @ViewChild('passwordFieldRef', {static:false}) passwordFieldRef!: ElementRef;
   public TOAST_TYPE = TOAST_TYPE;
-  public userLoginModel = new UserLoginModel();
+  public userLoginModel: UserLoginModel = new UserLoginModel();
+  public errorPopupHeading: string = "Error!";
+  public errorPopupText: string = "";
+  public showPopup: EventEmitter<boolean> = new EventEmitter<boolean>;
 
   constructor(
     private dataService: DataService,
@@ -53,6 +56,11 @@ export class LoginComponent {
       this.passwordFieldRef.nativeElement.type = INPUT_FIELD_TYPE_PASSWORD;
     }
   }
+  public displayPopup(heading: string, message: string) {
+    this.errorPopupHeading = heading;
+    this.errorPopupText = message;
+    this.showPopup.emit(true);
+  }
 
   public onLoginFormSubmit() {
     this.dataService.post(LOGIN_API, REQUEST_TYPE.POST, this.userLoginModel)
@@ -62,7 +70,8 @@ export class LoginComponent {
       this.router.navigateByUrl(DASHBOARD_PAGE)
     })
     .catch((e) => {
-      console.error(e);
+      console.error(e.error.message);
+      this.displayPopup(this.errorPopupHeading, e.error.message);
     }) 
   }
 
