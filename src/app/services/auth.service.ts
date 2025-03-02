@@ -46,6 +46,14 @@ export class AuthService {
 
   public logout() {
     this.localStorageService.delete(LOCAL_STORAGE_TOKEN);
+    this.router.navigateByUrl(LOGIN_PAGE);
+  }
+
+  public getToken(): string | null {
+    if(this.isLoggedIn()) {
+      return this.localStorageService.get(LOCAL_STORAGE_TOKEN);
+    }
+    return null;
   }
 
   public getRole(): USER_ROLES | void {

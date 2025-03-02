@@ -2,6 +2,9 @@
 export const LOGIN_PAGE = "/auth/login";
 export const SIGNUP_PAGE = "/auth/signup";
 export const DASHBOARD_PAGE = "/dashboard";
+export const MANAGER_LISTING = "users/manager";
+export const CREATE_MANAGER_PAGE = "user/create/manager";
+export const ERROR_PAGE = "/error";
 // end
 
 // Local storage key values

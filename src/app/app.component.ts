@@ -10,7 +10,6 @@ import { ToastComponent } from './common/components/toast/toast.component';
   standalone: true,
   imports: [
     RouterOutlet, 
-    HttpClientModule,
     NavbarComponent,
     FooterComponent,
     ToastComponent

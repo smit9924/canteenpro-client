@@ -24,3 +24,10 @@ export interface IAPIResponse<T> {
 export interface IAuthSuccessData {
   token: string;
 }
+
+export interface IRoleList {
+  id: number,
+  role: USER_ROLES,
+  level: USER_ROLES,
+  authority: number
+}

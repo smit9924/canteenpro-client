@@ -1,0 +1,82 @@
+<div class="mt-[64px]">
+    <!-- Secondary navbar -->
+    <!-- <div class="bg-blue-500 flex justify-center items-center text-xl py-2 text-white">
+        Create New {{ role }}
+    </div> -->
+    <nav class="bg-gray-700 p-4 shadow-xl rounded-b-lg">
+        <div class="container mx-auto flex justify-center">
+            <h1 class="text-white text-xl tracking-wide drop-shadow-md capitalize">{{ getPageTitle() }}</h1>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="m-6 bg-white rounded-md relative">
+        <!-- Instruction div -->
+        <div class="absolute right-6 top-6 text-sm text-gray-500">
+            Fields with * are required.
+        </div>
+
+        <form name="createManagerForm" class="space-y-5 rounded-xl p-4 shadow-lg sm:p-6 lg:p-8 border border-gray-200"
+            #createManagerForm="ngForm">
+            <!-- First name -->
+            <div class="w-full sm:max-w-[50%]">
+                <div>
+                    <label for="email" class="">First name*</label>
+                    <div class="relative">
+                        <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                            placeholder="Enter first name" #firstname="ngModel" name="firstname"
+                            [(ngModel)]="createManagerModel.firstname" required />
+                    </div>
+                </div>
+                <div *ngIf="firstname.touched && firstname.invalid" class="text-red-500 text-sm">
+                    Firstname is required.
+                </div>
+            </div>
+
+            <!-- Last name -->
+            <div class="w-full sm:max-w-[50%]">
+                <label for="email" class="">Last name*</label>
+                <div class="relative">
+                    <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                        placeholder="Enter last name" #lastname="ngModel" name="lastname"
+                        [(ngModel)]="createManagerModel.lastname" required />
+                </div>
+                <div *ngIf="lastname.touched && lastname.invalid" class="text-red-500 text-sm">
+                    Lastname is required.
+                </div>
+            </div>
+    
+            <!-- Email -->
+            <div class="w-full sm:max-w-[50%]">
+                <label for="email" class="">Email*</label>
+                <div class="relative">
+                    <input type="email" class="w-full rounded-xl border-gray-200 p-4 pe-12 text-sm shadow-xs border shadow-lg"
+                        placeholder="Enter email" #email="ngModel" name="email" [(ngModel)]="createManagerModel.email"
+                        required email />
+                </div>
+                <div *ngIf="email.touched && email.errors?.['required']" class="text-red-500 text-sm">
+                    Email is required.
+                </div>
+                <div *ngIf="email.touched && !email.errors?.['required'] && email.invalid" class="text-red-500 text-sm">
+                    Email is invalid.
+                </div>
+            </div>
+
+            <!-- Create button -->
+             <div class="flex justify-center">
+                <div>
+                    <app-primary-button
+                        [text]="'CREATE MANAGER'"
+                        [disabled]="!createManagerModel.isValid()"
+                        (onBtnClick)="onCreateBtnClick()" />
+                </div>
+             </div>
+        </form>
+    </div>
+</div>
+
+<app-popup
+  [heading]="errorPopupHeading"
+  [text]="errorPopupText"
+  [showPopup]="showPopup"
+/>

@@ -63,7 +63,7 @@ export class LoginComponent {
   }
 
   public onLoginFormSubmit() {
-    this.dataService.post(LOGIN_API, REQUEST_TYPE.POST, this.userLoginModel)
+    this.dataService.post(LOGIN_API, this.userLoginModel)
     .then((response: IAPIResponse<IAuthSuccessData>) => {
       this.authService.authenticateUser(response.data.token);
       this.toastService.enque(LOGIN_SUCCESS_TOAST_DATA);

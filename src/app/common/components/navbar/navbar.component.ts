@@ -9,6 +9,33 @@ import { isNullOrUndefined } from '../../utils';
 import { PrimaryButtonComponent } from '../button/primary-button/primary-button.component';
 import { SecondaryButtonComponent } from '../button/secondary-button/secondary-button.component';
 
+const USER_LISTING_DROPDOWN = [
+  {
+    title: "Admin",
+    path: "users/admin",
+  },
+  {
+    title: "Owner",
+    path: "users/owner",
+  },
+  {
+    title: "Manager",
+    path: "users/manager",
+  },
+  {
+    title: "Kitchen staff",
+    path: "users/kitchenstaff",
+  },
+  {
+    title: "Canteen",
+    path: "canteen",
+  },
+  {
+    title: "QR Codes",
+    path: "qr",
+  },
+]
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -26,6 +53,7 @@ export class NavbarComponent extends BasePageComponent {
   @ViewChild('navbar') navbar!: ElementRef;
   public LOGIN_PAGE = LOGIN_PAGE;
   public SIGNUP_PAGE = SIGNUP_PAGE;
+  public USER_LISTING_DROPDOWN = USER_LISTING_DROPDOWN;
   public showProfileDropdown: boolean = false;
   public showSidebar: boolean = false
   private profileDropdownClickListener: any = null;

@@ -54,7 +54,7 @@ export class SignupComponent implements OnInit{
   }
 
   public onSignupFormSubmit(): void {
-    this.dataService.post(SIGNUP_API, REQUEST_TYPE.POST, this.userRegistrationModel)
+    this.dataService.post(SIGNUP_API, this.userRegistrationModel)
     .then((response: IAPIResponse<IAuthSuccessData>) => {
       this.authService.authenticateUser(response.data.token);
       this.toastService.enque(REGISTRATION_SUCCESS_TOAST_DATA);
