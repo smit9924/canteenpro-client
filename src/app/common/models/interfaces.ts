@@ -31,3 +31,13 @@ export interface IRoleList {
   level: USER_ROLES,
   authority: number
 }
+
+export interface IUserListing {
+  guid: string;
+  email: string;
+  firstname: string;
+  lastname: string;
+  dateCreated: string;
+  dateEdited: string;
+
+}
