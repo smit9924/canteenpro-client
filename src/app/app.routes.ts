@@ -14,6 +14,7 @@ import { CanteenListingComponent } from './listing/canteen-listing/canteen-listi
 import { AdminListingComponent } from './listing/admin-listing/admin-listing.component';
 import { CreateUserComponent } from './listing/create-user/create-user.component';
 import { USER_ROLES } from './common/appEnums';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 export const routes: Routes = [
     { 
@@ -59,6 +60,10 @@ export const routes: Routes = [
     { 
         path: 'dashboard', 
         component: DashboardWrapperComponent
+    },
+    { 
+        path: 'contactus', 
+        component: ContactUsComponent
     },
     { 
         path: 'user/create/:role', 
