@@ -7,8 +7,8 @@ import { CommonModule } from '@angular/common';
 import { REQUEST_TYPE, TOAST_TYPE } from '../../common/appEnums';
 import { SIGNUP_API } from '../../common/apiConstants';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { DASHBOARD_PAGE, INPUT_FIELD_TYPE_PASSWORD, INPUT_FIELD_TYPE_TEXT } from '../../common/appConstants';
+import { Router, RouterModule } from '@angular/router';
+import { DASHBOARD_PAGE, INPUT_FIELD_TYPE_PASSWORD, INPUT_FIELD_TYPE_TEXT, LOGIN_PAGE } from '../../common/appConstants';
 import { IAPIResponse, IAuthSuccessData, IToastEventData } from '../../common/models/interfaces';
 import { PrimaryButtonComponent } from '../../common/components/button/primary-button/primary-button.component';
 import { ToastService } from '../../services/toast.service';
@@ -24,6 +24,7 @@ const REGISTRATION_SUCCESS_TOAST_DATA: IToastEventData = {
   imports: [
     FormsModule, 
     CommonModule,
+    RouterModule,
     PrimaryButtonComponent
   ],
   providers: [DataService],
@@ -32,6 +33,7 @@ const REGISTRATION_SUCCESS_TOAST_DATA: IToastEventData = {
 })
 export class SignupComponent implements OnInit{
   @ViewChild('passwordFieldRef', {static:false}) passwordFieldRef!: ElementRef;
+  public LOGIN_PAGE = LOGIN_PAGE;
   public userRegistrationModel: UserRegistrationModel = new UserRegistrationModel();
 
   constructor(

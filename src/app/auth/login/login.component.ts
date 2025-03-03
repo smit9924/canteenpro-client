@@ -6,8 +6,8 @@ import { UserLoginModel } from '../../common/models/user-login-model';
 import { LOGIN_API } from '../../common/apiConstants';
 import { REQUEST_TYPE, TOAST_TYPE } from '../../common/appEnums';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { DASHBOARD_PAGE, INPUT_FIELD_TYPE_PASSWORD, INPUT_FIELD_TYPE_TEXT } from '../../common/appConstants';
+import { Router, RouterModule } from '@angular/router';
+import { DASHBOARD_PAGE, INPUT_FIELD_TYPE_PASSWORD, INPUT_FIELD_TYPE_TEXT, SIGNUP_PAGE } from '../../common/appConstants';
 import { PopupComponent } from '../../common/components/popup/popup.component';
 import { PrimaryButtonComponent } from '../../common/components/button/primary-button/primary-button.component';
 import { ToastComponent } from '../../common/components/toast/toast.component';
@@ -24,6 +24,7 @@ const LOGIN_SUCCESS_TOAST_DATA: IToastEventData = {
   imports: [
     FormsModule, 
     CommonModule,
+    RouterModule,
     PopupComponent,
     PrimaryButtonComponent,
     ToastComponent],
@@ -36,6 +37,7 @@ const LOGIN_SUCCESS_TOAST_DATA: IToastEventData = {
 export class LoginComponent {
   @ViewChild('passwordFieldRef', {static:false}) passwordFieldRef!: ElementRef;
   public TOAST_TYPE = TOAST_TYPE;
+  public SIGNUP_PAGE = SIGNUP_PAGE;
   public userLoginModel: UserLoginModel = new UserLoginModel();
   public errorPopupHeading: string = "Error!";
   public errorPopupText: string = "";
