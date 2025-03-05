@@ -3,6 +3,10 @@ export enum REQUEST_TYPE {
   POST = 1
 }
 
+export enum JS_EVENT_TYPES {
+  CLICK = "CLICK"
+}
+
 export enum USER_ROLES {
   ADMIN = 1,
   OWNER = 2,

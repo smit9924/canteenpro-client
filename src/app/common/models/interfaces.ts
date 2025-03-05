@@ -13,6 +13,10 @@ export interface IToastEventData {
   message: string
 }
 
+export interface IKeyValue<T> {
+  [key: string]: T
+}
+
 // *** interface for API responses ***
 export interface IAPIResponse<T> {
   data: T;
@@ -39,5 +43,12 @@ export interface IUserListing {
   lastname: string;
   dateCreated: string;
   dateEdited: string;
+}
 
+export interface IUpsertUserModel {
+  isEditMode?: boolean;
+  guid?: string;
+  firstname: string;
+  lastname: string;
+  email: string;
 }

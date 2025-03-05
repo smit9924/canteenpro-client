@@ -62,7 +62,7 @@
              <div class="flex justify-center">
                 <div>
                     <app-primary-button
-                        [text]="'CREATE MANAGER'"
+                        [text]="getPageTitle()"
                         [disabled]="!createManagerModel.isValid()"
                         (onBtnClick)="onCreateBtnClick()" />
                 </div>

@@ -1,29 +1,92 @@
-<nav class="bg-gray-700 p-4 shadow-xl rounded-b-lg mt-16">
-    <div class="container mx-auto flex justify-center">
-        <h1 class="text-white text-xl tracking-wide drop-shadow-md capitalize">Manager Listing</h1>
-    </div>
-</nav>
-<div class="p-6">
-
-    <!-- Action buttons -->
-    <div class="mb-6 flex justify-end">
-        <app-primary-button [text]="'CREATE NEW MANAGER'" (onBtnClick)="onCreatenewManagerClick()" class="shadow-md" />
-    </div>
+<div #parentElement>
+    <nav class="bg-gray-700 p-4 shadow-xl rounded-b-lg mt-16">
+        <div class="container mx-auto flex justify-center">
+            <h1 class="text-white text-xl tracking-wide drop-shadow-md capitalize">Manager Listing</h1>
+        </div>
+    </nav>
+    <div class="p-6">
     
-    <div class="rounded-lg border border-gray-300 shadow-lg">
-        <div class="flex justify-between items-center bg-gray-100 px-4 py-3 rounded-t-lg border-b border-gray-300">
-            <app-primary-button [text]="'DELETE'" (onBtnClick)="onDeleteClick()" class="border shadow-md" />
-
-            <!-- Top Pagination -->
-            <div class="flex items-center gap-2">
-                <div class="text-sm text-gray-500">Showing 1-20 of 100</div>
-                <div class="flex justify-end gap-2">
+        <!-- Action buttons -->
+        <div class="mb-6 flex justify-end">
+            <app-primary-button [text]="'CREATE NEW MANAGER'" (onBtnClick)="onCreatenewManagerClick()" class="shadow-md" />
+        </div>
+        
+        <div class="rounded-lg border border-gray-300 shadow-lg">
+            <div class="flex justify-between items-center bg-gray-100 px-4 py-3 rounded-t-lg border-b border-gray-300">
+                <app-primary-button [text]="'DELETE'" (onBtnClick)="onDeleteClick()" class="border shadow-md" />
+    
+                <!-- Top Pagination -->
+                <div class="flex items-center gap-2">
+                    <div class="text-sm text-gray-500">Showing 1-20 of 100</div>
+                    <div class="flex justify-end gap-2">
+                        <a href="#" class="px-2 py-2 flex rounded-md border border-gray-400 hover:bg-gray-200">
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="px-2 py-2 flex rounded-md border border-gray-400 hover:bg-gray-200">
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6 .1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Listing Table -->
+            <div class="overflow-x-auto border-t border-gray-300">
+                <table class="min-w-full bg-white text-sm border border-gray-300">
+                    <thead class="bg-gray-50 text-gray-700 border-b border-gray-300">
+                        <tr>
+                            <th class="px-4 py-3 text-center border-r border-gray-300">
+                                <input type="checkbox" class="w-5 h-5 hover:cursor-pointer shadow-md">
+                            </th>
+                            <th class="px-4 py-3 text-left border-r border-gray-300">Name</th>
+                            <th class="px-4 py-3 text-left border-r border-gray-300">Email</th>
+                            <th class="px-4 py-3 text-left border-r border-gray-300">Date Created</th>
+                            <th class="px-4 py-3 text-left border-r border-gray-300">Date Edited</th>
+                            <th class="px-4 py-3 text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-300">
+                        <tr *ngFor="let user of userListingData">
+                            <td class="px-4 py-4 text-center border-r border-gray-300">
+                                <input type="checkbox" class="w-5 h-5 hover:cursor-pointer shadow-md">
+                            </td>
+                            <td class="px-4 py-4 font-medium text-gray-900 border-r border-gray-300">{{ user.firstname }} {{ user.lastname }}</td>
+                            <td class="px-4 py-4 text-gray-700 border-r border-gray-300">{{ user.email }}</td>
+                            <td class="px-4 py-4 text-gray-700 border-r border-gray-300">{{ user.dateCreated }}</td>
+                            <td class="px-4 py-4 text-gray-700 border-r border-gray-300">{{ user.dateEdited }}</td>
+                            <td class="text-center relative">
+                                <button class="w-full flex justify-center items-center text-gray-700 hover:bg-gray-300"
+                                    (click)="menuBtnClick($event, user.guid)">
+                                    <svg class="h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512"><path d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/></svg>
+                                </button>
+                                <div
+                                    class="hidden absolute right-0 mt-1 w-28 bg-white border border-gray-300 rounded-lg shadow-md z-10 action-menu"
+                                    id="{{'menu-' + user.guid}}">
+                                    <button
+                                        class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+                                        (click)="onMenuEditClick(user.guid)">Edit</button>
+                                    <button
+                                        class="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100"
+                                        (click)="onMenuDeleteClick(user.guid)">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <div class="border-t border-gray-300 px-4 py-4 bg-gray-100 rounded-b-lg flex justify-end">
+                <!-- Bottom Pagination -->
+                <div class="flex gap-2">
                     <a href="#" class="px-2 py-2 flex rounded-md border border-gray-400 hover:bg-gray-200">
                         <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                             <path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z" />
                         </svg>
                     </a>
-                    <a href="#" class="px-2 py-2 flex rounded-md border border-gray-400 hover:bg-gray-200">
+                    <a class="px-2 py-2 flex rounded-md border border-gray-400 hover:bg-gray-200">
                         <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                             <path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6 .1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z" />
                         </svg>
@@ -31,62 +94,11 @@
                 </div>
             </div>
         </div>
-
-        <!-- Listing Table -->
-        <div class="overflow-x-auto border-t border-gray-300">
-            <table class="min-w-full bg-white text-sm border border-gray-300">
-                <thead class="bg-gray-50 text-gray-700 border-b border-gray-300">
-                    <tr>
-                        <th class="px-4 py-3 text-center border-r border-gray-300">
-                            <input type="checkbox" class="w-5 h-5 hover:cursor-pointer shadow-md">
-                        </th>
-                        <th class="px-4 py-3 text-left border-r border-gray-300">Name</th>
-                        <th class="px-4 py-3 text-left border-r border-gray-300">Email</th>
-                        <th class="px-4 py-3 text-left border-r border-gray-300">Date Created</th>
-                        <th class="px-4 py-3 text-left border-r border-gray-300">Date Edited</th>
-                        <th class="px-4 py-3 text-center"></th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-300">
-                    <tr *ngFor="let user of userListingData">
-                        <td class="px-4 py-4 text-center border-r border-gray-300">
-                            <input type="checkbox" class="w-5 h-5 hover:cursor-pointer shadow-md">
-                        </td>
-                        <td class="px-4 py-4 font-medium text-gray-900 border-r border-gray-300">{{ user.firstname }} {{ user.lastname }}</td>
-                        <td class="px-4 py-4 text-gray-700 border-r border-gray-300">{{ user.email }}</td>
-                        <td class="px-4 py-4 text-gray-700 border-r border-gray-300">{{ user.dateCreated }}</td>
-                        <td class="px-4 py-4 text-gray-700 border-r border-gray-300">{{ user.dateEdited }}</td>
-                        <td class="text-center relative">
-                            <button class="w-full flex justify-center items-center text-gray-700 hover:bg-gray-300">
-                                <svg class="h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 512"><path d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z"/></svg>
-                            </button>
-                            <div
-                                class="hidden absolute right-0 mt-1 w-28 bg-white border border-gray-300 rounded-lg shadow-md z-10 action-menu">
-                                <button
-                                    class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">Edit</button>
-                                <button
-                                    class="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="border-t border-gray-300 px-4 py-4 bg-gray-100 rounded-b-lg flex justify-end">
-            <!-- Bottom Pagination -->
-            <div class="flex gap-2">
-                <a href="#" class="px-2 py-2 flex rounded-md border border-gray-400 hover:bg-gray-200">
-                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                        <path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z" />
-                    </svg>
-                </a>
-                <a class="px-2 py-2 flex rounded-md border border-gray-400 hover:bg-gray-200">
-                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                        <path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6 .1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z" />
-                    </svg>
-                </a>
-            </div>
-        </div>
     </div>
 </div>
+
+<app-popup
+  [heading]="errorPopupHeading"
+  [text]="errorPopupText"
+  [showPopup]="showPopup"
+/>

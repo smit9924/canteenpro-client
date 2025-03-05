@@ -20,8 +20,16 @@ export class DataService {
     return this.http.post(url, data).toPromise();
   }
 
+  public put(url: string, data: any = null): Promise<any> {
+    return this.http.put(url, data).toPromise();
+  }
+
   public get(url: string, data: any = null): Promise<any> {
     return this.http.get(url).toPromise();
+  }
+
+  public delete(url: string): Promise<any> {
+    return this.http.delete(url).toPromise();
   }
 
   public async setUserRolesList(): Promise<void> {

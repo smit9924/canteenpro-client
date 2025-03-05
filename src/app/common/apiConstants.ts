@@ -9,5 +9,7 @@ export const USER_ROLES_API = AUTH_BASE_URL + "roles";
 
 // USER CRUD APIs
 export const USER_CRUD_BASE_URL = SERVER_BASE_URL + "api/user/";
-export const CREATE_MANAGER = USER_CRUD_BASE_URL + "create/manager"
-export const MANAGER_LISTING = USER_CRUD_BASE_URL + "manager"
+export const GET_USER_DATA_FROM_GUID = SERVER_BASE_URL + "api/user";
+export const CREATE_MANAGER = USER_CRUD_BASE_URL + "create/manager";
+export const UPDATE_USER = SERVER_BASE_URL + "api/user";
+export const MANAGER_LISTING = USER_CRUD_BASE_URL + "list/manager";

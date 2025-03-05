@@ -16,3 +16,6 @@ export const LOCAL_STORAGE_TOKEN = "jwtAuthToken";
 export const INPUT_FIELD_TYPE_TEXT = "text";
 export const INPUT_FIELD_TYPE_PASSWORD = "password";
 // end
+
+// Query parameters related constants
+export const QUERY_PARAM_KEY_GUID = 'guid';

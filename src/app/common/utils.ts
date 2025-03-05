@@ -1,4 +1,7 @@
 // @param: string --> any of the string that need to be check
+
+import { IKeyValue } from "./models/interfaces";
+
 // @return: boolean --> whether string is null, undefined or empty("")
 export function isNullOrEmpty(str: string): boolean {
     const check: boolean = (str === "" || str === null || str === undefined);
