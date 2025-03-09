@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, EventEmitter, OnInit, ViewChild } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PrimaryButtonComponent } from '../../common/components/button/primary-button/primary-button.component';
-import { CREATE_MANAGER_PAGE, QUERY_PARAM_KEY_GUID } from '../../common/appConstants';
+import { CREATE_USER_BASE_ROUTE, ERROR_PAGE, QUERY_PARAM_KEY_GUID, QUERY_PARAM_ROLE } from '../../common/appConstants';
 import { DataService } from '../../services/data.service';
-import { MANAGER_LISTING, UPDATE_USER, USER_CRUD_BASE_URL } from '../../common/apiConstants';
+import { API_USER_LISTING } from '../../common/apiConstants';
 import { IAPIResponse, IToastEventData, IUserListing } from '../../common/models/interfaces';
 import { isNullOrUndefined } from '../../common/utils';
 import { ToastService } from '../../services/toast.service';
@@ -18,7 +18,7 @@ const DELETED_SUCCESS_TOAST_DATA: IToastEventData = {
 }
 
 @Component({
-  selector: 'app-manager-listing',
+  selector: 'app-user-listing',
   standalone: true,
   imports: [
     CommonModule,
@@ -26,10 +26,10 @@ const DELETED_SUCCESS_TOAST_DATA: IToastEventData = {
     PrimaryButtonComponent,
     PopupComponent
   ],
-  templateUrl: './manager-listing.component.html',
-  styleUrl: './manager-listing.component.scss'
+  templateUrl: './user-listing.component.html',
+  styleUrl: './user-listing.component.scss'
 })
-export class ManagerListingComponent implements OnInit{
+export class UserListingComponent implements OnInit{
   @ViewChild('parentElement') parentElement!: ElementRef;
   public userListingData: IUserListing[] = [];
   public actionMenuClickListener: any;
@@ -38,19 +38,39 @@ export class ManagerListingComponent implements OnInit{
   public errorPopupHeading: string = "Error!";
   public errorPopupText: string = "";
   public showPopup: EventEmitter<boolean> = new EventEmitter<boolean>;
+  public role: string | null = "";
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private dataService: DataService,
     private toastService: ToastService
   ){}
 
-  public ngOnInit(): void {
-    this.fetchListingData();
+  public async ngOnInit(): Promise<void> {
+    this.route.paramMap.subscribe(async (param) => {
+      this.role = this.route.snapshot.paramMap.get(QUERY_PARAM_ROLE);
+      await this.validateUserRole(this.role);
+
+      this.fetchListingData(); 
+    })
+
+  }
+
+  public async validateUserRole(userRole: string | null) {
+    const userRoleList = await this.dataService.getUserRoles();
+    const isRoleValid = userRoleList?.some(role => role.role === userRole);
+    if(userRole === null || !isRoleValid) {
+      this.router.navigateByUrl(ERROR_PAGE);
+    }
+  }
+
+  public get listingApiUrl(): string {
+    return API_USER_LISTING + this.role;
   }
 
   public fetchListingData(): void {
-    this.dataService.get(MANAGER_LISTING)
+    this.dataService.get(this.listingApiUrl)
       .then((response: IAPIResponse<IUserListing[]>) => {
         if(!response.success) {
           throw Error;
@@ -62,8 +82,8 @@ export class ManagerListingComponent implements OnInit{
       });
   }
 
-  public onCreatenewManagerClick() {
-    this.router.navigateByUrl(CREATE_MANAGER_PAGE);
+  public onCreateNewUserClick() {
+    this.router.navigateByUrl(CREATE_USER_BASE_ROUTE + this.role);
   }
 
   public onDeleteClick() {
@@ -121,11 +141,11 @@ export class ManagerListingComponent implements OnInit{
     const queryParameter = {
       [QUERY_PARAM_KEY_GUID]: guid
     }
-    this.router.navigate([CREATE_MANAGER_PAGE], {queryParams: queryParameter})
+    this.router.navigate([CREATE_USER_BASE_ROUTE + this.role], {queryParams: queryParameter})
   }
   
   public onMenuDeleteClick(guid: string) {
-    this.dataService.delete(UPDATE_USER + `?guid=${guid}`)
+    this.dataService.delete(API_USER_LISTING + `?guid=${guid}`)
       .then((response: IAPIResponse<IUserListing[]>) => {
         if(!response.success) {
           throw Error;
@@ -136,5 +156,15 @@ export class ManagerListingComponent implements OnInit{
       .catch(e => {
         this.displayPopup(this.errorPopupHeading, e.error.message);
       })
+  }
+
+  public get createNewUserBtnLable(): string {
+    const label = 'Create New ' + this.role;
+    return label.toUpperCase();
+  }
+
+  public get pageHeading(): string {
+    const heading = this.role + ' Listing';
+    return heading;
   }
 }

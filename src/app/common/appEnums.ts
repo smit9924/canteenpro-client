@@ -11,7 +11,7 @@ export enum USER_ROLES {
   ADMIN = 1,
   OWNER = 2,
   MANAGER = 3,
-  KITCHEN_STAFF = 4,
+  KITCHENER = 4,
   WAITER = 5,
   CASHIER = 6,
 }

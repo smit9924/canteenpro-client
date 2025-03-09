@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { UpsertUserModel } from '../../common/models/upsert-user-model';
 import { TOAST_TYPE, USER_ROLES } from '../../common/appEnums';
-import { ERROR_PAGE, MANAGER_LISTING, QUERY_PARAM_KEY_GUID } from '../../common/appConstants';
+import { ERROR_PAGE, QUERY_PARAM_KEY_GUID, QUERY_PARAM_ROLE, USER_LISTING_BASE_ROUTE } from '../../common/appConstants';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { CREATE_MANAGER, GET_USER_DATA_FROM_GUID, UPDATE_USER, USER_CRUD_BASE_URL, USER_ROLES_API } from '../../common/apiConstants';
+import { API_USER_CRUD } from '../../common/apiConstants';
 import { IAPIResponse, IRoleList, IToastEventData } from '../../common/models/interfaces';
 import { PrimaryButtonComponent } from '../../common/components/button/primary-button/primary-button.component';
 import { ToastService } from '../../services/toast.service';
@@ -37,15 +37,12 @@ const SUCCESS_POPUP_DATA = {
     PrimaryButtonComponent,
     PopupComponent
   ],
-  providers: [
-    DataService
-  ],
   templateUrl: './create-user.component.html',
   styleUrl: './create-user.component.scss'
 })
 export class CreateUserComponent implements OnInit {
-  public role: USER_ROLES | null = null;
-  public createManagerModel = new UpsertUserModel();
+  public createUserModel: UpsertUserModel = new UpsertUserModel();;
+  public role: string | null = "";
   public showPopup: EventEmitter<boolean> = new EventEmitter<boolean>;
   public errorPopupHeading: string = "Error!";
   public errorPopupText: string = "";
@@ -59,31 +56,24 @@ export class CreateUserComponent implements OnInit {
   }
 
   public async ngOnInit() {
-    this.route.paramMap.subscribe(async params => {
-      this.role = params.get('role') as USER_ROLES | null;
+    this.role = this.route.snapshot.paramMap.get(QUERY_PARAM_ROLE);
+    await this.validateUserRole(this.role);
 
-      // Check whether user role in URL is valid or not
-      this.dataService.get(USER_ROLES_API)
-        .then((response: IAPIResponse<IRoleList[]>) => {
-          const userRoles: USER_ROLES[] = [];
-          response.data.map((userRole) => {
-            userRoles.push(userRole.role);
-          });
-          if (this.role === null || userRoles.indexOf(this.role) === -1) {
-            this.router.navigateByUrl(ERROR_PAGE);
-            this.router.navigateByUrl(MANAGER_LISTING);
-          }
-        })
-        .catch((ex) => {
-          console.error(ex);
-        });
+    // set user role in model
+    this.createUserModel.userType = USER_ROLES[this.role?.toUpperCase() as keyof typeof USER_ROLES];
 
-        // Fetching user data if in edit mode
-        if(this.isEditMode) {
-          this.fetchEditUserData();
-        }
-    });
+    // Fetching user data if in edit mode
+    if(this.isEditMode) {
+      this.fetchEditUserData();
+    }
+  }
 
+  public async validateUserRole(userRole: string | null) {
+    const userRoleList = await this.dataService.getUserRoles();
+    const isRoleValid = userRoleList?.some(role => role.role === userRole);
+    if(userRole === null || !isRoleValid) {
+      this.router.navigateByUrl(ERROR_PAGE);
+    }
   }
 
   public get isEditMode(): boolean {
@@ -97,13 +87,13 @@ export class CreateUserComponent implements OnInit {
   }
 
   public fetchEditUserData(): void {
-    this.dataService.get(GET_USER_DATA_FROM_GUID + `?guid=${this.guid}`)
+    this.dataService.get(API_USER_CRUD + `?guid=${this.guid}`)
       .then((response: IAPIResponse<UpsertUserModel>) => {
         const modelData = response.data;
         modelData.isEditMode = this.isEditMode;
         modelData.guid = this.guid ? this.guid : "";
-        this.createManagerModel.import(modelData);
-        this.createManagerModel = this.createManagerModel
+        this.createUserModel.import(modelData);
+        this.createUserModel = this.createUserModel
       })
       .catch((e) => {
         console.error(e.error.message);
@@ -112,19 +102,22 @@ export class CreateUserComponent implements OnInit {
 
   public onCreateBtnClick(): void {
     if(this.isEditMode) {
-      this.dataService.put(UPDATE_USER, this.createManagerModel)
+      this.dataService.put(API_USER_CRUD, this.createUserModel)
       .then((response) => {
         this.toastService.enque(SUCCESSFULL_EDIT_TOAST_DATA);
-        this.router.navigateByUrl(MANAGER_LISTING);
+        this.router.navigateByUrl(USER_LISTING_BASE_ROUTE + this.role);
       })
       .catch(e => {
         this.displayPopup(this.errorPopupHeading, e.error.message);
       });
     } else {
-      this.dataService.post(CREATE_MANAGER, this.createManagerModel)
-        .then((response) => {
+      this.dataService.post(API_USER_CRUD, this.createUserModel)
+        .then((response: IAPIResponse<any>) => {
+          if(!response.success) {
+            throw Error;
+          }
           this.toastService.enque(SUCCESS_TOAST_DATA);
-          this.router.navigateByUrl(MANAGER_LISTING);
+          this.router.navigateByUrl(USER_LISTING_BASE_ROUTE + this.role);
         })
         .catch(e => {
           this.displayPopup(this.errorPopupHeading, e.error.message);

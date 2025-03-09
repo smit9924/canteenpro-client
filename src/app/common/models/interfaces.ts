@@ -30,10 +30,8 @@ export interface IAuthSuccessData {
 }
 
 export interface IRoleList {
-  id: number,
-  role: USER_ROLES,
-  level: USER_ROLES,
-  authority: number
+  role: string,
+  level: number
 }
 
 export interface IUserListing {
@@ -48,6 +46,7 @@ export interface IUserListing {
 export interface IUpsertUserModel {
   isEditMode?: boolean;
   guid?: string;
+  userType: number;
   firstname: string;
   lastname: string;
   email: string;

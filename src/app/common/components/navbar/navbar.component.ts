@@ -24,7 +24,7 @@ const USER_LISTING_DROPDOWN = [
   },
   {
     title: "Kitchen staff",
-    path: "users/kitchenstaff",
+    path: "users/kitchener",
   },
   {
     title: "Canteen",

@@ -7,7 +7,7 @@ import { authDeactivationGuard } from './guards/auth-deactivation.guard';
 import { DashboardWrapperComponent } from './dashboards/dashboard-wrapper/dashboard-wrapper.component';
 import { authActicvationGuard } from './guards/auth-activation.guard';
 import { OwnerListingComponent } from './listing/owner-listing/owner-listing.component';
-import { ManagerListingComponent } from './listing/manager-listing/manager-listing.component';
+import { UserListingComponent } from './listing/manager-listing/user-listing.component';
 import { KitchenStaffListingComponent } from './listing/kitchen-staff-listing/kitchen-staff-listing.component';
 import { TableQrCodeListingComponent } from './listing/table-qr-code-listing/table-qr-code-listing.component';
 import { CanteenListingComponent } from './listing/canteen-listing/canteen-listing.component';
@@ -28,23 +28,8 @@ export const routes: Routes = [
         canActivate: [authDeactivationGuard]
     },
     { 
-        path: 'users/admin', 
-        component: AdminListingComponent,
-        canActivate: [authActicvationGuard]
-    },
-    { 
-        path: 'users/owner', 
-        component: OwnerListingComponent,
-        canActivate: [authActicvationGuard]
-    },
-    { 
-        path: 'users/manager', 
-        component: ManagerListingComponent,
-        canActivate: [authActicvationGuard]
-    },
-    { 
-        path: 'users/kitchenstaff', 
-        component: KitchenStaffListingComponent,
+        path: 'users/:role', 
+        component: UserListingComponent,
         canActivate: [authActicvationGuard]
     },
     { 

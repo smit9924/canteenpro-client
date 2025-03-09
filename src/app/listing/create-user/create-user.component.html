@@ -21,7 +21,7 @@
                     <div class="relative">
                         <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
                             placeholder="Enter first name" #firstname="ngModel" name="firstname"
-                            [(ngModel)]="createManagerModel.firstname" required />
+                            [(ngModel)]="createUserModel.firstname" required />
                     </div>
                 </div>
                 <div *ngIf="firstname.touched && firstname.invalid" class="text-red-500 text-sm">
@@ -35,7 +35,7 @@
                 <div class="relative">
                     <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
                         placeholder="Enter last name" #lastname="ngModel" name="lastname"
-                        [(ngModel)]="createManagerModel.lastname" required />
+                        [(ngModel)]="createUserModel.lastname" required />
                 </div>
                 <div *ngIf="lastname.touched && lastname.invalid" class="text-red-500 text-sm">
                     Lastname is required.
@@ -47,7 +47,7 @@
                 <label for="email" class="">Email*</label>
                 <div class="relative">
                     <input type="email" class="w-full rounded-xl border-gray-200 p-4 pe-12 text-sm shadow-xs border shadow-lg"
-                        placeholder="Enter email" #email="ngModel" name="email" [(ngModel)]="createManagerModel.email"
+                        placeholder="Enter email" #email="ngModel" name="email" [(ngModel)]="createUserModel.email"
                         required email />
                 </div>
                 <div *ngIf="email.touched && email.errors?.['required']" class="text-red-500 text-sm">
@@ -63,7 +63,7 @@
                 <div>
                     <app-primary-button
                         [text]="getPageTitle()"
-                        [disabled]="!createManagerModel.isValid()"
+                        [disabled]="!createUserModel.isValid()"
                         (onBtnClick)="onCreateBtnClick()" />
                 </div>
              </div>

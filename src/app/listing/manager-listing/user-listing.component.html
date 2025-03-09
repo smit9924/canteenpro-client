@@ -1,14 +1,26 @@
 <div #parentElement>
     <nav class="bg-gray-700 p-4 shadow-xl rounded-b-lg mt-16">
         <div class="container mx-auto flex justify-center">
-            <h1 class="text-white text-xl tracking-wide drop-shadow-md capitalize">Manager Listing</h1>
+            <h1 class="text-white text-xl tracking-wide drop-shadow-md capitalize">{{ pageHeading }}</h1>
         </div>
     </nav>
-    <div class="p-6">
-    
+    <!-- No User message -->
+    <div class="flex flex-col items-center justify-center p-8 m-6 bg-gray-50 border border-gray-200 rounded-lg shadow-sm"
+        *ngIf="userListingData.length === 0">
+        <svg class="w-16 h-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        <h3 class="text-lg font-medium text-gray-800 mb-1">No Users Available</h3>
+        <p class="text-gray-600 text-center max-w-md">There are currently no users in the system. New users will appear here once they have been added to the database.</p>
+        <div class="mt-4">
+            <app-primary-button [text]="createNewUserBtnLable" (onBtnClick)="onCreateNewUserClick()" class="shadow-md" />
+        </div>
+    </div>
+
+    <div class="p-6" *ngIf="userListingData.length !== 0">
         <!-- Action buttons -->
         <div class="mb-6 flex justify-end">
-            <app-primary-button [text]="'CREATE NEW MANAGER'" (onBtnClick)="onCreatenewManagerClick()" class="shadow-md" />
+            <app-primary-button [text]="createNewUserBtnLable" (onBtnClick)="onCreateNewUserClick()" class="shadow-md" />
         </div>
         
         <div class="rounded-lg border border-gray-300 shadow-lg">

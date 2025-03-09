@@ -2,8 +2,8 @@
 export const LOGIN_PAGE = "/auth/login";
 export const SIGNUP_PAGE = "/auth/signup";
 export const DASHBOARD_PAGE = "/dashboard";
-export const MANAGER_LISTING = "users/manager";
-export const CREATE_MANAGER_PAGE = "user/create/manager";
+export const USER_LISTING_BASE_ROUTE = "users/";
+export const CREATE_USER_BASE_ROUTE = "user/create/";
 export const CONTACT_US_PAGE = "contactus";
 export const ERROR_PAGE = "/error";
 // end
@@ -19,3 +19,4 @@ export const INPUT_FIELD_TYPE_PASSWORD = "password";
 
 // Query parameters related constants
 export const QUERY_PARAM_KEY_GUID = 'guid';
+export const QUERY_PARAM_ROLE = 'role';

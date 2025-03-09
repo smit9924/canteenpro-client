@@ -1,9 +1,11 @@
+import { USER_ROLES } from "../appEnums";
 import { isNullOrEmpty } from "../utils";
 import { IUpsertUserModel } from "./interfaces";
 
 export class UpsertUserModel {
     public isEditMode: boolean;
     public guid: string;
+    public userType: number;
     public firstname: string;
     public lastname: string;
     public email: string;
@@ -13,6 +15,7 @@ export class UpsertUserModel {
     ) {
         this.isEditMode = isEditMode
         this.guid = "";
+        this.userType = USER_ROLES.WAITER;
         this.firstname = "";
         this.lastname = "";
         this.email = "";
@@ -21,6 +24,7 @@ export class UpsertUserModel {
     public import(data: IUpsertUserModel) {
         this.isEditMode = data.isEditMode ? data.isEditMode : false;
         this.guid = data.guid ? data.guid : "";
+        this.userType = data.userType;
         this.firstname = data.firstname;
         this.lastname = data.lastname;
         this.email = data.email;

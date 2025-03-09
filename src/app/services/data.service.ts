@@ -8,12 +8,11 @@ import { IAPIResponse, IRoleList } from '../common/models/interfaces';
   providedIn: 'root'
 })
 export class DataService {
-  private userRoles: USER_ROLES[] = [];
+  private userRoles: IRoleList[] | null = null;
 
   constructor(
     private http: HttpClient,
   ) {
-    // this.setUserRolesList();
   }
 
   public post(url: string, data: any = null): Promise<any> {
@@ -32,47 +31,22 @@ export class DataService {
     return this.http.delete(url).toPromise();
   }
 
-  public async setUserRolesList(): Promise<void> {
-    try {
-      const response: IAPIResponse<IRoleList[]> = await this.get(USER_ROLES_API);
-      this.userRoles = response.data.map((userRole) => userRole.role);
-    } catch (ex) {
-      console.error("Error fetching user roles:", ex);
+
+  public async getUserRoles(): Promise<IRoleList[] | null> {
+    if (this.userRoles != null && this.userRoles.length != 0) {
+      return this.userRoles;
     }
+    await this.fetchUserRoles();
+    return this.userRoles;
   }
 
-  // public getUserRoles() {
-  //   if(this.userRoles.length === 0) {
-  //     this.get(USER_ROLES_API)
-  //     .then((response: IAPIResponse<IRoleList[]>) => {
-  //       const userRoles: USER_ROLES[] = [];
-  //       response.data.map((userRole) => {
-  //         userRoles.push(userRole.role);
-  //       })
-  //       this.userRoles = userRoles;
-  //     })
-  //     .then
-  //     .catch((ex) => {
-  //       console.error(ex);
-  //       return
-  //     });
-  //   } else {
-  //     return this.userRoles;
-  //   }
-  // }
-
-  // public setUserRolesList() {
-  //   this.get(USER_ROLES_API)
-  //     .then((response: IAPIResponse<IRoleList[]>) => {
-  //       const userRoles: USER_ROLES[] = [];
-  //       response.data.map((userRole) => {
-  //         userRoles.push(userRole.role);
-  //       })
-  //       this.userRoles = userRoles;
-  //       return this.userRoles;
-  //     })
-  //     .catch((ex) => {
-  //       console.error(ex);
-  //     });
-  // }
+  private fetchUserRoles(): Promise<void> {
+    return this.get(USER_ROLES_API)
+      .then((response: IAPIResponse<IRoleList[]>) => {
+        this.userRoles = response.data;
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  }
 }
