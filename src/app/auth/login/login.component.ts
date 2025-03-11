@@ -28,9 +28,7 @@ const LOGIN_SUCCESS_TOAST_DATA: IToastEventData = {
     RouterModule,
     PopupComponent,
     PrimaryButtonComponent,
-    ToastComponent],
-  providers: [
-    DataService
+    ToastComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

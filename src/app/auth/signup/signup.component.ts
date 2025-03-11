@@ -27,7 +27,6 @@ const REGISTRATION_SUCCESS_TOAST_DATA: IToastEventData = {
     RouterModule,
     PrimaryButtonComponent
   ],
-  providers: [DataService],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
