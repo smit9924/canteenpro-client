@@ -12,6 +12,7 @@ import { PrimaryButtonComponent } from '../../common/components/button/primary-b
 import { ToastService } from '../../services/toast.service';
 import { PopupComponent } from '../../common/components/popup/popup.component';
 import { isNullOrUndefined } from '../../common/utils';
+import { PreLoaderService } from '../../services/pre-loader.service';
 
 const SUCCESS_TOAST_DATA: IToastEventData = {
   type: TOAST_TYPE.SUCCESS,
@@ -51,7 +52,8 @@ export class CreateUserComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dataService: DataService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private preloaderService: PreLoaderService
   ) {
   }
 
@@ -87,28 +89,34 @@ export class CreateUserComponent implements OnInit {
   }
 
   public fetchEditUserData(): void {
+    this.preloaderService.show();
     this.dataService.get(API_USER_CRUD + `?guid=${this.guid}`)
       .then((response: IAPIResponse<UpsertUserModel>) => {
         const modelData = response.data;
         modelData.isEditMode = this.isEditMode;
         modelData.guid = this.guid ? this.guid : "";
         this.createUserModel.import(modelData);
-        this.createUserModel = this.createUserModel
+        this.createUserModel = this.createUserModel;
+        this.preloaderService.hide();
       })
       .catch((e) => {
         console.error(e.error.message);
+        this.preloaderService.hide();
       });
   }
 
   public onCreateBtnClick(): void {
+    this.preloaderService.show();
     if(this.isEditMode) {
       this.dataService.put(API_USER_CRUD, this.createUserModel)
       .then((response) => {
         this.toastService.enque(SUCCESSFULL_EDIT_TOAST_DATA);
         this.router.navigateByUrl(USER_LISTING_BASE_ROUTE + this.role);
+        this.preloaderService.hide();
       })
       .catch(e => {
         this.displayPopup(this.errorPopupHeading, e.error.message);
+        this.preloaderService.hide();
       });
     } else {
       this.dataService.post(API_USER_CRUD, this.createUserModel)
@@ -118,8 +126,10 @@ export class CreateUserComponent implements OnInit {
           }
           this.toastService.enque(SUCCESS_TOAST_DATA);
           this.router.navigateByUrl(USER_LISTING_BASE_ROUTE + this.role);
+          this.preloaderService.hide();
         })
         .catch(e => {
+          this.preloaderService.hide();
           this.displayPopup(this.errorPopupHeading, e.error.message);
         })
     }

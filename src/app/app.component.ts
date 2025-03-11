@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './common/components/navbar/navbar.component';
 import { FooterComponent } from './common/components/footer/footer.component';
 import { ToastComponent } from './common/components/toast/toast.component';
+import { PreloaderComponent } from './auth/preloader/preloader.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import { ToastComponent } from './common/components/toast/toast.component';
     RouterOutlet, 
     NavbarComponent,
     FooterComponent,
-    ToastComponent
+    ToastComponent,
+    PreloaderComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

@@ -4,12 +4,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PrimaryButtonComponent } from '../../common/components/button/primary-button/primary-button.component';
 import { CREATE_USER_BASE_ROUTE, ERROR_PAGE, QUERY_PARAM_KEY_GUID, QUERY_PARAM_ROLE } from '../../common/appConstants';
 import { DataService } from '../../services/data.service';
-import { API_USER_LISTING } from '../../common/apiConstants';
+import { API_USER_CRUD, API_USER_LISTING } from '../../common/apiConstants';
 import { IAPIResponse, IToastEventData, IUserListing } from '../../common/models/interfaces';
 import { isNullOrUndefined } from '../../common/utils';
 import { ToastService } from '../../services/toast.service';
 import { PopupComponent } from '../../common/components/popup/popup.component';
 import { TOAST_TYPE } from '../../common/appEnums';
+import { PreLoaderService } from '../../services/pre-loader.service';
 
 const CLASS_HIDDEN = 'hidden';
 const DELETED_SUCCESS_TOAST_DATA: IToastEventData = {
@@ -44,7 +45,8 @@ export class UserListingComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
     private dataService: DataService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private preloaderService: PreLoaderService
   ){}
 
   public async ngOnInit(): Promise<void> {
@@ -70,15 +72,18 @@ export class UserListingComponent implements OnInit{
   }
 
   public fetchListingData(): void {
+    this.preloaderService.show();
     this.dataService.get(this.listingApiUrl)
       .then((response: IAPIResponse<IUserListing[]>) => {
         if(!response.success) {
           throw Error;
         }
         this.userListingData = response.data;
+        this.preloaderService.hide();
       })
       .catch((ex) => {
-        console.error(ex.error.message)
+        console.error(ex.error.message);
+        this.preloaderService.hide();
       });
   }
 
@@ -145,16 +150,19 @@ export class UserListingComponent implements OnInit{
   }
   
   public onMenuDeleteClick(guid: string) {
-    this.dataService.delete(API_USER_LISTING + `?guid=${guid}`)
+    this.preloaderService.show();
+    this.dataService.delete(API_USER_CRUD + `?guid=${guid}`)
       .then((response: IAPIResponse<IUserListing[]>) => {
         if(!response.success) {
           throw Error;
         }
         this.userListingData = response.data;
         this.toastService.enque(DELETED_SUCCESS_TOAST_DATA);
+        this.preloaderService.hide()
       })
       .catch(e => {
         this.displayPopup(this.errorPopupHeading, e.error.message);
+        this.preloaderService.hide();
       })
   }
 

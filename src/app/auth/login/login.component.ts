@@ -13,6 +13,7 @@ import { PrimaryButtonComponent } from '../../common/components/button/primary-b
 import { ToastComponent } from '../../common/components/toast/toast.component';
 import { IAuthSuccessData, IAPIResponse, IToastEventData } from '../../common/models/interfaces';
 import { ToastService } from '../../services/toast.service';
+import { PreLoaderService } from '../../services/pre-loader.service';
 
 const LOGIN_SUCCESS_TOAST_DATA: IToastEventData = {
   type: TOAST_TYPE.SUCCESS,
@@ -47,7 +48,8 @@ export class LoginComponent {
     private dataService: DataService,
     private authService: AuthService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private preloaderService: PreLoaderService
   ) {
   }
 
@@ -65,14 +67,17 @@ export class LoginComponent {
   }
 
   public onLoginFormSubmit() {
+    this.preloaderService.show();
     this.dataService.post(LOGIN_API, this.userLoginModel)
     .then((response: IAPIResponse<IAuthSuccessData>) => {
       this.authService.authenticateUser(response.data.token);
       this.toastService.enque(LOGIN_SUCCESS_TOAST_DATA);
-      this.router.navigateByUrl(DASHBOARD_PAGE)
+      this.router.navigateByUrl(DASHBOARD_PAGE);
+      this.preloaderService.hide();
     })
     .catch((e) => {
       console.error(e.error.message);
+      this.preloaderService.hide();
       this.displayPopup(this.errorPopupHeading, e.error.message);
     }) 
   }
