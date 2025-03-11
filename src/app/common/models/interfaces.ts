@@ -51,3 +51,12 @@ export interface IUpsertUserModel {
   lastname: string;
   email: string;
 }
+
+export interface IUserProfile {
+  firstname: string;
+  lastname: string;
+  email: string;
+  guid: string;
+  defaultPasswordUpdated: boolean;
+  roleLevel: number;
+}

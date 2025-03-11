@@ -1,6 +1,7 @@
 // **Internal routes realated constatns**
 export const LOGIN_PAGE = "/auth/login";
 export const SIGNUP_PAGE = "/auth/signup";
+export const UPDATE_DEFAULT_PASSWORD_PAGE = "/auth/change-default-password";
 export const DASHBOARD_PAGE = "/dashboard";
 export const USER_LISTING_BASE_ROUTE = "users/";
 export const CREATE_USER_BASE_ROUTE = "user/create/";

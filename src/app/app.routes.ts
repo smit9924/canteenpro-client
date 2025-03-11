@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { ErrorpageComponent } from './common/components/errorpage/errorpage.component';
@@ -15,11 +15,19 @@ import { AdminListingComponent } from './listing/admin-listing/admin-listing.com
 import { CreateUserComponent } from './listing/create-user/create-user.component';
 import { USER_ROLES } from './common/appEnums';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ChangeDefaultPasswordComponent } from './auth/change-default-password/change-default-password.component';
+import { ChangePasswordComponent } from './auth/change-password/change-password.component';
+import { CustomerLoginComponent } from './auth/customer-login/customer-login.component';
 
 export const routes: Routes = [
     { 
         path: 'auth/login',
         component: LoginComponent,
+        canActivate: [authDeactivationGuard]
+    },
+    { 
+        path: 'auth/login/customer',
+        component: CustomerLoginComponent,
         canActivate: [authDeactivationGuard]
     },
     { 
@@ -30,33 +38,62 @@ export const routes: Routes = [
     { 
         path: 'users/:role', 
         component: UserListingComponent,
-        canActivate: [authActicvationGuard]
+        canActivate: [authActicvationGuard],
+        data: {
+            allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER, USER_ROLES.CASHIER, USER_ROLES.KITCHENER, USER_ROLES.WAITER]
+
+            // TODO: Instead of allow all user make route accessed based on user
+            // allowedRoles: (route: ActivatedRouteSnapshot) => {
+            //     console.log(getUserListingRouteAccess(route.params['role'] as USER_ROLES));
+            //     getUserListingRouteAccess(route.params['role'] as USER_ROLES);
+            // }
+        }
     },
     { 
         path: 'qr', 
         component: TableQrCodeListingComponent,
-        canActivate: [authActicvationGuard]
+        canActivate: [authActicvationGuard],
+        data: {
+            allowedRoles: []
+        }
     },
     { 
         path: 'canteen', 
         component: CanteenListingComponent,
-        canActivate: [authActicvationGuard]
+        canActivate: [authActicvationGuard],
+        data: {
+            allowedRoles: []
+        }
     },
     { 
         path: 'dashboard', 
-        component: DashboardWrapperComponent
+        component: DashboardWrapperComponent,
+        data: {
+            allowedRoles: []
+        }
     },
     { 
         path: 'contactus', 
-        component: ContactUsComponent
+        component: ContactUsComponent,
+        data: {
+            allowedRoles: []
+        }
     },
     { 
         path: 'user/create/:role', 
         component: CreateUserComponent,
         canActivate: [authActicvationGuard],
-        // data: {
-        //     allowedRoles: [USER_ROLES.ADMIN]
-        // }
+        data: {
+            allowedRoles: []
+        }
+    },
+    { 
+        path: 'auth/change-password', 
+        component: ChangePasswordComponent,
+    },
+    { 
+        path: 'auth/change-default-password', 
+        component: ChangeDefaultPasswordComponent,
     },
     { 
         path: '', 
@@ -71,3 +108,25 @@ export const routes: Routes = [
         component: ErrorpageComponent 
     },
 ];
+
+function getUserListingRouteAccess(role: USER_ROLES): USER_ROLES[] {
+    console.log('called...')
+    switch(role) {
+        case USER_ROLES.ADMIN:
+            return [USER_ROLES.ADMIN];
+
+        case USER_ROLES.OWNER:
+            return [USER_ROLES.ADMIN, USER_ROLES.OWNER];
+
+        case USER_ROLES.MANAGER:
+            return [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER];
+
+        case USER_ROLES.CASHIER:
+        case USER_ROLES.KITCHENER:
+        case USER_ROLES.WAITER:
+            return [USER_ROLES.ADMIN, USER_ROLES.OWNER];
+            
+        default:
+            return [];
+    }
+}
