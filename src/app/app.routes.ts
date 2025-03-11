@@ -73,7 +73,7 @@ export const routes: Routes = [
         }
     },
     { 
-        path: 'contactus', 
+        path: 'contact', 
         component: ContactUsComponent,
         data: {
             allowedRoles: []

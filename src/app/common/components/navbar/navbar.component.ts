@@ -1,38 +1,45 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterLink } from '@angular/router';
-import { LOGIN_PAGE, SIGNUP_PAGE } from '../../appConstants';
+import { CONTACT_US_PAGE, LOGIN_PAGE, SIGNUP_PAGE } from '../../appConstants';
 import { CommonModule } from '@angular/common';
 import { BasePageComponent } from '../base-page/base-page.component';
 import { AuthService } from '../../../services/auth.service';
 import { isNullOrUndefined } from '../../utils';
 import { PrimaryButtonComponent } from '../button/primary-button/primary-button.component';
 import { SecondaryButtonComponent } from '../button/secondary-button/secondary-button.component';
+import { USER_ROLES } from '../../appEnums';
 
 const USER_LISTING_DROPDOWN = [
   {
     title: "Admin",
     path: "users/admin",
+    allowedUser: [USER_ROLES.ADMIN]
   },
   {
     title: "Owner",
     path: "users/owner",
+    allowedUser: [USER_ROLES.ADMIN, USER_ROLES.OWNER]
   },
   {
     title: "Manager",
     path: "users/manager",
+    allowedUser: [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER]
   },
   {
     title: "Kitchen staff",
     path: "users/kitchener",
+    allowedUser: [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER]
   },
   {
     title: "Canteen",
     path: "canteen",
+    allowedUser: [USER_ROLES.ADMIN]
   },
   {
     title: "QR Codes",
     path: "qr",
+    allowedUser: [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER]
   },
 ]
 
@@ -53,7 +60,7 @@ export class NavbarComponent extends BasePageComponent {
   @ViewChild('navbar') navbar!: ElementRef;
   public LOGIN_PAGE = LOGIN_PAGE;
   public SIGNUP_PAGE = SIGNUP_PAGE;
-  public USER_LISTING_DROPDOWN = USER_LISTING_DROPDOWN;
+  public CONTACT_US_PAGE = CONTACT_US_PAGE;
   public showProfileDropdown: boolean = false;
   public showSidebar: boolean = false
   private profileDropdownClickListener: any = null;
@@ -100,5 +107,19 @@ export class NavbarComponent extends BasePageComponent {
 
   public logoutButtonClick(): void {
     this.authService.logout();
+  }
+
+  public get userDropdownOptions() {
+    const userRole = this.authService.getRole();
+    console.log(userRole)
+    if(userRole === null) {
+      console.log('inside if')
+      return [];
+    } else {
+      console.log('inside else')
+      return USER_LISTING_DROPDOWN.filter(option => {
+        return option.allowedUser.includes(userRole);
+      })
+    }
   }
 }

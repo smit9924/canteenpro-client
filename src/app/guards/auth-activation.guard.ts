@@ -11,8 +11,6 @@ export const authActicvationGuard: CanActivateFn = async (route, state) => {
   const router = inject(Router);
   const routeData = route.data;
 
-  console.log('routeData: ', routeData['allowedRoles']);
-
   if(isNullOrUndefined(routeData) || isNullOrUndefined(routeData['allowedRoles'])) {
     console.log('route data not provided. Making route public')
     return true;

@@ -56,11 +56,12 @@ export class AuthService {
     return null;
   }
 
-  public getRole(): USER_ROLES | void {
+  public getRole(): USER_ROLES | null {
     if(this.isLoggedIn()) {
       const token = this.localStorageService.get(LOCAL_STORAGE_TOKEN) as string;
       const decodedToken = jwtDecode(token) as IJwtDecodedData;
       return decodedToken.role;
     }
+    return null;
   }
 }

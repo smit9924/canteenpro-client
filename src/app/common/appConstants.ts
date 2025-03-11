@@ -5,7 +5,7 @@ export const UPDATE_DEFAULT_PASSWORD_PAGE = "/auth/change-default-password";
 export const DASHBOARD_PAGE = "/dashboard";
 export const USER_LISTING_BASE_ROUTE = "users/";
 export const CREATE_USER_BASE_ROUTE = "user/create/";
-export const CONTACT_US_PAGE = "contactus";
+export const CONTACT_US_PAGE = "contact";
 export const ERROR_PAGE = "/error";
 // end
 

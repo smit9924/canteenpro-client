@@ -13,6 +13,10 @@
                     <nav *ngIf="authService.isLoggedIn()" aria-label="Global" class="hidden md:block">
                         <ul class="flex items-center gap-6 text-sm">
                             <li>
+                                <a class="text-white font-bold transition hover:text-black/50" [routerLink]="CONTACT_US_PAGE"> Contact us </a>
+                            </li>
+
+                            <!-- <li>
                                 <a class="text-white font-bold transition hover:text-black/50" href="#"> About </a>
                             </li>
     
@@ -30,7 +34,7 @@
     
                             <li>
                                 <a class="text-white font-bold transition hover:text-black/50" href="#"> Projects </a>
-                            </li>
+                            </li> -->
                             <!-- Nav User Listing -->
                             <li>
                                 <div class="relative group/linktrigger">
@@ -49,7 +53,7 @@
                             
                                     <div class="absolute invisible hover:visible group-hover/linktrigger:visible end-0 z-10 mt-0 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg"
                                         role="menu">
-                                        <a *ngFor="let listItem of USER_LISTING_DROPDOWN"
+                                        <a *ngFor="let listItem of userDropdownOptions"
                                             class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                                             role="menuitem"
                                             [routerLink]="listItem.path">

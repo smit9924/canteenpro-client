@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardWrapperComponent extends BasePageComponent {
   public USER_ROLE = USER_ROLES;
-  public role!: USER_ROLES | void;
+  public role!: USER_ROLES | null;
 
   constructor(
     private authService: AuthService
@@ -28,7 +28,7 @@ export class DashboardWrapperComponent extends BasePageComponent {
     this.role = this.authService.getRole();
   }
 
-  public getUserRole(): USER_ROLES | void {
+  public getUserRole(): USER_ROLES | null {
     return this.authService.getRole();
   }
 }
