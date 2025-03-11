@@ -1,0 +1,72 @@
+<div class="bg-gray-50 mt-16 p-6 flex items-center justify-center">
+    <div class="max-w-md w-full bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="bg-cyan-500 px-2 py-4">
+            <h1 class="text-white text-center text-3xl font-bold">Welcome Back!</h1>
+            <p class="text-white text-center mt-2">Login with Email and OTP</p>
+        </div>
+
+        <div class="p-6">
+            <div class="mb-6">
+                <p class="text-gray-600 text-sm mb-4">Please enter your email to receive a one-time password for secure
+                    login.</p>
+            </div>
+
+            <form id="login-form">
+                <!-- Email field -->
+                <div class="mb-6">
+                    <label for="email" class="block text-gray-700 text-sm font-medium mb-2">Email Address</label>
+                    <div class="relative">
+                        <input type="email" id="email"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                            required>
+                    </div>
+                    <div id="email-error" class="text-red-500 text-sm">
+                        Please enter a valid email address
+                    </div>
+                </div>
+
+                <!-- Request OTP button -->
+                <div id="request-otp-container">
+                    <button type="button" id="request-otp-btn"
+                        class="w-full bg-cyan-500 text-white py-2 px-4 rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50 transition-colors">
+                        Request OTP
+                    </button>
+                </div>
+
+                <!-- OTP field (hidden by default) -->
+                <div id="otp-container" class="mb-6">
+                    <label for="otp" class="block text-gray-700 text-sm font-medium mb-2">One-Time Password</label>
+                    <div class="relative">
+                        <input type="text" id="otp"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                            required maxlength="6" minlength="6">
+                    </div>
+                    <div id="otp-error" class="text-red-500 text-sm">
+                        Please enter the valid 6-digit OTP sent to your email
+                    </div>
+                    <div class="flex justify-between items-center mt-2">
+                        <span id="timer" class="text-xs text-gray-500">Expires in: 120 seconds</span>
+                        <button type="button" id="resend-otp-btn" class="text-cyan-500 text-xs hover:underline">
+                            Resend OTP
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Login button (hidden by default) -->
+                <div id="login-btn-container" class="">
+                    <button type="submit" id="login-btn"
+                        class="w-full bg-cyan-500 text-white py-2 px-4 rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50 transition-colors">
+                        Login
+                    </button>
+                </div>
+            </form>
+
+            <!-- Footer links -->
+            <div class="mt-6 text-center text-sm">
+                <a href="#" class="text-cyan-500 hover:underline">Forgot Email?</a>
+                <span class="mx-2 text-gray-400">|</span>
+                <a href="#" class="text-cyan-500 hover:underline">Need Help?</a>
+            </div>
+        </div>
+    </div>
+</div>
