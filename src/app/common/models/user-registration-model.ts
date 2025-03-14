@@ -1,3 +1,4 @@
+import { USER_ROLES } from "../appEnums";
 import { isNullOrEmpty } from "../utils";
 
 export class AddressModel {
@@ -64,6 +65,7 @@ export class UserRegistrationModel extends CanteenDetailsMode {
     public firstname: string;
     public lastname: string;
     public email: string;
+    public roleLevel: USER_ROLES;
     public password: string;
     public passwordErrorMessage: string = "Password is required."
     
@@ -73,6 +75,7 @@ export class UserRegistrationModel extends CanteenDetailsMode {
         this.lastname = "";
         this.email = "";
         this.password = "";
+        this.roleLevel = USER_ROLES.OWNER;
     }
 
     public override isValid(): boolean {
