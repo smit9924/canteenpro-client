@@ -18,7 +18,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ChangeDefaultPasswordComponent } from './auth/change-default-password/change-default-password.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { CustomerLoginComponent } from './auth/customer-login/customer-login.component';
-import { FoodItemsComponent } from './listing/food-items/food-items.component';
+import { FoodItemsListingComponent } from './listing/food-items/food-items-listing.component';
 import { CreateCategoryComponent } from './listing/create-category/create-category.component';
 import { AddItemComponent } from './listing/add-item/add-item.component';
 
@@ -54,7 +54,7 @@ export const routes: Routes = [
     },
     { 
         path: 'food-items', 
-        component: FoodItemsComponent,
+        component: FoodItemsListingComponent,
         canActivate: [authActicvationGuard],
         data: {
             allowedRoles: [USER_ROLES.OWNER, USER_ROLES.MANAGER]

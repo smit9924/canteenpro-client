@@ -23,16 +23,16 @@ const ITEM_DELETED_SUCCESS_TOAST_DATA: IToastEventData = {
 }
 
 @Component({
-  selector: 'app-food-items',
+  selector: 'app-food-items-listing',
   standalone: true,
   imports: [
     CommonModule,
     PrimaryButtonComponent
   ],
-  templateUrl: './food-items.component.html',
-  styleUrl: './food-items.component.scss'
+  templateUrl: './food-items-listing.component.html',
+  styleUrl: './food-items-listing.component.scss'
 })
-export class FoodItemsComponent implements OnInit {
+export class FoodItemsListingComponent implements OnInit {
   @ViewChild('parentElement') parentElement!: ElementRef;
   public ITEM_LISTIN_TAB_TYPE = ITEM_LISTIN_TAB_TYPE;
   public categoryListingData: ICategoryListing[] = [];
