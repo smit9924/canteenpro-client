@@ -1,0 +1,88 @@
+<div class="mt-[64px]">
+    <nav class="bg-gray-700 p-4 shadow-xl rounded-b-lg">
+        <div class="container mx-auto flex justify-center">
+            <h1 class="text-white text-xl tracking-wide drop-shadow-md capitalize">{{ getPageTitle() }}</h1>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="m-6 bg-white rounded-md relative">
+        <!-- Instruction div -->
+        <div class="absolute right-6 top-6 text-sm text-gray-500">
+            Fields with * are required.
+        </div>
+
+        <form name="createCategoryForm" class="space-y-5 rounded-xl p-4 shadow-lg sm:p-6 lg:p-8 border border-gray-200"
+            #createCategoryForm="ngForm">
+            <!-- category name -->
+            <div class="w-full sm:max-w-[50%]">
+                <div>
+                    <label for="categoryname" class="">Category name*</label>
+                    <div class="relative">
+                        <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                            placeholder="Enter category name" #categoryname="ngModel" name="categoryname"
+                            [(ngModel)]="createCategoryModel.categoryName" required />
+                    </div>
+                </div>
+                <div *ngIf="categoryname.touched && categoryname.invalid" class="text-red-500 text-sm">
+                    Category name is required.
+                </div>
+            </div>
+
+            <!-- category description -->
+            <div class="w-full sm:max-w-[50%]">
+                <label for="description" class="">Description</label>
+                <div class="relative">
+                    <textarea class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                        placeholder="Enter description" #description="ngModel" name="description"
+                        [(ngModel)]="createCategoryModel.description"></textarea>
+                </div>
+            </div>
+
+            <!-- upload image -->
+            <div>
+                <div class="mb-1">Upload image</div>
+                <div class="w-full flex gap-4">
+                    <div class="flex justify-center items-center border border-gray-400 rounded-md w-32 h-36">
+                        <img [src]="createCategoryModel.imageURL" class="rounded-md">
+                    </div>
+                    <div class="w-full flex flex-col-reverse">
+                        <div class="w-40">
+                            <app-primary-button
+                                [text]="'Upload Image'"
+                                [disabled]="isImageUploaded()"
+                                (onBtnClick)="onImageUploadBtnClick()" />
+                        </div>
+                        <div class="mb-6 flex gap-2"
+                            *ngIf="isImageUploaded()">
+                            <span class="text-gray-600">{{uploadedImageFileName}}</span>
+                            <button class="p-1 rounded-full border bg-teal-700 hover:bg-teal-900 border-gray-500" (click)="removeImage()">
+                                <svg class="h-4 w-4 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                                    <path
+                                        d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <input class="hidden" type="file" name="categoryimage" id="categoryimage" [accept]="ACCEPTED_IMAGE_TYPE.join(',')" (change)="onImageSelect($event)" #categoryImage>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create button -->
+             <div class="flex justify-center">
+                <div>
+                    <app-primary-button
+                        [text]="getPageTitle()"
+                        [disabled]="!createCategoryModel.isValid()"
+                        (onBtnClick)="onCreateBtnClick()" />
+                </div>
+             </div>
+        </form>
+    </div>
+</div>
+
+<app-popup
+  [heading]="errorPopupHeading"
+  [text]="errorPopupText"
+  [showPopup]="showPopup"
+/>

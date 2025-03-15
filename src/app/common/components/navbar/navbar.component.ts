@@ -37,6 +37,11 @@ const USER_LISTING_DROPDOWN = [
     allowedUser: [USER_ROLES.ADMIN]
   },
   {
+    title: "Food items",
+    path: "food-items",
+    allowedUser: [USER_ROLES.OWNER, USER_ROLES.MANAGER]
+  },
+  {
     title: "QR Codes",
     path: "qr",
     allowedUser: [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER]
@@ -111,12 +116,9 @@ export class NavbarComponent extends BasePageComponent {
 
   public get userDropdownOptions() {
     const userRole = this.authService.getRole();
-    console.log(userRole)
     if(userRole === null) {
-      console.log('inside if')
       return [];
     } else {
-      console.log('inside else')
       return USER_LISTING_DROPDOWN.filter(option => {
         return option.allowedUser.includes(userRole);
       })

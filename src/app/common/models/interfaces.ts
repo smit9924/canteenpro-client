@@ -52,6 +52,23 @@ export interface IUpsertUserModel {
   email: string;
 }
 
+export interface IMediaDataModel {
+  guid?: string;
+  fileName: string;
+  extension: string;
+  initiallyUploadedOn?: string;
+  latestUploadOn?: string;
+}
+
+export interface ICreateCategoryModel {
+  isEditMode?: boolean;
+  guid?: string;
+  categoryName: string;
+  description: string;
+  image: string;
+  imageData?: IMediaDataModel;
+}
+
 export interface IUserProfile {
   firstname: string;
   lastname: string;
@@ -59,4 +76,18 @@ export interface IUserProfile {
   guid: string;
   defaultPasswordUpdated: boolean;
   roleLevel: number;
+}
+
+export interface ICategoryListing {
+  categoryName: string;
+  guid: string;
+  dateCreated: string;
+  dateEdited: string;
+}
+
+export interface IItemListing {
+  categoryName: string;
+  guid: string;
+  dateCreated: string;
+  dateEdited: string;
 }

@@ -28,3 +28,8 @@ export enum TOAST_TYPE {
   WARNING = 3,
   INFO = 4
 }
+
+export enum ITEM_LISTIN_TAB_TYPE {
+  CATEGORIES = 1,
+  ITEMS = 2
+}

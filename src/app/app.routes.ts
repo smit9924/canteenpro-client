@@ -18,6 +18,9 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ChangeDefaultPasswordComponent } from './auth/change-default-password/change-default-password.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { CustomerLoginComponent } from './auth/customer-login/customer-login.component';
+import { FoodItemsComponent } from './listing/food-items/food-items.component';
+import { CreateCategoryComponent } from './listing/create-category/create-category.component';
+import { AddItemComponent } from './listing/add-item/add-item.component';
 
 export const routes: Routes = [
     { 
@@ -47,6 +50,30 @@ export const routes: Routes = [
             //     console.log(getUserListingRouteAccess(route.params['role'] as USER_ROLES));
             //     getUserListingRouteAccess(route.params['role'] as USER_ROLES);
             // }
+        }
+    },
+    { 
+        path: 'food-items', 
+        component: FoodItemsComponent,
+        canActivate: [authActicvationGuard],
+        data: {
+            allowedRoles: [USER_ROLES.OWNER, USER_ROLES.MANAGER]
+        }
+    },
+    { 
+        path: 'food-items/create/category', 
+        component: CreateCategoryComponent,
+        canActivate: [authActicvationGuard],
+        data: {
+            allowedRoles: [USER_ROLES.OWNER, USER_ROLES.MANAGER]
+        }
+    },
+    { 
+        path: 'food-items/create', 
+        component: AddItemComponent,
+        canActivate: [authActicvationGuard],
+        data: {
+            allowedRoles: [USER_ROLES.OWNER, USER_ROLES.MANAGER]
         }
     },
     { 
@@ -84,7 +111,7 @@ export const routes: Routes = [
         component: CreateUserComponent,
         canActivate: [authActicvationGuard],
         data: {
-            allowedRoles: []
+            allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER, USER_ROLES.CASHIER, USER_ROLES.KITCHENER, USER_ROLES.WAITER]
         }
     },
     { 
@@ -110,7 +137,6 @@ export const routes: Routes = [
 ];
 
 function getUserListingRouteAccess(role: USER_ROLES): USER_ROLES[] {
-    console.log('called...')
     switch(role) {
         case USER_ROLES.ADMIN:
             return [USER_ROLES.ADMIN];
