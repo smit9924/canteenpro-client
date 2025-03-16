@@ -1,5 +1,5 @@
 <div *ngIf="this.toastService.showToast" 
-    class="absolute top-4 left-1/2 -translate-x-1/2 [sans-serif] space-y-6 mx-auto w-max mt-4">
+    class="fixed top-4 left-1/2 -translate-x-1/2 [sans-serif] space-y-6 mx-auto w-max mt-4">
 
     <!-- SUCCESS toast -->
     <div *ngIf="this.toastService.currentData?.type === TOAST_TYPE.SUCCESS" 
