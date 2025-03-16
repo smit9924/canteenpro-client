@@ -1,3 +1,4 @@
+import { isNullOrEmpty } from "../utils";
 import { IMediaDataModel } from "./interfaces";
 
 export class MediaDataModel {
@@ -21,6 +22,11 @@ export class MediaDataModel {
         this.extension = data.extension;
         this.initiallyUploadedOn = data.initiallyUploadedOn ? data.initiallyUploadedOn : "";
         this.latestUploadOn = data.latestUploadOn ? data.latestUploadOn : "";
+    }
 
+    public isValid() {
+        return !isNullOrEmpty(this.guid)
+            && !isNullOrEmpty(this.fileName)
+            && !isNullOrEmpty(this.extension);
     }
 }

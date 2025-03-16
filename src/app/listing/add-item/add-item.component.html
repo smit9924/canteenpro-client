@@ -1,1 +1,164 @@
-<p>add-item works!</p>
+<div class="mt-[64px]">
+    <nav class="bg-gray-700 p-4 shadow-xl rounded-b-lg">
+        <div class="container mx-auto flex justify-center">
+            <h1 class="text-white text-xl tracking-wide drop-shadow-md capitalize">{{ getPageTitle() }}</h1>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="m-6 bg-white rounded-md relative">
+        <!-- Instruction div -->
+        <div class="absolute right-6 top-5 text-sm text-gray-500">
+            Fields with * are required.
+        </div>
+
+        <form name="createItemForm" class="space-y-5 rounded-xl p-4 shadow-lg sm:p-6 lg:p-8 border border-gray-200"
+            #createItemForm="ngForm">
+            <!-- item name -->
+            <div class="w-full sm:max-w-[50%]">
+                <div>
+                    <label for="itemname" class="">Item name*</label>
+                    <div class="relative">
+                        <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                            placeholder="Enter item name" #itemname="ngModel" name="itemname"
+                            [(ngModel)]="createItemModel.itemName" required />
+                    </div>
+                </div>
+                <div *ngIf="itemname.touched && itemname.invalid" class="text-red-500 text-sm">
+                    Item name is required.
+                </div>
+            </div>
+
+            <!-- item description -->
+            <div class="w-full sm:max-w-[50%]">
+                <label for="description" class="">Description</label>
+                <div class="relative">
+                    <textarea class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                        placeholder="Enter description" #description="ngModel" name="description"
+                        [(ngModel)]="createItemModel.description"></textarea>
+                </div>
+            </div>
+
+            <!-- price -->
+            <div class="w-full sm:max-w-[25%]">
+                <div>
+                    <label for="price" class="">Price*</label>
+                    <div class="relative">
+                        <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                            placeholder="Enter item price" #price="ngModel" name="price" type="number"
+                            [(ngModel)]="createItemModel.price" required />
+                    </div>
+                </div>
+                <div *ngIf="price.touched && price.invalid" class="text-red-500 text-sm">
+                    Item name is required.
+                </div>
+            </div>
+
+            <div class="flex gap-2">
+                <!-- Quantity -->
+                <div class="w-full sm:max-w-[25%]">
+                    <div>
+                        <label for="quantity" class="">Quantity*</label>
+                        <div class="relative">
+                            <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                                placeholder="Enter item quantity" #quantity="ngModel" name="quantity" type="number"
+                                [(ngModel)]="createItemModel.quantity" required />
+                        </div>
+                    </div>
+                    <div *ngIf="price.touched && price.invalid" class="text-red-500 text-sm">
+                        Item quantity is required.
+                    </div>
+                </div>
+
+                <!-- Quantity unit -->
+                <div class="w-full sm:max-w-[25%]">
+                    <!-- <label for="quantityunit" class="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white">Select canteen type</label> -->
+                    <label for="quantity">Unit*</label>
+                    <select id="quantityunit" name="quantityunit" #quantityunit="ngModel"
+                        [(ngModel)]="createItemModel.quantityUnit"
+                        class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg">
+                        <option [ngValue]="FOOD_ITEM_QUANTITY_UNIT.NOT_SELECTED" selected>Choose unit</option>
+                        <option [ngValue]="FOOD_ITEM_QUANTITY_UNIT.PIECES">Piece</option>
+                        <option [ngValue]="FOOD_ITEM_QUANTITY_UNIT.GRAM">Gram</option>
+                    </select>
+                    <div *ngIf="quantityunit.touched && quantityunit.invalid" class="text-red-500 text-sm">
+                        Quantity unit is required.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Taste -->
+            <div class="w-full sm:max-w-[25%]">
+                <!-- <label for="quantityunit" class="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white">Select canteen type</label> -->
+                <label for="taste">Taste*</label>
+                <select id="taste" name="taste" #taste="ngModel"
+                    [(ngModel)]="createItemModel.taste"
+                    class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg">
+                    <option [ngValue]="FOOD_ITEM_TASTE.NOT_SELECTED" selected>Choose taste</option>
+                    <option [ngValue]="FOOD_ITEM_TASTE.NORMAL">Normal</option>
+                    <option [ngValue]="FOOD_ITEM_TASTE.SWEET">Sweet</option>
+                    <option [ngValue]="FOOD_ITEM_TASTE.SPICY">Spicy</option>
+                </select>
+                <div *ngIf="taste.touched && taste.invalid" class="text-red-500 text-sm">
+                    Quantity unit is required.
+                </div>
+            </div>
+
+            <!-- Type -->
+            <div class="w-full sm:max-w-[25%]">
+                <!-- <label for="quantityunit" class="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white">Select canteen type</label> -->
+                <label for="type">Type*</label>
+                <select id="type" name="type" #type="ngModel"
+                    [(ngModel)]="createItemModel.type"
+                    class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg">
+                    <option [ngValue]="FOOD_ITEM_TYPE.NOT_SELECTED" selected>Choose type</option>
+                    <option [ngValue]="FOOD_ITEM_TYPE.VEG">Veg</option>
+                    <option [ngValue]="FOOD_ITEM_TYPE.NON_VEG">Non veg</option>
+                </select>
+                <div *ngIf="taste.touched && taste.invalid" class="text-red-500 text-sm">
+                    Quantity unit is required.
+                </div>
+            </div>
+
+
+            <!-- upload image -->
+            <div>
+                <div class="mb-1">Upload image</div>
+                <div class="w-full flex gap-4">
+                    <div class="flex justify-center items-center border border-gray-400 rounded-md w-32 h-36">
+                        <img [src]="createItemModel.imageURL" class="rounded-md">
+                    </div>
+                    <div class="w-full flex flex-col-reverse">
+                        <div class="w-40">
+                            <app-primary-button [text]="'Upload Image'" [disabled]="isImageUploaded()"
+                                (onBtnClick)="onImageUploadBtnClick()" />
+                        </div>
+                        <div class="mb-6 flex gap-2" *ngIf="isImageUploaded()">
+                            <span class="text-gray-600">{{ uploadedImageFileName }}</span>
+                            <button class="p-1 rounded-full border bg-teal-700 hover:bg-teal-900 border-gray-500"
+                                (click)="removeImage()">
+                                <svg class="h-4 w-4 fill-white" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 384 512">
+                                    <path
+                                        d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <input class="hidden" type="file" name="itemImage" id="itemImage"
+                            [accept]="ACCEPTED_IMAGE_TYPE.join(',')" (change)="onImageSelect($event)" #itemImage>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Create button -->
+            <div class="flex justify-center">
+                <div>
+                    <app-primary-button [text]="getPageTitle()" [disabled]="!createItemModel.isValid()"
+                        (onBtnClick)="onCreateBtnClick()" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<app-popup [heading]="errorPopupHeading" [text]="errorPopupText" [showPopup]="showPopup" />

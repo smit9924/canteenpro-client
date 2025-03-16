@@ -33,3 +33,22 @@ export enum ITEM_LISTIN_TAB_TYPE {
   CATEGORIES = 1,
   ITEMS = 2
 }
+
+export enum FOOD_ITEM_TYPE {
+  NOT_SELECTED = 0,
+  VEG = 1,
+  NON_VEG = 2,
+}
+
+export enum FOOD_ITEM_TASTE {
+  NOT_SELECTED = 0,
+  NORMAL = 1,
+  SWEET = 2,
+  SPICY = 3,
+}
+
+export enum FOOD_ITEM_QUANTITY_UNIT {
+  NOT_SELECTED = 0,
+  PIECES = 1,
+  GRAM = 2
+}

@@ -39,12 +39,12 @@ const UPDATE_SUCCESSFULLY_TOAST_DATA: IToastEventData = {
   styleUrl: './create-category.component.scss'
 })
 export class CreateCategoryComponent implements OnInit {
+  @ViewChild('categoryImage') categoryImage!: ElementRef;
   public ACCEPTED_IMAGE_TYPE = ACCEPTED_IMAGE_TYPE;
   public showPopup: EventEmitter<boolean> = new EventEmitter<boolean>;
   public errorPopupHeading: string = "Error!";
   public errorPopupText: string = "";
   public createCategoryModel: CreateCategotyModel = new CreateCategotyModel();
-  @ViewChild('categoryImage') categoryImage!: ElementRef;
 
   constructor(
     private router: Router,

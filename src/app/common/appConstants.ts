@@ -23,6 +23,7 @@ export const QUERY_PARAM_KEY_GUID = 'guid';
 export const QUERY_PARAM_ROLE = 'role';
 
 // File upload
+export const UPLOAD_IMAGE_DEFAULT_URL = '/assets/images/upload-image-incognito.jpg';
 export const BUCKET_BASE_URL = "https://storage.googleapis.com/";
 export const BUCKET_NAME = "walkinportal-fe11c.appspot.com/";
 export const FILE_UPLOAD_URL = BUCKET_BASE_URL + BUCKET_NAME;

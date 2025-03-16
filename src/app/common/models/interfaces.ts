@@ -1,4 +1,4 @@
-import { TOAST_TYPE, USER_ROLES } from "../appEnums";
+import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TASTE, FOOD_ITEM_TYPE, TOAST_TYPE, USER_ROLES } from "../appEnums";
 
 // JWT token decoded information
 export interface IJwtDecodedData {
@@ -86,8 +86,26 @@ export interface ICategoryListing {
 }
 
 export interface IItemListing {
-  categoryName: string;
   guid: string;
+  itemName: string;
+  quantity: number;
+  quantityUnit: FOOD_ITEM_QUANTITY_UNIT;
+  price: number;
+  type: FOOD_ITEM_TYPE;
   dateCreated: string;
   dateEdited: string;
+}
+
+export interface ICreateItemModel {
+  guid?: string;
+  isEditMode?: boolean;
+  itemName: string;
+  description: string;
+  quantity: number;
+  quantityUnit: FOOD_ITEM_QUANTITY_UNIT;
+  type: FOOD_ITEM_TYPE;
+  taste: FOOD_ITEM_TASTE;
+  price: number;
+  imageURL?: string;
+  imageData?: IMediaDataModel;
 }
