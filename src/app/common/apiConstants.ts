@@ -20,3 +20,4 @@ export const API_CATEGORY_CRUD = API_FOOD_MANAGEMENT_CRUD + "category";
 export const API_CATEGORY_LISTING = API_FOOD_MANAGEMENT_CRUD + "category/listing";
 export const API_FOOD_ITEM_CRUD = API_FOOD_MANAGEMENT_CRUD + "item";
 export const API_FOOD_ITEM_LISTING = API_FOOD_MANAGEMENT_CRUD + "item/listing";
+export const API_MENU_ITEMS = API_FOOD_MANAGEMENT_CRUD + "menu";

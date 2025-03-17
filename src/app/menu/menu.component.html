@@ -1,0 +1,82 @@
+<div class="bg-gray-50 font-sans mt-16">
+    <!-- Menu Categories Navigation -->
+    <div class="bg-white shadow-md sticky top-0 z-5">
+        <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto py-4 scrollbar-hide">
+                <button
+                    class="px-6 py-2 mx-2 bg-teal-400 text-white rounded-full shadow-md hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-300 transition">All</button>
+                <button
+                    class="px-6 py-2 mx-2 bg-white text-teal-500 rounded-full shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-300 transition">Appetizers</button>
+                <button
+                    class="px-6 py-2 mx-2 bg-white text-teal-500 rounded-full shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-300 transition">Main
+                    Course</button>
+                <button
+                    class="px-6 py-2 mx-2 bg-white text-teal-500 rounded-full shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-300 transition">Desserts</button>
+                <button
+                    class="px-6 py-2 mx-2 bg-white text-teal-500 rounded-full shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-300 transition">Drinks</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Items Grid -->
+    <div class="container mx-auto py-10 px-4">
+        <h2 class="text-3xl font-bold mb-8 text-gray-800 border-b-2 border-teal-300 pb-2">Today's Special</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+            <!-- Menu Item -->
+            <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                *ngFor="let item of menuItems">
+                <div class="h-56 overflow-hidden relative">
+                    <img [src]="getImageURL(item?.imageData)" alt="Grilled Salmon"
+                        class="w-full h-full object-cover transition duration-300 transform hover:scale-105">
+                    <span class="absolute top-0 right-0 bg-teal-400 text-white px-3 py-1 rounded-bl-lg font-medium">{{
+                        getItemQuantityWithUnit(item.quantity, item.quantityUnit) }}</span>
+
+                    <!-- Creative Veg/Non-Veg Symbol -->
+                    <div class="absolute bottom-0 left-0">
+                        <!-- Vegetarian Symbol -->
+                        <div *ngIf="item.type == FOOD_ITEM_TYPE.VEG"
+                            class="flex items-center justify-center bg-white bg-opacity-90 rounded-tr-lg px-3 py-1 shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="w-5 h-5 text-green-600 mr-1">
+                                <path fill="currentColor"
+                                    d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+                            </svg>
+                            <span class="text-sm font-medium text-green-600">Veg</span>
+                        </div>
+
+                        <!-- Non-Vegetarian Symbol -->
+                        <div *ngIf="item.type == FOOD_ITEM_TYPE.NON_VEG"
+                            class="flex items-center justify-center bg-white bg-opacity-90 rounded-tr-lg px-3 py-1 shadow-md">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                class="w-5 h-5 text-red-600 mr-1">
+                                <path fill="currentColor"
+                                    d="M8.3,10.2C8.3,10.2 8,10.7 8,12C8,13.3 8.3,13.7 8.3,13.7C8.3,13.7 9.3,14 11,14C12.7,14 13.7,13.7 13.7,13.7C13.7,13.7 14,13.3 14,12C14,10.7 13.7,10.2 13.7,10.2C13.7,10.2 12.7,10 11,10C9.3,10 8.3,10.2 8.3,10.2M18,8C18,8 17,11 17,13C17,15 18,16 18,16L17,17C15.8,17 15,16.1 15,15H13V19H11V15H9C9,16.1 8.2,17 7,17L6,16C6,16 7,15 7,13C7,11 6,8 6,8C6,8 9,8 11,8C13,8 18,8 18,8Z" />
+                            </svg>
+                            <span class="text-sm font-medium text-red-600">Non-Veg</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">{{ item.itemName }}</h3>
+                    <p class="text-gray-600 mb-4 h-12 overflow-hidden">{{ item.description }}</p>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-xl font-bold text-teal-500">${{item.price}}</span>
+                        <button
+                            class="bg-teal-400 text-white px-4 py-2 rounded shadow hover:bg-teal-500 transition">Order
+                            Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <!-- <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>© 2025 Delicious Eats Restaurant. All rights reserved.</p>
+      <p class="mt-2">123 Tasty Street, Foodville, FC 12345</p>
+    </div>
+  </footer> -->
+</div>
