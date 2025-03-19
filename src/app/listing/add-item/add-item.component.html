@@ -91,8 +91,7 @@
             <div class="w-full sm:max-w-[25%]">
                 <!-- <label for="quantityunit" class="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white">Select canteen type</label> -->
                 <label for="taste">Taste*</label>
-                <select id="taste" name="taste" #taste="ngModel"
-                    [(ngModel)]="createItemModel.taste"
+                <select id="taste" name="taste" #taste="ngModel" [(ngModel)]="createItemModel.taste"
                     class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg">
                     <option [ngValue]="FOOD_ITEM_TASTE.NOT_SELECTED" selected>Choose taste</option>
                     <option [ngValue]="FOOD_ITEM_TASTE.NORMAL">Normal</option>
@@ -108,8 +107,7 @@
             <div class="w-full sm:max-w-[25%]">
                 <!-- <label for="quantityunit" class="hidden mb-2 text-sm font-medium text-gray-900 dark:text-white">Select canteen type</label> -->
                 <label for="type">Type*</label>
-                <select id="type" name="type" #type="ngModel"
-                    [(ngModel)]="createItemModel.type"
+                <select id="type" name="type" #type="ngModel" [(ngModel)]="createItemModel.type"
                     class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg">
                     <option [ngValue]="FOOD_ITEM_TYPE.NOT_SELECTED" selected>Choose type</option>
                     <option [ngValue]="FOOD_ITEM_TYPE.VEG">Veg</option>
@@ -117,6 +115,47 @@
                 </select>
                 <div *ngIf="taste.touched && taste.invalid" class="text-red-500 text-sm">
                     Quantity unit is required.
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div>
+                <div class="flex justify-between items-center mb-1">
+                    <label class="block text-sm font-medium text-gray-700">Categories*</label>
+                </div>
+                <div
+                    class="border border-gray-300 rounded-md p-3 bg-white focus-within:ring-2 focus-within:ring-teal-400">
+                    <!-- Selected Categories as Chips -->
+                    <div class="flex flex-wrap gap-2 mb-2">
+                        <!-- Categories chips -->
+                        <div class="flex items-center bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm"
+                            *ngFor="let category of selectedCategoryListingData">
+                            <span>{{ category.categoryName }}</span>
+                            <button type="button" class="ml-1 text-teal-600 hover:text-teal-800 focus:outline-none"
+                                (click)="removeCategory(category.guid)">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Add Category Button -->
+                    <button type="button"
+                        class="text-teal-500 hover:text-teal-600 font-medium text-sm flex items-center focus:outline-none transition mt-4"
+                        cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="isOpen = !isOpen">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Select Categories
+                    </button>
+                    <p class="mt-1 text-xs text-gray-500">Click to select categories from the list</p>
+                </div>
+                <div>
+                    <span class="text-red-500 text-xs" *ngIf="selectedCategoryListingData.length == 0 && false">This field is required</span>
                 </div>
             </div>
 
@@ -162,3 +201,19 @@
 </div>
 
 <app-popup [heading]="errorPopupHeading" [text]="errorPopupText" [showPopup]="showPopup" />
+
+
+<ng-template cdkConnectedOverlay 
+  [cdkConnectedOverlayOrigin]="trigger" 
+  [cdkConnectedOverlayOpen]="isOpen"
+  [cdkConnectedOverlayWidth]="'100%'"
+  [cdkConnectedOverlayHeight]="'100%'"
+  [cdkConnectedOverlayPositions]="positions"
+  (backdropClick)="isOpen = false">
+  <div class="fixed inset-0 bg-gray-100 z-1">
+    <app-food-items-listing
+        [selectCategoryOverlay]="true"
+        [selectedCategoryListingData]="createItemModel.categories"
+        (selectOrCancelCategoryEvent)="detachSelectCategoryOverlay($event)" />
+  </div>
+</ng-template>

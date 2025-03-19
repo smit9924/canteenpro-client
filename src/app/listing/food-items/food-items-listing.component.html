@@ -1,5 +1,6 @@
 <div id="parentElement" #parentElement>
-    <nav class="bg-gray-700 p-4 shadow-xl rounded-b-lg mt-16">
+    <nav class="bg-gray-700 p-4 shadow-xl rounded-b-lg"
+        [ngClass]="{'mt-0': selectCategoryOverlay, 'mt-16': !selectCategoryOverlay}">
         <div class="container mx-auto flex justify-center">
             <h1 class="text-white text-xl tracking-wide drop-shadow-md capitalize">Food Item Management</h1>
         </div>
@@ -7,14 +8,19 @@
 
     <div class="p-6">
         <!-- Action buttons -->
-        <div class="mb-6 flex justify-end gap-4">
+        <div class="mb-6 flex justify-end gap-4" *ngIf="!selectCategoryOverlay">
             <app-primary-button [text]="'Add Item'" (onBtnClick)="redirectToAdditem()" class="shadow-md" />
             <app-primary-button [text]="'Create Category'" (onBtnClick)="redirectToCreateCategory()"
                 class="shadow-md" />
         </div>
 
+        <!-- Action buttons -->
+        <div class="mb-6 flex justify-end gap-4" *ngIf="selectCategoryOverlay">
+            <app-primary-button [text]="'Select Categories'" class="shadow-md" (onBtnClick)="addOrCancelButtonClick()" />
+        </div>
+
         <!-- Tabs -->
-        <div class="w-full rounded-lg shadow-md">
+        <div class="w-full rounded-lg shadow-md" *ngIf="!selectCategoryOverlay">
             <!-- Tab Navigation -->
             <div class="flex w-full mb-2">
                 <button id="categories-tab"
@@ -66,8 +72,9 @@
 
         <!-- Listing Table -->
         <div class="rounded-lg border border-gray-300 shadow-lg">
-            <div class="flex justify-between items-center bg-gray-100 px-4 py-3 rounded-t-lg border-b border-gray-300">
-                <app-primary-button [text]="'DELETE'" class="shadow-md" />
+            <div class="flex justify-between items-center bg-gray-100 px-4 py-3 rounded-t-lg border-b border-gray-300"
+                [ngClass]="{'flex-row-reverse': selectCategoryOverlay}">
+                <app-primary-button [text]="'DELETE'" class="shadow-md" *ngIf="!selectCategoryOverlay" />
 
                 <!-- Top Pagination -->
                 <div class="flex items-center gap-2">
@@ -107,7 +114,8 @@
                     <tbody class="divide-y divide-gray-300">
                         <tr *ngFor="let category of categoryListingData">
                             <td class="px-4 py-4 text-center border-r border-gray-300">
-                                <input type="checkbox" class="w-5 h-5 hover:cursor-pointer shadow-md">
+                                <input type="checkbox" class="w-5 h-5 hover:cursor-pointer shadow-md" (change)="categoryCheckBoxChange($event, category.guid)"
+                                    [checked]="isCategorySelected(category.guid)">
                             </td>
                             <td class="px-4 py-4 font-medium text-gray-900 border-r border-gray-300">{{
                                 category.categoryName }}</td>

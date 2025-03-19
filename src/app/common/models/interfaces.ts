@@ -108,4 +108,5 @@ export interface ICreateItemModel {
   price: number;
   imageURL?: string;
   imageData?: IMediaDataModel;
+  categories: ICategoryListing[];
 }

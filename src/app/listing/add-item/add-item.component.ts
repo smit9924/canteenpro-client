@@ -10,9 +10,11 @@ import { CreateItemModel } from '../../common/models/create-item-model';
 import { isNullOrEmpty, isNullOrUndefined } from '../../common/utils';
 import { CATEGORY_AND_ITEM_LISTING_PAGE, FILE_UPLOAD_URL, IMAGE_FILE_DIRECTORTY, QUERY_PARAM_KEY_GUID } from '../../common/appConstants';
 import { PreLoaderService } from '../../services/pre-loader.service';
-import { IAPIResponse, ICreateItemModel, IToastEventData } from '../../common/models/interfaces';
+import { IAPIResponse, ICategoryListing, ICreateItemModel, IToastEventData } from '../../common/models/interfaces';
 import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TASTE, FOOD_ITEM_TYPE, TOAST_TYPE } from '../../common/appEnums';
 import { API_FOOD_ITEM_CRUD } from '../../common/apiConstants';
+import { ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
+import { FoodItemsListingComponent } from '../food-items/food-items-listing.component';
 
 const DEFAULT_IMAGE_URL = '/assets/images/upload-image-incognito.jpg';
 const ACCEPTED_IMAGE_TYPE = ['.jpg', '.jpeg', '.png'];
@@ -34,7 +36,9 @@ const UPDATE_SUCCESSFULLY_TOAST_DATA: IToastEventData = {
     CommonModule,
     FormsModule,
     PrimaryButtonComponent,
-    PopupComponent
+    PopupComponent,
+    OverlayModule,
+    FoodItemsListingComponent
   ],
   templateUrl: './add-item.component.html',
   styleUrl: './add-item.component.scss'
@@ -49,6 +53,15 @@ export class AddItemComponent implements OnInit {
   public errorPopupHeading: string = "Error!";
   public errorPopupText: string = "";
   public createItemModel: CreateItemModel = new CreateItemModel();
+  public isOpen: boolean = false;
+  public positions: ConnectedPosition[] = [
+    {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'start',
+      overlayY: 'top',
+    }
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -179,5 +192,14 @@ export class AddItemComponent implements OnInit {
         console.error(e);
         this.preloaderService.hide();
       });
+  }
+
+  public detachSelectCategoryOverlay(event: any): void {
+    this.isOpen = false;
+    this.createItemModel.categories = event;
+  }
+
+  public removeCategory(guid: string) {
+    this.createItemModel.categories = this.createItemModel.categories.filter( category => category.guid !== guid);
   }
 }

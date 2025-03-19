@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { PrimaryButtonComponent } from '../../common/components/button/primary-button/primary-button.component';
 import { DataService } from '../../services/data.service';
 import { PreLoaderService } from '../../services/pre-loader.service';
@@ -33,9 +33,13 @@ const ITEM_DELETED_SUCCESS_TOAST_DATA: IToastEventData = {
   styleUrl: './food-items-listing.component.scss'
 })
 export class FoodItemsListingComponent implements OnInit {
+  @Input() selectCategoryOverlay: boolean = false;
+  @Input() selectedCategoryListingData: ICategoryListing[] = [];
+  @Output() selectOrCancelCategoryEvent: EventEmitter<ICategoryListing[]> = new EventEmitter();
   @ViewChild('parentElement') parentElement!: ElementRef;
   public ITEM_LISTIN_TAB_TYPE = ITEM_LISTIN_TAB_TYPE;
   public categoryListingData: ICategoryListing[] = [];
+  // private selectedCategoryListingData: ICategoryListing[] = [];
   public itemListingData: IItemListing[] = [];
   public errorPopupHeading: string = "Error!";
   public errorPopupText: string = "";
@@ -220,5 +224,31 @@ export class FoodItemsListingComponent implements OnInit {
 
   public redirectToCreateCategory(): void {
     this.router.navigateByUrl(CREATE_CATEGORY_PAGE);
+  }
+
+  public categoryCheckBoxChange(event: any, guid: string) {
+    const selectedCategory = this.categoryListingData.find(category => {
+      return category.guid === guid
+    });
+
+    if(!selectedCategory)
+      return;
+
+    if(event.target.checked) {
+      this.selectedCategoryListingData.push(selectedCategory);
+    } else {
+      this.selectedCategoryListingData = this.selectedCategoryListingData.filter(category => {
+        return category.guid !== guid;
+      })
+    }
+  }
+
+  public addOrCancelButtonClick() {
+    this.selectOrCancelCategoryEvent.emit(this.selectedCategoryListingData);
+  }
+
+  public isCategorySelected(guid: string): boolean {
+    const selectedCategory = this.selectedCategoryListingData.filter(category => category.guid === guid);
+    return selectedCategory.length > 0;
   }
 }
