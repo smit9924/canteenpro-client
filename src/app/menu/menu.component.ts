@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { ToastService } from '../services/toast.service';
 import { PreLoaderService } from '../services/pre-loader.service';
-import { IAPIResponse, ICreateItemModel, IMediaDataModel } from '../common/models/interfaces';
-import { API_MENU_ITEMS } from '../common/apiConstants';
-import { FILE_UPLOAD_URL, IMAGE_FILE_DIRECTORTY } from '../common/appConstants';
+import { IAPIResponse, ICreateItemModel, IMediaDataModel, IMenuCategories } from '../common/models/interfaces';
+import { API_MENU_CATEGORY, API_MENU_ITEMS } from '../common/apiConstants';
+import { FILE_UPLOAD_URL, IMAGE_FILE_DIRECTORTY, QUERY_PARAM_CATEGORY, QUERY_PARAM_KEY_GUID } from '../common/appConstants';
 import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TYPE } from '../common/appEnums';
+
+const CATEGORY_ALL = "ALL";
 
 @Component({
   selector: 'app-menu',
@@ -18,21 +20,28 @@ import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TYPE } from '../common/appEnums';
   styleUrl: './menu.component.scss'
 })
 export class MenuComponent implements OnInit {
-  public FOOD_ITEM_TYPE = FOOD_ITEM_TYPE
+  public FOOD_ITEM_TYPE = FOOD_ITEM_TYPE;
+  public CATEGORY_ALL = CATEGORY_ALL;
   public menuItems: ICreateItemModel[] = [];
+  public currentCategory: string = CATEGORY_ALL;
+  public categories: IMenuCategories[] = [];
 
   constructor(
     private dataService: DataService,
     private toastService: ToastService,
     private preloaderService: PreLoaderService
-  ) {}
+  ) { }
 
   public ngOnInit(): void {
-    this.fetchMenuData();
+    // Fetch food categories
+    this.fetchCategories();
+
+    // Fetch food items
+    this.fetchCategoryMenuItems();
   }
 
   public getImageURL(imageData: IMediaDataModel | undefined): string {
-    if(imageData) {
+    if (imageData) {
       const imageURL = FILE_UPLOAD_URL + IMAGE_FILE_DIRECTORTY + imageData.guid + '.' + imageData.extension;
       return imageURL;
     }
@@ -41,30 +50,60 @@ export class MenuComponent implements OnInit {
 
   public getItemQuantityWithUnit(quantity: number, unitType: FOOD_ITEM_QUANTITY_UNIT): string {
     let quantityWithUnit = `${quantity} `;
-    switch(unitType) {
+    switch (unitType) {
       case FOOD_ITEM_QUANTITY_UNIT.PIECES:
         quantityWithUnit += 'pcs.';
         break;
       case FOOD_ITEM_QUANTITY_UNIT.GRAM:
         quantityWithUnit += 'gm';
         break;
+      case FOOD_ITEM_QUANTITY_UNIT.MILLI_LITER:
+        quantityWithUnit += 'ml';
+        break;
     }
 
     return quantityWithUnit;
   }
 
-  private fetchMenuData(): void {
-    this.preloaderService.show();
+  public changeCategory(guid: string): void {
+    this.currentCategory = guid;
+    this.fetchCategoryMenuItems();
+  }
 
-    this.dataService.get(API_MENU_ITEMS)
+  private fetchCategories(): void {
+    this.preloaderService.show();
+    this.dataService.get(API_MENU_CATEGORY)
+      .then((response: IAPIResponse<IMenuCategories[]>) => {
+        if (!response.success) {
+          throw new Error();
+        }
+        this.categories = response.data;
+        this.preloaderService.hide();
+      })
+      .catch((e) => {
+        console.error(e);
+        this.preloaderService.hide();
+      });
+  }
+
+
+  private fetchCategoryMenuItems(): void {
+    this.preloaderService.show();
+    let URL = API_MENU_ITEMS;
+
+    // Attach category GUID
+    if(this.currentCategory !== CATEGORY_ALL) {
+      URL += `?${QUERY_PARAM_CATEGORY}=${this.currentCategory}`;
+    }
+
+    this.dataService.get(URL)
       .then((response: IAPIResponse<ICreateItemModel[]>) => {
-        if(!response.success) {
+        if (!response.success) {
           throw new Error("");
         }
         this.menuItems = response.data;
-        console.log(this.menuItems)
         this.preloaderService.hide();
-      } )
+      })
       .catch((e) => {
         console.error(e);
         this.preloaderService.hide();

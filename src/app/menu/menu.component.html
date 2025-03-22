@@ -3,17 +3,26 @@
     <div class="bg-white shadow-md sticky top-0 z-5">
         <div class="container mx-auto px-4">
             <div class="flex overflow-x-auto py-4 scrollbar-hide">
+                <!-- All items button -->
                 <button
-                    class="px-6 py-2 mx-2 bg-teal-400 text-white rounded-full shadow-md hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-300 transition">All</button>
+                    class="px-6 py-2 mx-2 whitespace-nowrap rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-teal-300 transition"
+                    [ngClass]="{'bg-teal-400 text-white hover:bg-teal-500': currentCategory === CATEGORY_ALL,
+                    'bg-white text-teal-500 hover:bg-gray-100': currentCategory !== CATEGORY_ALL}"
+                    (click)="changeCategory(CATEGORY_ALL)"
+                    id="{{CATEGORY_ALL}}">
+                    All
+                </button>
+
+                <!-- Categories -->
                 <button
-                    class="px-6 py-2 mx-2 bg-white text-teal-500 rounded-full shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-300 transition">Appetizers</button>
-                <button
-                    class="px-6 py-2 mx-2 bg-white text-teal-500 rounded-full shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-300 transition">Main
-                    Course</button>
-                <button
-                    class="px-6 py-2 mx-2 bg-white text-teal-500 rounded-full shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-300 transition">Desserts</button>
-                <button
-                    class="px-6 py-2 mx-2 bg-white text-teal-500 rounded-full shadow hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-teal-300 transition">Drinks</button>
+                    class="px-6 py-2 mx-2 whitespace-nowrap rounded-full shadow focus:outline-none focus:ring-2 focus:ring-teal-300 transition"
+                    [ngClass]="{'bg-teal-400 text-white hover:bg-teal-500': currentCategory === category.guid,
+                    'bg-white text-teal-500 hover:bg-gray-100': currentCategory !== category.guid}"
+                    *ngFor="let category of categories"
+                    (click)="changeCategory(category.guid)"
+                    id="category.guid">
+                    {{ category.name }}
+                </button>
             </div>
         </div>
     </div>
@@ -62,7 +71,7 @@
                     <h3 class="text-xl font-bold text-gray-800 mb-2">{{ item.itemName }}</h3>
                     <p class="text-gray-600 mb-4 h-12 overflow-hidden">{{ item.description }}</p>
                     <div class="flex justify-between items-center mt-4">
-                        <span class="text-xl font-bold text-teal-500">${{item.price}}</span>
+                        <span class="text-xl font-bold text-teal-500">&#x20B9;{{item.price}}</span>
                         <button
                             class="bg-teal-400 text-white px-4 py-2 rounded shadow hover:bg-teal-500 transition">Order
                             Now</button>

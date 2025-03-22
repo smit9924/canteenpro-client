@@ -115,3 +115,9 @@ export interface ICreateItemModel {
   imageData?: IMediaDataModel;
   categories: IFoodItemsCategories[];
 }
+
+export interface IMenuCategories {
+  guid: string,
+  name: string,
+  description: string,
+}

@@ -21,6 +21,7 @@ export const INPUT_FIELD_TYPE_PASSWORD = "password";
 // Query parameters related constants
 export const QUERY_PARAM_KEY_GUID = 'guid';
 export const QUERY_PARAM_ROLE = 'role';
+export const QUERY_PARAM_CATEGORY = 'category';
 
 // File upload
 export const UPLOAD_IMAGE_DEFAULT_URL = '/assets/images/upload-image-incognito.jpg';
