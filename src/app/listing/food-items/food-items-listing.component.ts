@@ -3,7 +3,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { PrimaryButtonComponent } from '../../common/components/button/primary-button/primary-button.component';
 import { DataService } from '../../services/data.service';
 import { PreLoaderService } from '../../services/pre-loader.service';
-import { IAPIResponse, ICategoryListing, IItemListing, IToastEventData, IUserListing } from '../../common/models/interfaces';
+import { IAPIResponse, ICategoryListing, IFoodItemsCategories, IItemListing, IToastEventData, IUserListing } from '../../common/models/interfaces';
 import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TYPE, ITEM_LISTIN_TAB_TYPE, TOAST_TYPE } from '../../common/appEnums';
 import { ToastService } from '../../services/toast.service';
 import { API_CATEGORY_CRUD, API_CATEGORY_LISTING, API_FOOD_ITEM_CRUD, API_FOOD_ITEM_LISTING } from '../../common/apiConstants';
@@ -34,12 +34,11 @@ const ITEM_DELETED_SUCCESS_TOAST_DATA: IToastEventData = {
 })
 export class FoodItemsListingComponent implements OnInit {
   @Input() selectCategoryOverlay: boolean = false;
-  @Input() selectedCategoryListingData: ICategoryListing[] = [];
-  @Output() selectOrCancelCategoryEvent: EventEmitter<ICategoryListing[]> = new EventEmitter();
+  @Input() selectedCategoryListingData: IFoodItemsCategories[] = [];
+  @Output() selectOrCancelCategoryEvent: EventEmitter<IFoodItemsCategories[]> = new EventEmitter();
   @ViewChild('parentElement') parentElement!: ElementRef;
   public ITEM_LISTIN_TAB_TYPE = ITEM_LISTIN_TAB_TYPE;
   public categoryListingData: ICategoryListing[] = [];
-  // private selectedCategoryListingData: ICategoryListing[] = [];
   public itemListingData: IItemListing[] = [];
   public errorPopupHeading: string = "Error!";
   public errorPopupText: string = "";
@@ -199,6 +198,9 @@ export class FoodItemsListingComponent implements OnInit {
       case FOOD_ITEM_QUANTITY_UNIT.GRAM:
         suffix = "gm"
         break;
+      case FOOD_ITEM_QUANTITY_UNIT.MILLI_LITER:
+        suffix = "ml"
+        break;
     }
 
     return `${quantity} ${suffix}`;
@@ -235,7 +237,10 @@ export class FoodItemsListingComponent implements OnInit {
       return;
 
     if(event.target.checked) {
-      this.selectedCategoryListingData.push(selectedCategory);
+      this.selectedCategoryListingData.push({
+        categoryName: selectedCategory.categoryName,
+        guid: selectedCategory.guid
+      });
     } else {
       this.selectedCategoryListingData = this.selectedCategoryListingData.filter(category => {
         return category.guid !== guid;

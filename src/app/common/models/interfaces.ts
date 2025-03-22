@@ -85,6 +85,11 @@ export interface ICategoryListing {
   dateEdited: string;
 }
 
+export interface IFoodItemsCategories {
+  categoryName: string;
+  guid: string;
+}
+
 export interface IItemListing {
   guid: string;
   itemName: string;
@@ -108,5 +113,5 @@ export interface ICreateItemModel {
   price: number;
   imageURL?: string;
   imageData?: IMediaDataModel;
-  categories: ICategoryListing[];
+  categories: IFoodItemsCategories[];
 }

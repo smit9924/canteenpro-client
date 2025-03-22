@@ -50,5 +50,6 @@ export enum FOOD_ITEM_TASTE {
 export enum FOOD_ITEM_QUANTITY_UNIT {
   NOT_SELECTED = 0,
   PIECES = 1,
-  GRAM = 2
+  GRAM = 2,
+  MILLI_LITER = 3
 }

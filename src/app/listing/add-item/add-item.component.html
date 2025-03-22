@@ -80,6 +80,7 @@
                         <option [ngValue]="FOOD_ITEM_QUANTITY_UNIT.NOT_SELECTED" selected>Choose unit</option>
                         <option [ngValue]="FOOD_ITEM_QUANTITY_UNIT.PIECES">Piece</option>
                         <option [ngValue]="FOOD_ITEM_QUANTITY_UNIT.GRAM">Gram</option>
+                        <option [ngValue]="FOOD_ITEM_QUANTITY_UNIT.MILLI_LITER">Milli Liter (ml)</option>
                     </select>
                     <div *ngIf="quantityunit.touched && quantityunit.invalid" class="text-red-500 text-sm">
                         Quantity unit is required.
@@ -129,7 +130,7 @@
                     <div class="flex flex-wrap gap-2 mb-2">
                         <!-- Categories chips -->
                         <div class="flex items-center bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm"
-                            *ngFor="let category of selectedCategoryListingData">
+                            *ngFor="let category of createItemModel.categories">
                             <span>{{ category.categoryName }}</span>
                             <button type="button" class="ml-1 text-teal-600 hover:text-teal-800 focus:outline-none"
                                 (click)="removeCategory(category.guid)">
@@ -155,7 +156,7 @@
                     <p class="mt-1 text-xs text-gray-500">Click to select categories from the list</p>
                 </div>
                 <div>
-                    <span class="text-red-500 text-xs" *ngIf="selectedCategoryListingData.length == 0 && false">This field is required</span>
+                    <span class="text-red-500 text-xs" *ngIf="createItemModel.categories.length == 0 && false">This field is required</span>
                 </div>
             </div>
 

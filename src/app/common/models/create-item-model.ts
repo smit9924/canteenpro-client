@@ -1,7 +1,7 @@
 import { FILE_UPLOAD_URL, IMAGE_FILE_DIRECTORTY, UPLOAD_IMAGE_DEFAULT_URL } from "../appConstants";
 import { CANTEEN_TYPE, FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TASTE, FOOD_ITEM_TYPE } from "../appEnums";
 import { isNullOrEmpty } from "../utils";
-import { ICategoryListing, ICreateItemModel } from "./interfaces";
+import { ICreateItemModel, IFoodItemsCategories } from "./interfaces";
 import { MediaDataModel } from "./media-data-model";
 
 export class CreateItemModel {
@@ -16,7 +16,7 @@ export class CreateItemModel {
     public price: number;
     public imageURL: string;
     public imageData: MediaDataModel;
-    public categories: ICategoryListing[];
+    public categories: IFoodItemsCategories[];
 
     constructor() {
         this.guid = "";
