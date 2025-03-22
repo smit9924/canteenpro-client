@@ -22,6 +22,7 @@ import { FoodItemsListingComponent } from './listing/food-items/food-items-listi
 import { CreateCategoryComponent } from './listing/create-category/create-category.component';
 import { AddItemComponent } from './listing/add-item/add-item.component';
 import { MenuComponent } from './menu/menu.component';
+import { CartComponent } from './cart/cart.component';
 
 export const routes: Routes = [
     { 
@@ -80,6 +81,14 @@ export const routes: Routes = [
     { 
         path: 'food-items/menu', 
         component: MenuComponent,
+        canActivate: [authActicvationGuard],
+        data: {
+            allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER, USER_ROLES.CASHIER, USER_ROLES.KITCHENER, USER_ROLES.WAITER]
+        }
+    },
+    { 
+        path: 'food-items/cart', 
+        component: CartComponent,
         canActivate: [authActicvationGuard],
         data: {
             allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER, USER_ROLES.CASHIER, USER_ROLES.KITCHENER, USER_ROLES.WAITER]

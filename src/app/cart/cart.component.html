@@ -1,0 +1,277 @@
+<!-- Checkout Page Container -->
+<div class="bg-gray-50 min-h-screen pb-20 mt-16">
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="text-2xl font-bold mb-6 text-gray-800 text-center sm:text-left">Your Order</div>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Cart Items Column -->
+            <div class="md:col-span-2">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center sm:text-left">Cart Items</h2>
+
+                    <!-- Cart Items List -->
+                    <div class="bg-gray-100 p-6 flex justify-center">
+                        <div class="w-full max-w-md bg-white rounded-lg shadow-md overflow-hidden">
+                            <!-- Food Item Card -->
+                            <div class="p-4 border-b border-gray-200">
+                                <div class="flex">
+                                    <!-- Food Image -->
+                                    <div
+                                        class="relative w-24 h-24 hidden sm:flex items-center justify-center border border-gray-400 rounded-md overflow-hidden mr-4 flex-shrink-0">
+                                        <img src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                            alt="Food Item" class="max-h-24 max-w-24 object-cover" />
+                                    </div>
+
+                                    <!-- Details -->
+                                    <div class="flex-grow">
+                                        <div class="flex justify-between items-start">
+                                            <h3 class="font-bold text-lg text-gray-800">Paneer Tikka</h3>
+                                            <!-- Item type Symbols -->
+                                            <div>
+                                                <!-- Vegetarian Symbol -->
+                                                <div *ngIf="false"
+                                                    class="flex items-center justify-center bg-green-100 rounded-bl-lg px-3 py-1 shadow-md">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                        class="w-5 h-5 text-green-600 mr-1">
+                                                        <path fill="currentColor"
+                                                            d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z" />
+                                                    </svg>
+                                                    <span class="text-sm font-medium text-green-600">Veg</span>
+                                                </div>
+
+                                                <!-- Non-Vegetarian Symbol -->
+                                                <div *ngIf="true"
+                                                    class="flex items-center justify-center bg-red-100 bg-opacity-90 rounded-bl-lg px-3 py-1 shadow-md">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                        class="w-5 h-5 text-red-600 mr-1">
+                                                        <path fill="currentColor"
+                                                            d="M8.3,10.2C8.3,10.2 8,10.7 8,12C8,13.3 8.3,13.7 8.3,13.7C8.3,13.7 9.3,14 11,14C12.7,14 13.7,13.7 13.7,13.7C13.7,13.7 14,13.3 14,12C14,10.7 13.7,10.2 13.7,10.2C13.7,10.2 12.7,10 11,10C9.3,10 8.3,10.2 8.3,10.2M18,8C18,8 17,11 17,13C17,15 18,16 18,16L17,17C15.8,17 15,16.1 15,15H13V19H11V15H9C9,16.1 8.2,17 7,17L6,16C6,16 7,15 7,13C7,11 6,8 6,8C6,8 9,8 11,8C13,8 18,8 18,8Z" />
+                                                    </svg>
+                                                    <span class="text-sm font-medium text-red-600">Non-Veg</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-1 text-sm text-gray-500">Marinated cottage cheese cubes grilled
+                                            to perfection</div>
+
+                                        <div class="mt-2 flex justify-between items-center">
+                                            <div class="font-semibold text-gray-900">₹249.00</div>
+
+                                            <!-- Quantity Selector -->
+                                            <div
+                                                class="flex items-center border border-gray-300 rounded-md overflow-hidden">
+                                                <button
+                                                    class="bg-gray-100 px-2 py-1 hover:bg-gray-200 text-gray-700">-</button>
+                                                <div class="px-3 py-1 border-l border-r border-gray-300 font-medium">2
+                                                </div>
+                                                <button
+                                                    class="bg-gray-100 px-2 py-1 hover:bg-gray-200 text-gray-700">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Total Price Section -->
+                                <div class="mt-4 pt-3 border-t border-gray-200 flex justify-between items-center">
+                                    <div class="text-sm text-gray-500">
+                                        <span class="font-medium">2</span> × ₹249.00
+                                    </div>
+                                    <div class="text-lg font-bold text-teal-600">
+                                        ₹498.00
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Non-veg example card -->
+                        <div class="w-full max-w-md bg-white rounded-lg shadow-md overflow-hidden ml-6"
+                            style="display: none;">
+                            <div class="p-4 border-b border-gray-200">
+                                <div class="flex">
+                                    <!-- Food Image -->
+                                    <div class="w-24 h-24 relative rounded-md overflow-hidden mr-4 flex-shrink-0">
+                                        <img src="/api/placeholder/150/150" alt="Food Item"
+                                            class="w-full h-full object-cover" />
+                                        <!-- Non-veg Indicator -->
+                                        <div class="absolute top-1 left-1 bg-white rounded-sm p-0.5 shadow">
+                                            <div
+                                                class="w-4 h-4 border border-red-500 rounded-sm flex items-center justify-center">
+                                                <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Details -->
+                                    <div class="flex-grow">
+                                        <div class="flex justify-between items-start">
+                                            <h3 class="font-bold text-lg text-gray-800">Chicken Tikka</h3>
+                                            <div class="bg-red-500 text-white px-2 py-0.5 rounded text-xs font-medium">
+                                                Non-veg</div>
+                                        </div>
+
+                                        <div class="mt-1 text-sm text-gray-500">Juicy chicken pieces marinated in spices
+                                        </div>
+
+                                        <div class="mt-2 flex justify-between items-center">
+                                            <div class="font-semibold text-gray-900">₹349.00</div>
+
+                                            <!-- Quantity Selector -->
+                                            <div
+                                                class="flex items-center border border-gray-300 rounded-md overflow-hidden">
+                                                <button
+                                                    class="bg-gray-100 px-2 py-1 hover:bg-gray-200 text-gray-700">-</button>
+                                                <div class="px-3 py-1 border-l border-r border-gray-300 font-medium">1
+                                                </div>
+                                                <button
+                                                    class="bg-gray-100 px-2 py-1 hover:bg-gray-200 text-gray-700">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Total Price Section -->
+                                <div class="mt-4 pt-3 border-t border-gray-200 flex justify-between items-center">
+                                    <div class="text-sm text-gray-500">
+                                        <span class="font-medium">1</span> × ₹349.00
+                                    </div>
+                                    <div class="text-lg font-bold text-teal-600">
+                                        ₹349.00
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Instructions -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center sm:text-left">Order Instructions
+                    </h2>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Special Instructions</label>
+                            <textarea rows="3"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+                                placeholder="Any special instructions for your order (e.g., 'Keep food less spicy')"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Table Number</label>
+                            <input type="text"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+                                placeholder="Enter your table number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary Column -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg shadow-md p-6 sticky top-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center sm:text-left">Order Summary</h2>
+
+                    <!-- Summary Details -->
+                    <div class="space-y-3 mb-6">
+                        <div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Panner tikka</span>
+                                <span class="font-medium">₹249</span>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 pt-3 mt-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Subtotal</span>
+                                <span class="font-medium">₹1,180</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">GST (5%)</span>
+                                <span class="font-medium">₹59</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Service Charge</span>
+                                <span class="font-medium">₹40</span>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 pt-3 mt-3">
+                            <div class="flex justify-between">
+                                <span class="text-lg font-bold text-gray-800">Total</span>
+                                <span class="text-lg font-bold text-teal-600">₹1,279</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estimated Time -->
+                    <div class="bg-teal-50 p-4 rounded-md mb-6">
+                        <div class="flex items-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-teal-500 mt-0.5 mr-2"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <div>
+                                <h3 class="font-medium text-teal-700">Estimated Preparation Time</h3>
+                                <p class="text-sm text-teal-600">15-20 minutes</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="mb-6">
+                        <h3 class="font-medium text-gray-700 mb-3">Payment Method</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input id="payment-cash" name="payment-method" type="radio" checked
+                                    class="h-4 w-4 text-teal-500 focus:ring-teal-400">
+                                <label for="payment-cash" class="ml-3 text-sm font-medium text-gray-700">Cash</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="payment-card" name="payment-method" type="radio"
+                                    class="h-4 w-4 text-teal-500 focus:ring-teal-400">
+                                <label for="payment-card" class="ml-3 text-sm font-medium text-gray-700">Credit/Debit
+                                    Card</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="payment-wallet" name="payment-method" type="radio"
+                                    class="h-4 w-4 text-teal-500 focus:ring-teal-400">
+                                <label for="payment-wallet" class="ml-3 text-sm font-medium text-gray-700">Digital
+                                    Wallet</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coupon -->
+                    <div class="flex mb-6">
+                        <input type="text"
+                            class="flex-1 px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-teal-400"
+                            placeholder="Apply Coupon">
+                        <button
+                            class="bg-teal-400 hover:bg-teal-500 text-white px-4 py-2 rounded-r-md transition duration-200">Apply</button>
+                    </div>
+
+                    <!-- Place Order Button -->
+                    <button
+                        class="w-full bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 rounded-md shadow-md transition duration-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                        Place Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 py-6 border-t">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="text-center text-gray-500 text-sm">
+                <p>&copy; 2025 FoodDelight. All rights reserved.</p>
+                <p class="mt-2">Need help? Ask our staff for assistance.</p>
+            </div>
+        </div>
+    </footer>
+</div>
