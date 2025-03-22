@@ -83,6 +83,27 @@ export class MenuComponent implements OnInit {
     return pageTitle;
   }
 
+  public decrementQuantity(itemGuid: string | undefined): void {
+
+  }
+
+  public incrementQuantity(itemGuid: string | undefined): void {
+
+  }
+
+  public getCartItemQuantity(itemGuid: string | undefined): number {
+    return 10;
+  }
+
+  public addItemToCart(itemGuid: string | undefined): void {
+
+  }
+
+  public isItemInCart(itemGuid: string | undefined): boolean {
+    return true;
+  }
+  
+
   private fetchCategories(): void {
     this.preloaderService.show();
     this.dataService.get(API_MENU_CATEGORY)
