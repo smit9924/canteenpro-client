@@ -9,7 +9,7 @@
                     [ngClass]="{'bg-teal-400 text-white hover:bg-teal-500': currentCategory === CATEGORY_ALL,
                     'bg-white text-teal-500 hover:bg-gray-100': currentCategory !== CATEGORY_ALL}"
                     (click)="changeCategory(CATEGORY_ALL)"
-                    id="{{CATEGORY_ALL}}">
+                    id="{{ CATEGORY_ALL }}">
                     All
                 </button>
 
@@ -29,7 +29,9 @@
 
     <!-- Menu Items Grid -->
     <div class="container mx-auto py-10 px-4">
-        <h2 class="text-3xl font-bold mb-8 text-gray-800 border-b-2 border-teal-300 pb-2">Today's Special</h2>
+        <h2 class="text-3xl font-bold capitalize mb-8 text-gray-800 border-b-2 border-teal-300 pb-2">
+            {{ pageTitle }}
+        </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
 

@@ -70,6 +70,19 @@ export class MenuComponent implements OnInit {
     this.fetchCategoryMenuItems();
   }
 
+  public get pageTitle(): string {
+    let pageTitle = "Today's Special";
+    if(this.currentCategory !== CATEGORY_ALL) {
+      const category = this.categories.filter(
+        category => category.guid === this.currentCategory
+      );
+
+      pageTitle = category[0].name;
+    }
+
+    return pageTitle;
+  }
+
   private fetchCategories(): void {
     this.preloaderService.show();
     this.dataService.get(API_MENU_CATEGORY)
