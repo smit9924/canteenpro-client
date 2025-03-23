@@ -45,19 +45,19 @@ export class CartComponent implements OnInit {
   }
 
   public getItemQuantityWithUnit(quantity: number, unitType: FOOD_ITEM_QUANTITY_UNIT): string {
-      let quantityWithUnit = `${quantity} `;
-      switch (unitType) {
-        case FOOD_ITEM_QUANTITY_UNIT.PIECES:
-          quantityWithUnit += 'pcs.';
-          break;
-        case FOOD_ITEM_QUANTITY_UNIT.GRAM:
-          quantityWithUnit += 'gm';
-          break;
-        case FOOD_ITEM_QUANTITY_UNIT.MILLI_LITER:
-          quantityWithUnit += 'ml';
-          break;
-      }
-  
-      return quantityWithUnit;
+    let quantityWithUnit = `${quantity} `;
+    switch (unitType) {
+      case FOOD_ITEM_QUANTITY_UNIT.PIECES:
+        quantityWithUnit += 'pcs.';
+        break;
+      case FOOD_ITEM_QUANTITY_UNIT.GRAM:
+        quantityWithUnit += 'gm';
+        break;
+      case FOOD_ITEM_QUANTITY_UNIT.MILLI_LITER:
+        quantityWithUnit += 'ml';
+        break;
     }
+
+    return quantityWithUnit;
+  }
 }
