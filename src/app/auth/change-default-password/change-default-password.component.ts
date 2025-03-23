@@ -41,7 +41,7 @@ export class ChangeDefaultPasswordComponent {
 
   public onChangePasswordBtnClick() {
     this.preloaderService.show();
-    this.dataService.post(API_CHANGE_DEFAULT_PASSWORD, this.changePasswordModel)
+    this.dataService.post(API_CHANGE_DEFAULT_PASSWORD, this.changePasswordModel.password)
       .then((response: IAPIResponse<IUserProfile>) => {
         this.dataService.setUserProfileData(response.data);
         this.router.navigateByUrl(DASHBOARD_PAGE);
