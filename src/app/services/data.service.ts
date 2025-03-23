@@ -85,6 +85,8 @@ export class DataService {
 
   public setCartItemsListData(data: ICartItems[] | null): void {
     this.cartItemsList = data;
+    const cartItemCount = this.cartItemsList !== null ? this.cartItemsList.length : 0
+    this.cartItemCountEmitter.emit(cartItemCount);
   }
 
   public async getCartItemListData(): Promise<ICartItems[] | null> {

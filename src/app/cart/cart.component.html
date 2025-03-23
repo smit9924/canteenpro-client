@@ -98,11 +98,13 @@
                                             <!-- Quantity Selector -->
                                             <div class="flex items-center border border-gray-300 rounded-md">
                                                 <button
+                                                    (click)="updateItemQuantity(UPDATE_ITEM_QUANTITY_TYPE.DECREASE, item.guid)"
                                                     class="bg-gray-100 px-2 py-1 hover:bg-gray-200 text-gray-700 rounded-l-md">-</button>
                                                 <div class="px-3 py-1 border-l border-r border-gray-300 font-medium">
                                                     {{ item.itemCount }}
                                                 </div>
                                                 <button
+                                                    (click)="updateItemQuantity(UPDATE_ITEM_QUANTITY_TYPE.INCREASE, item.guid)"
                                                     class="bg-gray-100 px-2 py-1 hover:bg-gray-200 text-gray-700 rounded-r-md">+</button>
                                             </div>
 
