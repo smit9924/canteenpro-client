@@ -1,5 +1,13 @@
 <div class="mt-[64px]">
-    <nav class="bg-gray-700 p-4 shadow-xl rounded-b-lg">
+    <nav class="bg-gray-700 p-4 relative shadow-xl rounded-b-lg">
+        <button
+            class="absolute left-4 -translate-y-1/2 top-1/2 p-3 rounded-full text-white focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50"
+            (click)="backBtnClick()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </button>
         <div class="container mx-auto flex justify-center">
             <h1 class="text-white text-xl tracking-wide drop-shadow-md capitalize">{{ getPageTitle() }}</h1>
         </div>
@@ -156,7 +164,8 @@
                     <p class="mt-1 text-xs text-gray-500">Click to select categories from the list</p>
                 </div>
                 <div>
-                    <span class="text-red-500 text-xs" *ngIf="createItemModel.categories.length == 0 && false">This field is required</span>
+                    <span class="text-red-500 text-xs" *ngIf="createItemModel.categories.length == 0 && false">This
+                        field is required</span>
                 </div>
             </div>
 
@@ -204,17 +213,12 @@
 <app-popup [heading]="errorPopupHeading" [text]="errorPopupText" [showPopup]="showPopup" />
 
 
-<ng-template cdkConnectedOverlay 
-  [cdkConnectedOverlayOrigin]="trigger" 
-  [cdkConnectedOverlayOpen]="isOpen"
-  [cdkConnectedOverlayWidth]="'100%'"
-  [cdkConnectedOverlayHeight]="'100%'"
-  [cdkConnectedOverlayPositions]="positions"
-  (backdropClick)="isOpen = false">
-  <div class="fixed inset-0 bg-gray-100 z-1">
-    <app-food-items-listing
-        [selectCategoryOverlay]="true"
-        [selectedCategoryListingData]="createItemModel.categories"
-        (selectOrCancelCategoryEvent)="detachSelectCategoryOverlay($event)" />
-  </div>
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+    [cdkConnectedOverlayWidth]="'100%'" [cdkConnectedOverlayHeight]="'100%'" [cdkConnectedOverlayPositions]="positions"
+    (backdropClick)="isOpen = false">
+    <div class="fixed inset-0 bg-gray-100 z-1">
+        <app-food-items-listing [selectCategoryOverlay]="true"
+            [selectedCategoryListingData]="createItemModel.categories"
+            (selectOrCancelCategoryEvent)="detachSelectCategoryOverlay($event)" />
+    </div>
 </ng-template>

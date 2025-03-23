@@ -202,4 +202,8 @@ export class AddItemComponent implements OnInit {
   public removeCategory(guid: string) {
     this.createItemModel.categories = this.createItemModel.categories.filter( category => category.guid !== guid);
   }
+
+  public backBtnClick(): void {
+    this.router.navigateByUrl(CATEGORY_AND_ITEM_LISTING_PAGE);
+  }
 }
