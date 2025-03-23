@@ -53,3 +53,9 @@ export enum FOOD_ITEM_QUANTITY_UNIT {
   GRAM = 2,
   MILLI_LITER = 3
 }
+
+export enum UPDATE_ITEM_QUANTITY_TYPE {
+  ADD = 1,
+  INCREASE = 2,
+  DECREASE = 3
+}

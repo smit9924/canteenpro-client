@@ -8,6 +8,7 @@ export const CREATE_USER_BASE_ROUTE = "user/create/";
 export const CREATE_CATEGORY_PAGE = "/food-items/create/category";
 export const CREATE_FOOD_ITEM_PAGE = "/food-items/create";
 export const CATEGORY_AND_ITEM_LISTING_PAGE = "/food-items";
+export const FODD_ITEM_CART_PAGE = "/food-items/cart";
 export const CONTACT_US_PAGE = "contact";
 export const ERROR_PAGE = "/error";
 

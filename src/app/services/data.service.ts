@@ -1,19 +1,22 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { USER_ROLES } from '../common/appEnums';
-import { API_USER_PROFILE, USER_ROLES_API } from '../common/apiConstants';
-import { IAPIResponse, IRoleList, IUserProfile } from '../common/models/interfaces';
+import { API_CART_ITEM_CRUD, API_USER_PROFILE, USER_ROLES_API } from '../common/apiConstants';
+import { IAPIResponse, ICartItems, IRoleList, IUserProfile } from '../common/models/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  public cartItemCountEmitter: EventEmitter<number> = new EventEmitter<number>();
   private userRoles: IRoleList[] | null = null;
   private userProfileData: IUserProfile | null = null;
+  private cartItemsList: ICartItems[] | null = null;
 
   constructor(
     private http: HttpClient,
   ) {
+    this.fetchCartItemListData();
   }
 
   public post(url: string, data: any = null): Promise<any> {
@@ -51,6 +54,7 @@ export class DataService {
       });
   }
 
+  // User profile data management
   public setUserProfileData(data: IUserProfile | null): void {
     this.userProfileData = data;
   }
@@ -72,4 +76,33 @@ export class DataService {
         console.error(e);
       });
   }
+  // *** end ***
+
+  // User cart data management
+  public async updateCartItemListData() {
+    await this.fetchCartItemListData();
+  }
+
+  public setCartItemsListData(data: ICartItems[] | null): void {
+    this.cartItemsList = data;
+  }
+
+  public async getCartItemListData(): Promise<ICartItems[] | null> {
+    if (this.cartItemsList === null || this.cartItemsList.length === 0) {
+      await this.fetchCartItemListData();
+    }
+    return this.cartItemsList;
+  }
+
+  private fetchCartItemListData(): Promise<void> {
+    return this.get(API_CART_ITEM_CRUD)
+      .then((response: IAPIResponse<ICartItems[]>) => {
+        this.cartItemsList = response.data;
+        this.cartItemCountEmitter.emit(this.cartItemsList.length);
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  }
+  // *** end ***
 }

@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { ToastService } from '../services/toast.service';
 import { PreLoaderService } from '../services/pre-loader.service';
-import { IAPIResponse, ICreateItemModel, IMediaDataModel, IMenuCategories } from '../common/models/interfaces';
-import { API_MENU_CATEGORY, API_MENU_ITEMS } from '../common/apiConstants';
+import { IAPIResponse, ICreateItemModel, IMediaDataModel, IMenuCategories, IMenuItems } from '../common/models/interfaces';
+import { API_ADD_MENU_ITEM_IN_CART, API_DECREASE_MENU_ITEM_QUANTITY, API_INCREASE_MENU_ITEM_QUANTITY, API_MENU_CATEGORY, API_MENU_ITEMS } from '../common/apiConstants';
 import { FILE_UPLOAD_URL, IMAGE_FILE_DIRECTORTY, QUERY_PARAM_CATEGORY, QUERY_PARAM_KEY_GUID } from '../common/appConstants';
-import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TYPE } from '../common/appEnums';
+import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TYPE, UPDATE_ITEM_QUANTITY_TYPE } from '../common/appEnums';
 
 const CATEGORY_ALL = "ALL";
 
@@ -21,8 +21,9 @@ const CATEGORY_ALL = "ALL";
 })
 export class MenuComponent implements OnInit {
   public FOOD_ITEM_TYPE = FOOD_ITEM_TYPE;
+  public UPDATE_ITEM_QUANTITY_TYPE = UPDATE_ITEM_QUANTITY_TYPE;
   public CATEGORY_ALL = CATEGORY_ALL;
-  public menuItems: ICreateItemModel[] = [];
+  public menuItems: IMenuItems[] = [];
   public currentCategory: string = CATEGORY_ALL;
   public categories: IMenuCategories[] = [];
 
@@ -83,26 +84,51 @@ export class MenuComponent implements OnInit {
     return pageTitle;
   }
 
-  public decrementQuantity(itemGuid: string | undefined): void {
+  public updateItemQuantity(updateItemQuantityType: UPDATE_ITEM_QUANTITY_TYPE, itemGuid: string): void {
+    let URL = "";
+    let updatedItemCount = 0;
+    let isItemAddedIntoCart = true;
+    const updatedItem = this.menuItems.find(item => item.guid === itemGuid);
+    if(!updatedItem) {
+      throw new Error("item to be updated not found");
+    }
 
+    // Choose the URL based on type
+    switch(updateItemQuantityType) {
+      case UPDATE_ITEM_QUANTITY_TYPE.ADD:
+        URL = API_ADD_MENU_ITEM_IN_CART;
+        updatedItemCount = 1;
+        break;
+      case UPDATE_ITEM_QUANTITY_TYPE.INCREASE:
+        URL = API_INCREASE_MENU_ITEM_QUANTITY;
+        updatedItemCount = updatedItem.itemCount + 1;
+        break;
+      case UPDATE_ITEM_QUANTITY_TYPE.DECREASE:
+        URL = API_DECREASE_MENU_ITEM_QUANTITY;
+        updatedItemCount = updatedItem.itemCount - 1;
+        if(updatedItemCount <= 0) {
+          isItemAddedIntoCart = false;
+        }
+        break;
+    }
+
+    
+    this.preloaderService.show();
+    this.dataService.put(URL, {guid: itemGuid})
+      .then(async (response: IAPIResponse<any>) => {
+        if (!response.success) {
+          throw new Error();
+        }
+        updatedItem.itemCount = updatedItemCount;
+        updatedItem.foodItemAddedIntoCart = isItemAddedIntoCart;
+        await this.dataService.updateCartItemListData();
+        this.preloaderService.hide();
+      })
+      .catch((e) => {
+        console.error(e);
+        this.preloaderService.hide();
+      });
   }
-
-  public incrementQuantity(itemGuid: string | undefined): void {
-
-  }
-
-  public getCartItemQuantity(itemGuid: string | undefined): number {
-    return 10;
-  }
-
-  public addItemToCart(itemGuid: string | undefined): void {
-
-  }
-
-  public isItemInCart(itemGuid: string | undefined): boolean {
-    return true;
-  }
-  
 
   private fetchCategories(): void {
     this.preloaderService.show();
@@ -131,7 +157,7 @@ export class MenuComponent implements OnInit {
     }
 
     this.dataService.get(URL)
-      .then((response: IAPIResponse<ICreateItemModel[]>) => {
+      .then((response: IAPIResponse<IMenuItems[]>) => {
         if (!response.success) {
           throw new Error("");
         }

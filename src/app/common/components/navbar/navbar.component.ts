@@ -1,7 +1,7 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterLink } from '@angular/router';
-import { CONTACT_US_PAGE, LOGIN_PAGE, SIGNUP_PAGE } from '../../appConstants';
+import { CONTACT_US_PAGE, FODD_ITEM_CART_PAGE, LOGIN_PAGE, SIGNUP_PAGE } from '../../appConstants';
 import { CommonModule } from '@angular/common';
 import { BasePageComponent } from '../base-page/base-page.component';
 import { AuthService } from '../../../services/auth.service';
@@ -9,6 +9,9 @@ import { isNullOrUndefined } from '../../utils';
 import { PrimaryButtonComponent } from '../button/primary-button/primary-button.component';
 import { SecondaryButtonComponent } from '../button/secondary-button/secondary-button.component';
 import { USER_ROLES } from '../../appEnums';
+import { NavbarService } from '../../../services/navbar.service';
+import { DataService } from '../../../services/data.service';
+import { ICartItems } from '../../models/interfaces';
 
 const USER_LISTING_DROPDOWN = [
   {
@@ -61,19 +64,29 @@ const USER_LISTING_DROPDOWN = [
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent extends BasePageComponent {
+export class NavbarComponent extends BasePageComponent implements OnInit {
   @ViewChild('navbar') navbar!: ElementRef;
   public LOGIN_PAGE = LOGIN_PAGE;
   public SIGNUP_PAGE = SIGNUP_PAGE;
   public CONTACT_US_PAGE = CONTACT_US_PAGE;
+  public FODD_ITEM_CART_PAGE = FODD_ITEM_CART_PAGE;
   public showProfileDropdown: boolean = false;
   public showSidebar: boolean = false
+  public cartItemsCount: number = 0;
   private profileDropdownClickListener: any = null;
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    protected navbarService: NavbarService,
+    protected dataService: DataService
   ) {
     super();
+  }
+
+  public ngOnInit(): void {
+    this.dataService.cartItemCountEmitter.subscribe(cartItemsCount => {
+      this.cartItemsCount = cartItemsCount;
+    });
   }
 
   public toggleProfileDropdown(): void {

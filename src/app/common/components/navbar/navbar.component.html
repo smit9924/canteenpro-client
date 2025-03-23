@@ -1,4 +1,4 @@
-<header #navbar class="bg-teal-400 absolute top-0 w-full max-h-[64px]">
+<header #navbar class="bg-teal-400 absolute top-0 w-full max-h-[64px]" *ngIf="navbarService.navbarVisible">
     <div class="relative">
         <div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
@@ -8,12 +8,33 @@
                         <img src="assets/images/logo-updated.png" class="h-8 p-0" />
                     </a>
                 </div>
-    
+
                 <div class="md:flex md:items-center md:gap-12">
                     <nav *ngIf="authService.isLoggedIn()" aria-label="Global" class="hidden md:block">
                         <ul class="flex items-center gap-6 text-sm">
                             <li>
-                                <a class="text-white font-bold transition hover:text-black/50" [routerLink]="CONTACT_US_PAGE"> Contact us </a>
+                                <!-- Cart Button -->
+                                <a
+                                    class="relative p-4 flex justify-center items-center text-gray-700 hover:text-gray-900 focus:outline-none transition duration-150 ease-in-out"
+                                    [routerLink]="FODD_ITEM_CART_PAGE">
+                                    <!-- Cart Icon SVG -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+
+                                    <!-- Item Count Badge -->
+                                    <span *ngIf="cartItemsCount > 0"
+                                        class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-teal-800 bg-white rounded-full min-w-[1.5rem] h-6 border-2 border-teal-400 shadow-md">
+                                        {{ cartItemsCount }}
+                                    </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="text-white font-bold transition hover:text-black/50"
+                                    [routerLink]="CONTACT_US_PAGE"> Contact us </a>
                             </li>
 
                             <!-- <li>
@@ -39,10 +60,13 @@
                             <li>
                                 <div class="relative group/linktrigger">
                                     <div class="inline-flex items-center overflow-hidden rounded-md">
-                                        <a class="text-white font-bold transition group-hover/linktrigger:text-black/50"> Users </a>
+                                        <a
+                                            class="text-white font-bold transition group-hover/linktrigger:text-black/50">
+                                            Users </a>
                                         <button class="h-full flex item-center p-1">
                                             <span class="sr-only">Users</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-5 fill-white group-hover/linktrigger:fill-black/50"
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="size-5 fill-white group-hover/linktrigger:fill-black/50"
                                                 viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd"
                                                     d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -50,48 +74,42 @@
                                             </svg>
                                         </button>
                                     </div>
-                            
+
                                     <div class="absolute invisible hover:visible group-hover/linktrigger:visible end-0 z-10 mt-0 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg"
                                         role="menu">
                                         <a *ngFor="let listItem of userDropdownOptions"
                                             class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                            role="menuitem"
-                                            [routerLink]="listItem.path">
+                                            role="menuitem" [routerLink]="listItem.path">
                                             {{listItem.title}}
-                                        </a>                        
+                                        </a>
                                     </div>
                                 </div>
                             </li>
                         </ul>
                     </nav>
-    
+
                     <div *ngIf="!authService.isLoggedIn()" class="hidden sm:flex items-center gap-4">
                         <div class="sm:flex sm:gap-4">
                             <!-- Login button -->
                             <div class="sm:flex">
-                                <app-primary-button
-                                    [text]="'Login'"
-                                    [routerLink]="LOGIN_PAGE"
-                                />
+                                <app-primary-button [text]="'Login'" [routerLink]="LOGIN_PAGE" />
                             </div>
                             <!-- Sign up button -->
                             <div class="sm:flex">
-                                <app-secondary-button
-                                    [text]="'Register'"
-                                    [routerLink]="SIGNUP_PAGE" />
+                                <app-secondary-button [text]="'Register'" [routerLink]="SIGNUP_PAGE" />
                             </div>
                         </div>
                     </div>
-    
+
                     <div *ngIf="authService.isLoggedIn()" class="hidden sm:relative md:block">
                         <button type="button" (click)="toggleProfileDropdown()"
                             class="overflow-hidden rounded-full border border-gray-300 shadow-inner">
                             <span class="sr-only">Toggle dashboard menu</span>
-    
+
                             <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                 alt="" class="size-10 object-cover" />
                         </button>
-    
+
                         <!-- ** Profile drop down -->
                         <div id="profileDropdown" *ngIf="showProfileDropdown"
                             class="absolute end-0 z-10 mt-0.5 w-56 divide-y divide-gray-100 rounded-md border border-gray-100 bg-white shadow-lg"
@@ -102,20 +120,20 @@
                                     role="menuitem">
                                     My profile
                                 </a>
-    
+
                                 <a href="#"
                                     class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                                     role="menuitem">
                                     Billing summary
                                 </a>
-    
+
                                 <a href="#"
                                     class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                                     role="menuitem">
                                     Team settings
                                 </a>
                             </div>
-    
+
                             <div class="p-2">
                                 <button type="button" (click)="logoutButtonClick()"
                                     class="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
@@ -130,7 +148,7 @@
                             </div>
                         </div>
                     </div>
-    
+
                     <!-- Hamburger -->
                     <div *ngIf="authService.isLoggedIn()" class="block md:hidden">
                         <button (click)="toggleSidebar()"

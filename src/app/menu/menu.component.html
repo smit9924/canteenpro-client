@@ -73,15 +73,15 @@
                         <span class="text-xl font-bold text-teal-500">&#x20B9;{{item.price}}</span>
 
                         <!-- Add to Cart Button (when item is not in cart) -->
-                        <button *ngIf="!isItemInCart(item.guid)" (click)="addItemToCart(item.guid)"
+                        <button *ngIf="!item.foodItemAddedIntoCart" (click)="updateItemQuantity(UPDATE_ITEM_QUANTITY_TYPE.ADD, item.guid)"
                             class="bg-teal-400 text-white px-4 py-2 rounded shadow hover:bg-teal-500 transition">
                             Add to Cart
                         </button>
 
                         <!-- Quantity Controls (when item is in cart) -->
-                        <div *ngIf="isItemInCart(item.guid)"
+                        <div *ngIf="item.foodItemAddedIntoCart"
                             class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
-                            <button (click)="decrementQuantity(item.guid)"
+                            <button (click)="updateItemQuantity(UPDATE_ITEM_QUANTITY_TYPE.DECREASE, item.guid)"
                                 class="bg-gray-100 px-3 py-1 hover:bg-gray-200 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -89,8 +89,10 @@
                                         d="M20 12H4" />
                                 </svg>
                             </button>
-                            <span class="px-3 py-1 font-medium">{{ getCartItemQuantity(item.guid) }}</span>
-                            <button (click)="incrementQuantity(item.guid)"
+
+                            <span class="px-3 py-1 font-medium">{{ item.itemCount }}</span>
+                            
+                            <button (click)="updateItemQuantity(UPDATE_ITEM_QUANTITY_TYPE.INCREASE, item.guid)"
                                 class="bg-gray-100 px-3 py-1 hover:bg-gray-200 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -113,3 +115,5 @@
     </div>
   </footer> -->
 </div>
+
+<!-- 7654637133 -->

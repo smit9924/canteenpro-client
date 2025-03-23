@@ -20,5 +20,14 @@ export const API_CATEGORY_CRUD = API_FOOD_MANAGEMENT_CRUD + "category";
 export const API_CATEGORY_LISTING = API_FOOD_MANAGEMENT_CRUD + "category/listing";
 export const API_FOOD_ITEM_CRUD = API_FOOD_MANAGEMENT_CRUD + "item";
 export const API_FOOD_ITEM_LISTING = API_FOOD_MANAGEMENT_CRUD + "item/listing";
-export const API_MENU_ITEMS = API_FOOD_MANAGEMENT_CRUD + "menu";
+export const API_MENU_ITEMS = API_FOOD_MANAGEMENT_CRUD + "menu/items";
 export const API_MENU_CATEGORY = API_FOOD_MANAGEMENT_CRUD + "menu/category";
+export const API_ADD_MENU_ITEM_IN_CART = API_FOOD_MANAGEMENT_CRUD + "menu/items/add";
+export const API_INCREASE_MENU_ITEM_QUANTITY = API_FOOD_MANAGEMENT_CRUD + "menu/items/increase";
+export const API_DECREASE_MENU_ITEM_QUANTITY = API_FOOD_MANAGEMENT_CRUD + "menu/items/decrease";
+
+// Cart management APIs
+export const API_CART_MANAGEMENT = SERVER_BASE_URL + "api/cart/";
+export const API_CART_ITEM_CRUD = API_CART_MANAGEMENT + "item";
+export const API_CART_ITEM_INCREASE_COUNT = API_CART_MANAGEMENT + "item/increase";
+export const API_CART_ITEM_DECREASE_COUNT = API_CART_MANAGEMENT + "item/decrease";

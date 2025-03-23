@@ -116,8 +116,33 @@ export interface ICreateItemModel {
   categories: IFoodItemsCategories[];
 }
 
+export interface IMenuItems {
+  guid: string;
+  itemName: string;
+  description: string;
+  quantity: number;
+  quantityUnit: FOOD_ITEM_QUANTITY_UNIT;
+  type: FOOD_ITEM_TYPE;
+  taste: FOOD_ITEM_TASTE;
+  price: number;
+  imageData: IMediaDataModel;
+  foodItemAddedIntoCart: boolean;
+  itemCount: number
+}
+
 export interface IMenuCategories {
   guid: string,
   name: string,
   description: string,
+}
+
+export interface ICartItems {
+  guid: string;
+  itemName: string;
+  type: FOOD_ITEM_TYPE;
+  price: number;
+  quantity: number;
+  quantityUnit: FOOD_ITEM_QUANTITY_UNIT;
+  imageData: IMediaDataModel;
+  itemCount: number;
 }
