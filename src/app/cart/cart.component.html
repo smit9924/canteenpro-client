@@ -48,16 +48,15 @@
                     <h2 class="text-xl font-semibold mb-4 text-gray-700 text-center sm:text-left">Cart Items</h2>
 
                     <!-- Cart Items List -->
-                    <div class="bg-gray-100 p-6 flex justify-center">
-                        <div class="w-full max-w-md bg-white rounded-lg shadow-md overflow-hidden">
-
+                    <div class="bg-gray-100 p-6 flex justify-center items-center gap-4 flex-col">
+                        <div *ngFor="let item of cartItemsList" class="w-full max-w-md bg-white rounded-lg shadow-md overflow-hidden">
                             <!-- Cart Item Card -->
                             <div class="p-4 border border-gray-200 rounded-lg shadow-sm">
                                 <div class="flex items-center space-x-3">
                                     <!-- Food Image - Hidden on small screens, larger width, full height -->
                                     <div
                                         class="hidden sm:block w-20 h-24 flex-shrink-0 rounded-md overflow-hidden border border-gray-200">
-                                        <img src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg"
+                                        <img [src]="getImageURL(item.imageData)"
                                             alt="Food Item" class="w-full h-full object-cover" />
                                     </div>
 
@@ -66,10 +65,10 @@
                                         <div class="flex justify-between items-center">
                                             <!-- Name and Veg/Non-veg Symbol -->
                                             <div class="flex items-center space-x-2">
-                                                <h3 class="font-bold text-gray-800">Paneer Tikka</h3>
+                                                <h3 class="font-bold text-gray-800">{{ item.itemName }}</h3>
 
                                                 <!-- Veg Symbol (Hidden by default) -->
-                                                <div class="hidden">
+                                                <div *ngIf="item.type === FOOD_ITEM_TYPE.VEG" class="flex items-center">
                                                     <div
                                                         class="w-5 h-5 border border-green-600 flex items-center justify-center">
                                                         <div class="w-3 h-3 bg-green-600 rounded-full"></div>
@@ -77,7 +76,7 @@
                                                 </div>
 
                                                 <!-- Non-veg Symbol -->
-                                                <div class="flex items-center">
+                                                <div *ngIf="item.type === FOOD_ITEM_TYPE.NON_VEG" class="flex items-center">
                                                     <div
                                                         class="w-5 h-5 border border-red-600 flex items-center justify-center">
                                                         <div class="w-3 h-3 bg-red-600 rounded-full"></div>
@@ -86,11 +85,13 @@
                                             </div>
 
                                             <!-- Price -->
-                                            <div class="font-semibold text-gray-900">₹249.00</div>
+                                            <div class="font-semibold text-gray-900">₹{{ item.price }}</div>
                                         </div>
 
                                         <!-- Item Quantity/Weight -->
-                                        <div class="text-sm text-gray-500 mt-1">300gm</div>
+                                        <div class="text-sm text-gray-500 mt-1">
+                                            {{ getItemQuantityWithUnit(item.quantity, item.quantityUnit) }}
+                                        </div>
 
                                         <!-- Quantity and Total -->
                                         <div class="flex justify-between items-center mt-2">
@@ -98,7 +99,8 @@
                                             <div class="flex items-center border border-gray-300 rounded-md">
                                                 <button
                                                     class="bg-gray-100 px-2 py-1 hover:bg-gray-200 text-gray-700 rounded-l-md">-</button>
-                                                <div class="px-3 py-1 border-l border-r border-gray-300 font-medium">2
+                                                <div class="px-3 py-1 border-l border-r border-gray-300 font-medium">
+                                                    {{ item.itemCount }}
                                                 </div>
                                                 <button
                                                     class="bg-gray-100 px-2 py-1 hover:bg-gray-200 text-gray-700 rounded-r-md">+</button>
@@ -106,7 +108,7 @@
 
                                             <!-- Total Price -->
                                             <div class="text-teal-600 font-bold">
-                                                Total: ₹498.00
+                                                Total: ₹{{ item.price * item.itemCount}}
                                             </div>
                                         </div>
                                     </div>
@@ -114,6 +116,18 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Place Order Button -->
+                    <a
+                        [routerLink]="FODD_ITEM_MENU"
+                        class="w-full bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 my-6 rounded-md shadow-md transition duration-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                        Add More Items
+                    </a>
                 </div>
 
                 <!-- Order Instructions -->
@@ -236,12 +250,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-100 py-6 border-t">
+    <!-- <footer class="bg-gray-100 py-6 border-t">
         <div class="container mx-auto px-4 max-w-6xl">
             <div class="text-center text-gray-500 text-sm">
                 <p>&copy; 2025 FoodDelight. All rights reserved.</p>
                 <p class="mt-2">Need help? Ask our staff for assistance.</p>
             </div>
         </div>
-    </footer>
+    </footer> -->
 </div>
