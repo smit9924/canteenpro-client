@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { UpsertUserModel } from '../../common/models/upsert-user-model';
 import { TOAST_TYPE, USER_ROLES } from '../../common/appEnums';
-import { ERROR_PAGE, QUERY_PARAM_KEY_GUID, QUERY_PARAM_ROLE, USER_LISTING_BASE_ROUTE } from '../../common/appConstants';
+import { CREATE_USER_BASE_ROUTE, ERROR_PAGE, QUERY_PARAM_KEY_GUID, QUERY_PARAM_ROLE, USER_LISTING_BASE_ROUTE } from '../../common/appConstants';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { API_USER_CRUD } from '../../common/apiConstants';
@@ -150,5 +150,9 @@ export class CreateUserComponent implements OnInit {
     }
 
     return (titlePrefix + this.role);
+  }
+
+  public backBtnClick(): void {
+    this.router.navigateByUrl(USER_LISTING_BASE_ROUTE + this.role);
   }
 }
