@@ -160,6 +160,10 @@ export class CreateCategoryComponent implements OnInit {
     }
   }
 
+  public backBtnClick(): void {
+    this.router.navigateByUrl(CATEGORY_AND_ITEM_LISTING_PAGE);
+  }
+
   private fetchCategoryData(): void {
     this.preloaderService.show();
     this.dataService.get(API_CATEGORY_CRUD+ `?${QUERY_PARAM_KEY_GUID}=${this.guid}`)
