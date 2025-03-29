@@ -31,3 +31,7 @@ export const API_CART_MANAGEMENT = SERVER_BASE_URL + "api/cart/";
 export const API_CART_ITEM_CRUD = API_CART_MANAGEMENT + "item";
 export const API_CART_ITEM_INCREASE_COUNT = API_CART_MANAGEMENT + "item/increase";
 export const API_CART_ITEM_DECREASE_COUNT = API_CART_MANAGEMENT + "item/decrease";
+
+// QR Coed CRUP APIS
+export const API_QR_CODE_CRUD = SERVER_BASE_URL + "api/qr";
+export const API_QR_CODE_LISTING = API_QR_CODE_CRUD +  "/list"

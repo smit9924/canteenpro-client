@@ -1,0 +1,86 @@
+<div class="mt-[64px]">
+    <nav class="bg-gray-700 relative p-4 shadow-xl rounded-b-lg">
+        <button
+            class="absolute left-4 -translate-y-1/2 top-1/2 p-3 rounded-full text-white focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50"
+            (click)="backBtnClick()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+        </button>
+
+        <div class="container mx-auto flex justify-center">
+            <h1 class="text-white text-xl tracking-wide drop-shadow-md capitalize">{{ getPageTitle() }}</h1>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="m-6 bg-white rounded-md relative">
+        <!-- Instruction div -->
+        <div class="absolute right-6 top-6 text-sm text-gray-500">
+            Fields with * are required.
+        </div>
+
+        <form name="createManagerForm" class="space-y-5 rounded-xl p-4 shadow-lg sm:p-6 lg:p-8 border border-gray-200"
+            #createManagerForm="ngForm">
+            <!-- QR code name -->
+            <div class="w-full sm:max-w-[50%]">
+                <div>
+                    <label for="qrcodename" class="">QR Code name*</label>
+                    <div class="relative">
+                        <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                            placeholder="Enter qr code name" #qrcodename="ngModel" name="qrcodename"
+                            [(ngModel)]="tableQRModel.name" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full sm:max-w-[50%] flex gap-4 items-center">
+                <input class="h-5 w-5 cursor-pointer" type="checkbox" name="selfserviceqr" id="selfserviceqr"
+                    (change)="toggleSelfServiceQR($event)"
+                    [checked]="tableQRModel.selfServiceQRCode">
+                <label for="selfserviceqr" class="">This is self service QR Code</label>
+            </div>
+
+            <!-- Table number -->
+            <div class="w-full sm:max-w-[50%]">
+                <div>
+                    <label for="tablenumber" class="">Table number*</label>
+                    <div class="relative">
+                        <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                            placeholder="Enter first name" #tablenumber="ngModel" name="tablenumber" type="number"
+                            [(ngModel)]="tableQRModel.number"
+                            [disabled]="tableQRModel.selfServiceQRCode" required />
+                    </div>
+                </div>
+                <div *ngIf="tablenumber.touched && tablenumber.invalid" class="text-red-500 text-sm">
+                    Table quantity is required.
+                </div>
+            </div>
+
+            <!-- Table capacity -->
+            <div class="w-full sm:max-w-[50%]">
+                <label for="tablecapacity" class="">Table capacity*</label>
+                <div class="relative">
+                    <input class="w-full rounded-xl border-gray-200 p-4 text-sm shadow-xs border shadow-lg"
+                        placeholder="Enter table capacity" #tablecapacity="ngModel" name="tablecapacity" type="number"
+                        [(ngModel)]="tableQRModel.capacity"
+                        [disabled]="tableQRModel.selfServiceQRCode" required />
+                </div>
+                <div *ngIf="tablecapacity.touched && tablecapacity.invalid" class="text-red-500 text-sm">
+                    Table capacity is required.
+                </div>
+            </div>
+
+            <!-- Create button -->
+            <div class="flex justify-center">
+                <div>
+                    <app-primary-button [text]="getPageTitle()" [disabled]="!tableQRModel.isValid()"
+                        (onBtnClick)="onCreateBtnClick()" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<app-popup [heading]="errorPopupHeading" [text]="errorPopupText" [showPopup]="showPopup" />

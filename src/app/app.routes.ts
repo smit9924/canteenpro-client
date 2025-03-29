@@ -23,6 +23,7 @@ import { CreateCategoryComponent } from './listing/create-category/create-catego
 import { AddItemComponent } from './listing/add-item/add-item.component';
 import { MenuComponent } from './menu/menu.component';
 import { CartComponent } from './cart/cart.component';
+import { CreateTableQrComponent } from './listing/create-table-qr/create-table-qr.component';
 
 export const routes: Routes = [
     { 
@@ -99,7 +100,15 @@ export const routes: Routes = [
         component: TableQrCodeListingComponent,
         canActivate: [authActicvationGuard],
         data: {
-            allowedRoles: []
+            allowedRoles: [USER_ROLES.OWNER, USER_ROLES.MANAGER]
+        }
+    },
+    { 
+        path: 'qr/create', 
+        component: CreateTableQrComponent,
+        canActivate: [authActicvationGuard],
+        data: {
+            allowedRoles: [USER_ROLES.OWNER, USER_ROLES.MANAGER]
         }
     },
     { 

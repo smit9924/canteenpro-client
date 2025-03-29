@@ -1,11 +1,12 @@
 import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TASTE, FOOD_ITEM_TYPE, TOAST_TYPE, USER_ROLES } from "../appEnums";
+import { MediaDataModel } from "./media-data-model";
 
 // JWT token decoded information
 export interface IJwtDecodedData {
-    exp: number;
-    iat: number;
-    role: USER_ROLES;
-    sub: string;
+  exp: number;
+  iat: number;
+  role: USER_ROLES;
+  sub: string;
 }
 
 export interface IToastEventData {
@@ -145,4 +146,26 @@ export interface ICartItems {
   quantityUnit: FOOD_ITEM_QUANTITY_UNIT;
   imageData: IMediaDataModel;
   itemCount: number;
+}
+
+export interface ICreateTableQRCode {
+  isEditMode?: boolean;
+  guid: string;
+  name: string;
+  selfServiceQRCode: boolean;
+  number: number;
+  capacity: number;
+  imageURL?: string;
+  qrImageURL?: string;
+}
+
+export interface IQRCodeListing {
+  guid: string;
+  name: string;
+  dateCreated: string;
+  dateEdited: string;
+  selfServiceQRCode: boolean;
+  number: number;
+  capacity: number;
+  qrImageURL?: string;
 }

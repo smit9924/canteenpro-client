@@ -11,6 +11,8 @@ export const CATEGORY_AND_ITEM_LISTING_PAGE = "/food-items";
 export const FODD_ITEM_CART_PAGE = "/food-items/cart";
 export const FODD_ITEM_MENU = "/food-items/menu";
 export const CONTACT_US_PAGE = "contact";
+export const CREATE_TABLE_QR_LISTING_PAGE = "/qr";
+export const CREATE_TABLE_QR_PAGE = "/qr/create";
 export const ERROR_PAGE = "/error";
 
 // Local storage key values
