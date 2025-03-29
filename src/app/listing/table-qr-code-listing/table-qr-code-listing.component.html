@@ -75,7 +75,9 @@
                             <td class="px-4 py-4 text-center border-r border-gray-300">
                                 <input type="checkbox" class="w-5 h-5 hover:cursor-pointer shadow-md">
                             </td>
-                            <td class="px-4 py-4 font-medium text-gray-900 border-r border-gray-300">{{ qrCode.name }}
+                            <td class="px-4 py-4 font-medium text-gray-900 border-r border-gray-300"><a cdkOverlayOrigin
+                                     (click)="setImageForPreview(qrCode.qrImageURL)">{{
+                                    qrCode.name }}</a>
                             </td>
                             <td class="px-4 py-4 text-gray-700 border-r border-gray-300">{{ qrCode.selfServiceQRCode ?
                                 "Self service" : "Table QR"}}</td>
@@ -95,8 +97,7 @@
                                             d="M64 360a56 56 0 1 0 0 112 56 56 0 1 0 0-112zm0-160a56 56 0 1 0 0 112 56 56 0 1 0 0-112zM120 96A56 56 0 1 0 8 96a56 56 0 1 0 112 0z" />
                                     </svg>
                                 </button>
-                                <div
-                                    class="hidden absolute right-0 mt-1 w-28 bg-white border border-gray-300 rounded-lg shadow-md z-10 action-menu"
+                                <div class="hidden absolute right-0 mt-1 w-28 bg-white border border-gray-300 rounded-lg shadow-md z-10 action-menu"
                                     id="{{'menu-' + qrCode.guid}}">
                                     <button class="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
                                         (click)="menuEditButtonClick(qrCode.guid)">
@@ -135,3 +136,32 @@
         </div>
     </div>
 </div>
+
+<ng-template cdkConnectedOverlay [cdkConnectedOverlayOpen]="isOpen"
+    [cdkConnectedOverlayWidth]="'100%'" [cdkConnectedOverlayHeight]="'100%'" [cdkConnectedOverlayPositions]="positions"
+    (backdropClick)="isOpen = false">
+
+    <div class="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
+        <div class="relative bg-white rounded-2xl shadow-lg p-4 w-96">
+            <!-- Close Button -->
+            <button (click)="isOpen = false"
+                class="absolute top-1 right-1 bg-teal-400 hover:bg-teal-500 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-md transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-teal-300 focus:ring-opacity-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd" />
+                </svg>
+            </button>
+
+            <!-- Image Container -->
+            <img [src]="previewQRBase64" alt="Preview Image" class="w-full h-auto rounded-lg" />
+
+            <!-- Download Button -->
+            <div class="mt-4 flex justify-center items-center">
+                <button (click)="downloadBase64Image(previewQRBase64)" class="bg-teal-400 text-white px-4 py-2 rounded-lg w-full">
+                    Download Image
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>

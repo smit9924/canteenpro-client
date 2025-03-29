@@ -167,5 +167,5 @@ export interface IQRCodeListing {
   selfServiceQRCode: boolean;
   number: number;
   capacity: number;
-  qrImageURL?: string;
+  qrImageURL: string;
 }

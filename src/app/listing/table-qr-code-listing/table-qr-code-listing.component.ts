@@ -10,6 +10,8 @@ import { ICreateTableQRCode, IQRCodeListing, IToastEventData } from '../../commo
 import { API_QR_CODE_CRUD, API_QR_CODE_LISTING } from '../../common/apiConstants';
 import { isNullOrUndefined } from '../../common/utils';
 import { TOAST_TYPE } from '../../common/appEnums';
+import { ConnectedPosition, OverlayModule } from '@angular/cdk/overlay';
+import { FormsModule } from '@angular/forms';
 
 const CLASS_HIDDEN = 'hidden';
 const DELETED_SUCCESS_TOAST_DATA: IToastEventData = {
@@ -22,7 +24,11 @@ const DELETED_SUCCESS_TOAST_DATA: IToastEventData = {
   standalone: true,
   imports: [
     CommonModule,
-    PrimaryButtonComponent
+    FormsModule,
+    OverlayModule,
+    PrimaryButtonComponent,
+    CommonModule,
+    OverlayModule,
   ],
   templateUrl: './table-qr-code-listing.component.html',
   styleUrl: './table-qr-code-listing.component.scss'
@@ -33,6 +39,16 @@ export class TableQrCodeListingComponent implements OnInit {
   public actionMenuClickListener: any;
   public isActionMenuVisible: boolean = false;
   public menu!: Element;
+  public previewQRBase64: string = "";
+  public isOpen: boolean = false;
+  public positions: ConnectedPosition[] = [
+    {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'start',
+      overlayY: 'top',
+    }
+  ];
 
   constructor(
     private router: Router,
@@ -110,21 +126,51 @@ export class TableQrCodeListingComponent implements OnInit {
     }
   }
 
-  private fetchEditQRCodeData(): void {
-    this.preloaderService.show();
-    this.dataService.get(API_QR_CODE_LISTING)
-      .then((response) => {
-        if (!response.success) {
-          throw Error;
-        }
-        this.qrCodeListingData = response.data;
-        this.preloaderService.hide();
-      })
-      .catch(e => {
-        console.log(e);
-        this.preloaderService.hide();
-      });
+  public detachSelectCategoryOverlay(event: any): void {
+    this.isOpen = false;
   }
+
+  public setImageForPreview(imageBase64: string): void {
+    this.previewQRBase64 = imageBase64;
+    this.isOpen = !this.isOpen;
+  }
+
+  public downloadBase64Image(base64Data: string) {
+  // Create a temporary link element
+  const link = document.createElement("a");
+
+  // Set the href to the base64 image data
+  link.href = base64Data;
+
+  // Set the download attribute with the desired file name
+  link.download = "downloaded_image.png";
+
+  // Append the link to the document
+  document.body.appendChild(link);
+
+  // Trigger the download by simulating a click
+  link.click();
+
+  // Remove the link after download
+  document.body.removeChild(link);
+}
+
+
+  private fetchEditQRCodeData(): void {
+  this.preloaderService.show();
+  this.dataService.get(API_QR_CODE_LISTING)
+    .then((response) => {
+      if (!response.success) {
+        throw Error;
+      }
+      this.qrCodeListingData = response.data;
+      this.preloaderService.hide();
+    })
+    .catch(e => {
+      console.log(e);
+      this.preloaderService.hide();
+    });
+}
 
 
 }

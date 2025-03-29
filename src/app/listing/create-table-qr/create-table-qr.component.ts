@@ -114,6 +114,16 @@ export class CreateTableQrComponent implements OnInit {
     this.showPopup.emit(true);
   }
 
+  // downloadImage(): void {
+  //   // Create a link element and trigger download
+  //   const link = document.createElement('a');
+  //   link.href = this.data.imageUrl;
+  //   link.download = this.getImageName(this.data.imageUrl);
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // }
+
   private fetchEditQRCodeData(): void {
     this.preloaderService.show();
     this.dataService.get(API_QR_CODE_CRUD + `?${QUERY_PARAM_KEY_GUID}=${this.guid}`)
