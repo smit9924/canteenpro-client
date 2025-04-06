@@ -68,6 +68,27 @@ export class CartComponent implements OnInit {
     return quantityWithUnit;
   }
 
+  public getSubTotal(): number {
+    if(this.cartItemsList.length === 0) {
+      return 0;
+    }
+    let subTotal = 0;
+    this.cartItemsList.forEach(item => {
+      subTotal += item.price * item.itemCount;
+    });
+
+    return subTotal;
+  }
+
+  public getGSTAmount(): number {
+    const gstAmount = Math.floor(this.getSubTotal() * 0.05);
+    return gstAmount;
+  }
+
+  public geTotalBill(): number {
+    return this.getSubTotal() + this.getGSTAmount();
+  }
+
   public updateItemQuantity(updateItemQuantityType: UPDATE_ITEM_QUANTITY_TYPE, itemGuid: string): void {
     let URL = "";
     let updatedItemCount = 0;

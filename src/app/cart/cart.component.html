@@ -161,29 +161,30 @@
                     <!-- Summary Details -->
                     <div class="space-y-3 mb-6">
                         <div>
-                            <div class="flex justify-between">
-                                <span class="text-gray-600">Panner tikka</span>
-                                <span class="font-medium">₹249</span>
+                            <div class="flex justify-between"
+                                *ngFor="let item of cartItemsList">
+                                <span class="text-gray-600">{{ item.itemName }}</span>
+                                <span class="font-medium">₹{{ item.price * item.itemCount}}</span>
                             </div>
                         </div>
                         <div class="border-t border-gray-200 pt-3 mt-3">
                             <div class="flex justify-between">
                                 <span class="text-gray-600">Subtotal</span>
-                                <span class="font-medium">₹1,180</span>
+                                <span class="font-medium">₹{{ getSubTotal() }}</span>
                             </div>
                             <div class="flex justify-between">
                                 <span class="text-gray-600">GST (5%)</span>
-                                <span class="font-medium">₹59</span>
+                                <span class="font-medium">₹{{ getGSTAmount() }}</span>
                             </div>
-                            <div class="flex justify-between">
+                            <!-- <div class="flex justify-between">
                                 <span class="text-gray-600">Service Charge</span>
                                 <span class="font-medium">₹40</span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="border-t border-gray-200 pt-3 mt-3">
                             <div class="flex justify-between">
                                 <span class="text-lg font-bold text-gray-800">Total</span>
-                                <span class="text-lg font-bold text-teal-600">₹1,279</span>
+                                <span class="text-lg font-bold text-teal-600">₹{{ geTotalBill() }}</span>
                             </div>
                         </div>
                     </div>
