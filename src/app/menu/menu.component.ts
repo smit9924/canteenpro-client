@@ -5,8 +5,9 @@ import { ToastService } from '../services/toast.service';
 import { PreLoaderService } from '../services/pre-loader.service';
 import { IAPIResponse, ICreateItemModel, IMediaDataModel, IMenuCategories, IMenuItems } from '../common/models/interfaces';
 import { API_ADD_MENU_ITEM_IN_CART, API_DECREASE_MENU_ITEM_QUANTITY, API_INCREASE_MENU_ITEM_QUANTITY, API_MENU_CATEGORY, API_MENU_ITEMS } from '../common/apiConstants';
-import { FILE_UPLOAD_URL, IMAGE_FILE_DIRECTORTY, QUERY_PARAM_CATEGORY, QUERY_PARAM_KEY_GUID } from '../common/appConstants';
+import { ERROR_PAGE, FILE_UPLOAD_URL, IMAGE_FILE_DIRECTORTY, QUERY_PARAM_CANTEEN, QUERY_PARAM_CATEGORY, QUERY_PARAM_KEY_GUID } from '../common/appConstants';
 import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TYPE, UPDATE_ITEM_QUANTITY_TYPE } from '../common/appEnums';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const CATEGORY_ALL = "ALL";
 
@@ -28,17 +29,29 @@ export class MenuComponent implements OnInit {
   public categories: IMenuCategories[] = [];
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private dataService: DataService,
     private toastService: ToastService,
     private preloaderService: PreLoaderService
   ) { }
 
   public ngOnInit(): void {
+    // If canteen GUID is not present then return to the error page
+    if(this.canteenGuid === null) {
+      this.router.navigateByUrl(ERROR_PAGE);
+    }
+
     // Fetch food categories
     this.fetchCategories();
 
     // Fetch food items
     this.fetchCategoryMenuItems();
+  }
+
+  public get canteenGuid(): string | null {
+    let canteen: string | null = this.route.snapshot.queryParamMap.get(QUERY_PARAM_CANTEEN);
+    return canteen;
   }
 
   public getImageURL(imageData: IMediaDataModel | undefined): string {
@@ -132,7 +145,7 @@ export class MenuComponent implements OnInit {
 
   private fetchCategories(): void {
     this.preloaderService.show();
-    this.dataService.get(API_MENU_CATEGORY)
+    this.dataService.get(API_MENU_CATEGORY + `?${QUERY_PARAM_CANTEEN}=${this.canteenGuid}`)
       .then((response: IAPIResponse<IMenuCategories[]>) => {
         if (!response.success) {
           throw new Error();
@@ -149,11 +162,11 @@ export class MenuComponent implements OnInit {
 
   private fetchCategoryMenuItems(): void {
     this.preloaderService.show();
-    let URL = API_MENU_ITEMS;
+    let URL = API_MENU_ITEMS + `?${QUERY_PARAM_CANTEEN}=${this.canteenGuid}`;
 
     // Attach category GUID
     if(this.currentCategory !== CATEGORY_ALL) {
-      URL += `?${QUERY_PARAM_CATEGORY}=${this.currentCategory}`;
+      URL += `?${QUERY_PARAM_CATEGORY}=${this.currentCategory}&${QUERY_PARAM_CANTEEN}=${this.canteenGuid}`;
     }
 
     this.dataService.get(URL)

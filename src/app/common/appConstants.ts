@@ -26,6 +26,8 @@ export const INPUT_FIELD_TYPE_PASSWORD = "password";
 export const QUERY_PARAM_KEY_GUID = 'guid';
 export const QUERY_PARAM_ROLE = 'role';
 export const QUERY_PARAM_CATEGORY = 'category';
+export const QUERY_PARAM_CANTEEN = 'canteen';
+export const QUERY_PARAM_TABLE = 'table';
 
 // File upload
 export const UPLOAD_IMAGE_DEFAULT_URL = '/assets/images/upload-image-incognito.jpg';

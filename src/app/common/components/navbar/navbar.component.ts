@@ -70,6 +70,7 @@ export class NavbarComponent extends BasePageComponent implements OnInit {
   public SIGNUP_PAGE = SIGNUP_PAGE;
   public CONTACT_US_PAGE = CONTACT_US_PAGE;
   public FODD_ITEM_CART_PAGE = FODD_ITEM_CART_PAGE;
+  public USER_ROLES = USER_ROLES;
   public showProfileDropdown: boolean = false;
   public showSidebar: boolean = false
   public cartItemsCount: number = 0;

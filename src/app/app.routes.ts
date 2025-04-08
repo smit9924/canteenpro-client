@@ -84,7 +84,7 @@ export const routes: Routes = [
         component: MenuComponent,
         canActivate: [authActicvationGuard],
         data: {
-            allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER, USER_ROLES.CASHIER, USER_ROLES.KITCHENER, USER_ROLES.WAITER]
+            allowedRoles: [USER_ROLES.CUSTOMER]
         }
     },
     { 
@@ -92,7 +92,7 @@ export const routes: Routes = [
         component: CartComponent,
         canActivate: [authActicvationGuard],
         data: {
-            allowedRoles: [USER_ROLES.ADMIN, USER_ROLES.OWNER, USER_ROLES.MANAGER, USER_ROLES.CASHIER, USER_ROLES.KITCHENER, USER_ROLES.WAITER]
+            allowedRoles: [USER_ROLES.CUSTOMER]
         }
     },
     { 
