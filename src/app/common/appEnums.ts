@@ -14,6 +14,7 @@ export enum USER_ROLES {
   KITCHENER = 4,
   WAITER = 5,
   CASHIER = 6,
+  CUSTOMER = 7
 }
 
 export enum CANTEEN_TYPE {

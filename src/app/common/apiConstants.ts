@@ -6,6 +6,8 @@ export const SIGNUP_API = AUTH_BASE_URL + "signup";
 export const LOGIN_API = AUTH_BASE_URL + "login";
 export const USER_ROLES_API = AUTH_BASE_URL + "roles";
 export const API_CHANGE_DEFAULT_PASSWORD = AUTH_BASE_URL + "changedefaultpassword";
+export const API_CUSTOMER_LOGIN_SEND_OTP = AUTH_BASE_URL + "customer/sendotp";
+export const API_CUSTOMER_LOGIN = AUTH_BASE_URL + "customer/login";
 // end
 
 // USER CRUD APIs
