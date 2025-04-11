@@ -24,6 +24,8 @@ import { AddItemComponent } from './listing/add-item/add-item.component';
 import { MenuComponent } from './menu/menu.component';
 import { CartComponent } from './cart/cart.component';
 import { CreateTableQrComponent } from './listing/create-table-qr/create-table-qr.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 export const routes: Routes = [
     { 
@@ -101,6 +103,22 @@ export const routes: Routes = [
         canActivate: [authActicvationGuard],
         data: {
             allowedRoles: [USER_ROLES.OWNER, USER_ROLES.MANAGER]
+        }
+    },
+    { 
+        path: 'order-history', 
+        component: OrderHistoryComponent,
+        canActivate: [authActicvationGuard],
+        data: {
+            allowedRoles: [USER_ROLES.CUSTOMER]
+        }
+    },
+    { 
+        path: 'order-details', 
+        component: OrderDetailsComponent,
+        canActivate: [authActicvationGuard],
+        data: {
+            allowedRoles: [USER_ROLES.CUSTOMER]
         }
     },
     { 

@@ -146,6 +146,7 @@ export interface ICartItems {
   quantityUnit: FOOD_ITEM_QUANTITY_UNIT;
   imageData: IMediaDataModel;
   itemCount: number;
+  canteenGuid: string
 }
 
 export interface ICreateTableQRCode {
@@ -168,4 +169,21 @@ export interface IQRCodeListing {
   number: number;
   capacity: number;
   qrImageURL: string;
+}
+
+export interface IContactUsForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  countryCode: string;
+  contactNo: string;
+  subject: IContactUsSubject;
+  customSubject: string;
+  message: string;
+  sendUpdateMessage: boolean;
+}
+
+export interface IContactUsSubject {
+  guid: string;
+  subject: string;
 }

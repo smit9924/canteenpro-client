@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { RouterLink } from '@angular/router';
-import { CONTACT_US_PAGE, FODD_ITEM_CART_PAGE, LOGIN_PAGE, SIGNUP_PAGE } from '../../appConstants';
+import { CONTACT_US_PAGE, CUSTOMER_LOGIN_PAGE, FODD_ITEM_CART_PAGE, LOGIN_PAGE, SIGNUP_PAGE } from '../../appConstants';
 import { CommonModule } from '@angular/common';
 import { BasePageComponent } from '../base-page/base-page.component';
 import { AuthService } from '../../../services/auth.service';
@@ -67,14 +67,17 @@ const USER_LISTING_DROPDOWN = [
 export class NavbarComponent extends BasePageComponent implements OnInit {
   @ViewChild('navbar') navbar!: ElementRef;
   public LOGIN_PAGE = LOGIN_PAGE;
+  public CUSTOMER_LOGIN_PAGE = CUSTOMER_LOGIN_PAGE;
   public SIGNUP_PAGE = SIGNUP_PAGE;
   public CONTACT_US_PAGE = CONTACT_US_PAGE;
   public FODD_ITEM_CART_PAGE = FODD_ITEM_CART_PAGE;
   public USER_ROLES = USER_ROLES;
+  public isNullOrUndefined = isNullOrUndefined;
   public showProfileDropdown: boolean = false;
   public showSidebar: boolean = false
   public cartItemsCount: number = 0;
   private profileDropdownClickListener: any = null;
+  public userDropdownOptions: any;
 
   constructor(
     public authService: AuthService,
@@ -88,6 +91,7 @@ export class NavbarComponent extends BasePageComponent implements OnInit {
     this.dataService.cartItemCountEmitter.subscribe(cartItemsCount => {
       this.cartItemsCount = cartItemsCount;
     });
+    this.setUserDropdownOptions();
   }
 
   public toggleProfileDropdown(): void {
@@ -128,12 +132,12 @@ export class NavbarComponent extends BasePageComponent implements OnInit {
     this.authService.logout();
   }
 
-  public get userDropdownOptions() {
+  public setUserDropdownOptions(): void {
     const userRole = this.authService.getRole();
     if(userRole === null) {
-      return [];
+      this.userDropdownOptions = [];
     } else {
-      return USER_LISTING_DROPDOWN.filter(option => {
+      this.userDropdownOptions = USER_LISTING_DROPDOWN.filter(option => {
         return option.allowedUser.includes(userRole);
       })
     }

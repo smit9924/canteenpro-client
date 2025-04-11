@@ -37,3 +37,10 @@ export const API_CART_ITEM_DECREASE_COUNT = API_CART_MANAGEMENT + "item/decrease
 // QR Coed CRUP APIS
 export const API_QR_CODE_CRUD = SERVER_BASE_URL + "api/qr";
 export const API_QR_CODE_LISTING = API_QR_CODE_CRUD +  "/list"
+
+// Contact Us APIs
+export const API_CONTACT_US_BASE_API = SERVER_BASE_URL + "api/contactus";
+export const API_CONTACT_US_GET_SUBJECTS = API_CONTACT_US_BASE_API + "/subjects";
+
+// Orders APIs
+export const API_ORDERS = SERVER_BASE_URL + "api/order";

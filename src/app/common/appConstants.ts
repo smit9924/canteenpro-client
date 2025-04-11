@@ -1,5 +1,6 @@
 // **Internal routes realated constatns**
 export const LOGIN_PAGE = "/auth/login";
+export const CUSTOMER_LOGIN_PAGE = "/auth/login/customer";
 export const SIGNUP_PAGE = "/auth/signup";
 export const UPDATE_DEFAULT_PASSWORD_PAGE = "/auth/change-default-password";
 export const DASHBOARD_PAGE = "/dashboard";
@@ -13,6 +14,8 @@ export const FODD_ITEM_MENU = "/food-items/menu";
 export const CONTACT_US_PAGE = "contact";
 export const CREATE_TABLE_QR_LISTING_PAGE = "/qr";
 export const CREATE_TABLE_QR_PAGE = "/qr/create";
+export const ORDER_HISTORY_PAGE = "/order-history";
+export const ORDER_DETAIL_PAGE = "/order-details";
 export const ERROR_PAGE = "/error";
 
 // Local storage key values

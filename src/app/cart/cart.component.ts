@@ -1,12 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FILE_UPLOAD_URL, FODD_ITEM_MENU, IMAGE_FILE_DIRECTORTY } from '../common/appConstants';
-import { RouterModule } from '@angular/router';
+import { FILE_UPLOAD_URL, FODD_ITEM_MENU, IMAGE_FILE_DIRECTORTY, ORDER_HISTORY_PAGE } from '../common/appConstants';
+import { Router, RouterModule } from '@angular/router';
 import { DataService } from '../services/data.service';
-import { IAPIResponse, ICartItems, IMediaDataModel } from '../common/models/interfaces';
-import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TYPE, UPDATE_ITEM_QUANTITY_TYPE } from '../common/appEnums';
-import { API_ADD_MENU_ITEM_IN_CART, API_DECREASE_MENU_ITEM_QUANTITY, API_INCREASE_MENU_ITEM_QUANTITY } from '../common/apiConstants';
+import { IAPIResponse, ICartItems, IMediaDataModel, IToastEventData } from '../common/models/interfaces';
+import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TYPE, TOAST_TYPE, UPDATE_ITEM_QUANTITY_TYPE } from '../common/appEnums';
+import { API_ADD_MENU_ITEM_IN_CART, API_DECREASE_MENU_ITEM_QUANTITY, API_INCREASE_MENU_ITEM_QUANTITY, API_ORDERS } from '../common/apiConstants';
 import { PreLoaderService } from '../services/pre-loader.service';
+import { ToastService } from '../services/toast.service';
+
+const ORDER_PLACE_SUCCESSFULLY_TOAST_DATA: IToastEventData = {
+  type: TOAST_TYPE.SUCCESS,
+  message: "Your order placed successfully!"
+}
 
 @Component({
   selector: 'app-cart',
@@ -25,8 +31,10 @@ export class CartComponent implements OnInit {
   public cartItemsList: ICartItems[] = []
 
   constructor(
+    private router: Router,
     private dataService: DataService,
-    private preloaderService: PreLoaderService
+    private preloaderService: PreLoaderService,
+    private toastService: ToastService
   ) { }
 
   public async ngOnInit(): Promise<void> {
@@ -34,6 +42,20 @@ export class CartComponent implements OnInit {
     if(cartItems !== null) {
       this.cartItemsList = cartItems;
     }
+  }
+
+  public placeOrder(): void {
+    this.preloaderService.show();
+    this.dataService.post(API_ORDERS, this.cartItemsList)
+      .then((response) => {
+        this.toastService.enque(ORDER_PLACE_SUCCESSFULLY_TOAST_DATA);
+        this.router.navigateByUrl(ORDER_HISTORY_PAGE);
+        this.preloaderService.hide();
+      })
+      .catch((e) => {
+        console.error(e);
+        this.preloaderService.hide();
+      })
   }
 
   public isCartEmpty(): boolean {

@@ -58,7 +58,7 @@
                                 <a class="text-white font-bold transition hover:text-black/50" href="#"> Projects </a>
                             </li> -->
                             <!-- Nav User Listing -->
-                            <li>
+                            <li *ngIf="!isNullOrUndefined(userDropdownOptions) && userDropdownOptions.length > 0">
                                 <div class="relative group/linktrigger">
                                     <div class="inline-flex items-center overflow-hidden rounded-md">
                                         <a
@@ -91,9 +91,14 @@
 
                     <div *ngIf="!authService.isLoggedIn()" class="hidden sm:flex items-center gap-4">
                         <div class="sm:flex sm:gap-4">
-                            <!-- Login button -->
+                            <!-- Customer login button -->
                             <div class="sm:flex">
-                                <app-primary-button [text]="'Login'" [routerLink]="LOGIN_PAGE" />
+                                <app-primary-button [text]="'Login'" [routerLink]="CUSTOMER_LOGIN_PAGE" />
+                            </div>
+
+                            <!-- Business login button -->
+                            <div class="sm:flex">
+                                <app-primary-button [text]="'Business Login'" [routerLink]="LOGIN_PAGE" />
                             </div>
                             <!-- Sign up button -->
                             <div class="sm:flex">
