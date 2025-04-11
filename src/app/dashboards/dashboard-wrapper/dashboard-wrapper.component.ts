@@ -5,6 +5,7 @@ import { USER_ROLES } from '../../common/appEnums';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
 import { OwnerDashboardComponent } from '../owner-dashboard/owner-dashboard.component';
 import { CommonModule } from '@angular/common';
+import { CustomerDashboardComponent } from '../customer-dashboard/customer-dashboard.component';
 
 @Component({
   selector: 'app-dashboard-wrapper',
@@ -12,7 +13,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     AdminDashboardComponent,
-    OwnerDashboardComponent
+    OwnerDashboardComponent,
+    CustomerDashboardComponent
   ],
   templateUrl: './dashboard-wrapper.component.html',
   styleUrl: './dashboard-wrapper.component.scss'
