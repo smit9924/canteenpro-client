@@ -8,6 +8,8 @@ import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TYPE, TOAST_TYPE, UPDATE_ITEM_QUANTI
 import { API_ADD_MENU_ITEM_IN_CART, API_DECREASE_MENU_ITEM_QUANTITY, API_INCREASE_MENU_ITEM_QUANTITY, API_ORDERS } from '../common/apiConstants';
 import { PreLoaderService } from '../services/pre-loader.service';
 import { ToastService } from '../services/toast.service';
+import { PlaceOrderModel } from '../common/models/place-order-model';
+import { FormsModule } from '@angular/forms';
 
 const ORDER_PLACE_SUCCESSFULLY_TOAST_DATA: IToastEventData = {
   type: TOAST_TYPE.SUCCESS,
@@ -19,7 +21,8 @@ const ORDER_PLACE_SUCCESSFULLY_TOAST_DATA: IToastEventData = {
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
@@ -29,6 +32,7 @@ export class CartComponent implements OnInit {
   public FOOD_ITEM_TYPE = FOOD_ITEM_TYPE;
   public UPDATE_ITEM_QUANTITY_TYPE = UPDATE_ITEM_QUANTITY_TYPE;
   public cartItemsList: ICartItems[] = []
+  public placeOrderModel: PlaceOrderModel = new PlaceOrderModel();
 
   constructor(
     private router: Router,
@@ -46,11 +50,17 @@ export class CartComponent implements OnInit {
 
   public placeOrder(): void {
     this.preloaderService.show();
-    this.dataService.post(API_ORDERS, this.cartItemsList)
-      .then((response) => {
+
+    // Create Data
+    this.placeOrderModel.orderItems = this.cartItemsList.map(item => {return {guid: item.guid, quantity: item.itemCount}})
+    this.placeOrderModel.canteenGuid = this.cartItemsList[0].canteenGuid;
+  
+    this.dataService.post(API_ORDERS, this.placeOrderModel)
+      .then(async (response) => {
         this.toastService.enque(ORDER_PLACE_SUCCESSFULLY_TOAST_DATA);
         this.router.navigateByUrl(ORDER_HISTORY_PAGE);
         this.preloaderService.hide();
+        await this.dataService.updateCartItemListData();
       })
       .catch((e) => {
         console.error(e);

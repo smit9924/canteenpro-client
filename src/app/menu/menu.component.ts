@@ -166,7 +166,7 @@ export class MenuComponent implements OnInit {
 
     // Attach category GUID
     if(this.currentCategory !== CATEGORY_ALL) {
-      URL += `?${QUERY_PARAM_CATEGORY}=${this.currentCategory}&${QUERY_PARAM_CANTEEN}=${this.canteenGuid}`;
+      URL += `&${QUERY_PARAM_CATEGORY}=${this.currentCategory}`;
     }
 
     this.dataService.get(URL)

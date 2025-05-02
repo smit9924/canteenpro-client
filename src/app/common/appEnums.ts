@@ -60,3 +60,12 @@ export enum UPDATE_ITEM_QUANTITY_TYPE {
   INCREASE = 2,
   DECREASE = 3
 }
+
+export enum ORDER_STATUS {
+  NOT_PLACED =1,
+  PLACED = 2,
+  COOKING = 3,
+  COMPLETED = 4,
+  DELIVERED = 5,
+  CANCELLED = 6
+}

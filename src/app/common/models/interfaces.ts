@@ -1,4 +1,4 @@
-import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TASTE, FOOD_ITEM_TYPE, TOAST_TYPE, USER_ROLES } from "../appEnums";
+import { FOOD_ITEM_QUANTITY_UNIT, FOOD_ITEM_TASTE, FOOD_ITEM_TYPE, ORDER_STATUS, TOAST_TYPE, USER_ROLES } from "../appEnums";
 import { MediaDataModel } from "./media-data-model";
 
 // JWT token decoded information
@@ -186,4 +186,23 @@ export interface IContactUsForm {
 export interface IContactUsSubject {
   guid: string;
   subject: string;
+}
+
+export interface IPlaceOrder {
+  orderItems: IOrderItemQuantity[];
+  instructions: string;
+  canteenGuid: string;
+}
+
+export interface IOrderItemQuantity {
+  guid: string;
+  quantity: number
+}
+
+export interface IOrderList {
+  orderId: string;
+  orderPlacedDate: string;
+  orderItemsName: string[];
+  total: number;
+  orderStatus: ORDER_STATUS;
 }
