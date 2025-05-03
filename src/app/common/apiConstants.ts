@@ -45,3 +45,5 @@ export const API_CONTACT_US_GET_SUBJECTS = API_CONTACT_US_BASE_API + "/subjects"
 // Orders APIs
 export const API_ORDERS = SERVER_BASE_URL + "api/order";
 export const API_ORDERS_LIST = SERVER_BASE_URL + "api/order/list";
+export const API_PENDING_ORDERS_LIST = SERVER_BASE_URL + "api/order/list/pending";
+export const API_UPDATE_ORDER_STATUS = SERVER_BASE_URL + "api/order/updatestatus";

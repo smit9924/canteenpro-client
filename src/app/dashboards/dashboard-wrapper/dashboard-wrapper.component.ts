@@ -6,6 +6,7 @@ import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.comp
 import { OwnerDashboardComponent } from '../owner-dashboard/owner-dashboard.component';
 import { CommonModule } from '@angular/common';
 import { CustomerDashboardComponent } from '../customer-dashboard/customer-dashboard.component';
+import { KitchenrDashboardComponent } from '../kitchenr-dashboard/kitchenr-dashboard.component';
 
 @Component({
   selector: 'app-dashboard-wrapper',
@@ -14,7 +15,8 @@ import { CustomerDashboardComponent } from '../customer-dashboard/customer-dashb
     CommonModule,
     AdminDashboardComponent,
     OwnerDashboardComponent,
-    CustomerDashboardComponent
+    CustomerDashboardComponent,
+    KitchenrDashboardComponent
   ],
   templateUrl: './dashboard-wrapper.component.html',
   styleUrl: './dashboard-wrapper.component.scss'
@@ -28,6 +30,7 @@ export class DashboardWrapperComponent extends BasePageComponent {
   ) {
     super();
     this.role = this.authService.getRole();
+    console.log(this.role)
   }
 
   public getUserRole(): USER_ROLES | null {

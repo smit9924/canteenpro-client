@@ -31,6 +31,7 @@ export const QUERY_PARAM_ROLE = 'role';
 export const QUERY_PARAM_CATEGORY = 'category';
 export const QUERY_PARAM_CANTEEN = 'canteen';
 export const QUERY_PARAM_TABLE = 'table';
+export const QUERY_PARAM_STATUS = 'status';
 
 // File upload
 export const UPLOAD_IMAGE_DEFAULT_URL = '/assets/images/upload-image-incognito.jpg';
