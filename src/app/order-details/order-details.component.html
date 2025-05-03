@@ -77,7 +77,9 @@
                     <!-- Order Placed -->
                     <div class="flex flex-col items-center w-full sm:w-1/4 mb-6 sm:mb-0">
                         <div
-                            class="rounded-full h-10 w-10 flex items-center justify-center bg-emerald-500 text-white shadow-md mb-3">
+                            class="rounded-full h-10 w-10 flex items-center justify-center text-white shadow-md mb-3" [ngClass]="{
+                                'bg-emerald-500': isOrderPlaced(orderDetails?.orderStatus),
+                                'bg-gray-300': !isOrderPlaced(orderDetails?.orderStatus)}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -119,7 +121,9 @@
                     <!-- Shipped -->
                     <div class="flex flex-col items-center w-full sm:w-1/4 mb-6 sm:mb-0">
                         <div
-                            class="rounded-full h-10 w-10 flex items-center justify-center bg-emerald-500 text-white shadow-md mb-3 animate-pulse-slow">
+                            class="rounded-full h-10 w-10 flex items-center justify-center text-white shadow-md mb-3 animate-pulse-slow" [ngClass]="{
+                                'bg-emerald-500': isOrderCompleted(orderDetails?.orderStatus),
+                                'bg-gray-300': !isOrderCompleted(orderDetails?.orderStatus)}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -139,7 +143,9 @@
                     <!-- Delivered -->
                     <div class="flex flex-col items-center w-full sm:w-1/4">
                         <div
-                            class="rounded-full h-10 w-10 flex items-center justify-center bg-gray-300 text-white shadow-md mb-3">
+                            class="rounded-full h-10 w-10 flex items-center justify-center text-white shadow-md mb-3" [ngClass]="{
+                                'bg-emerald-500': isOrderDelivered(orderDetails?.orderStatus),
+                                'bg-gray-300': !isOrderDelivered(orderDetails?.orderStatus)}">
                             <span class="text-base font-semibold">4</span>
                         </div>
                         <div class="text-center">
@@ -209,7 +215,7 @@
                                                 <div class="flex justify-between items-center">
                                                     <!-- Name and Veg/Non-veg Symbol -->
                                                     <div class="flex items-center space-x-2">
-                                                        <h3 class="font-bold text-gray-800">{{ item.name }}</h3>
+                                                        <h3 class="font-bold text-gray-800">{{ item.itemName }}</h3>
 
                                                         <!-- Veg Symbol (Hidden by default) -->
                                                         <div *ngIf="item.type === FOOD_ITEM_TYPE.VEG"
